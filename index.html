@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>WebCraft Studio · Universe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+
+<!-- Three.js r160 ES Modules -->
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
+</script>
+
+<!-- GSAP + ScrollTrigger (global scripts, loaded before module) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<!-- Lenis smooth scroll -->
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
+
+<style>
+/* === RESET === */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#000011;--cyan:#00ffff;--magenta:#ff00ff;--gold:#ffd700;
+  --white:rgba(255,255,255,.9);--dim:rgba(255,255,255,.5);
+  --glass:rgba(0,0,17,.65);--border:rgba(0,255,255,.18);
+  --font:'Space Grotesk',sans-serif;--mono:'Orbitron',monospace;
+}
+html{overflow-x:hidden;scroll-behavior:auto}
+body{
+  background:var(--bg);color:var(--white);font-family:var(--font);
+  overflow-x:hidden;-webkit-font-smoothing:antialiased
+}
+a{text-decoration:none;color:inherit}
+
+/* === CANVAS (fullscreen fixed) === */
+#c{
+  position:fixed;top:0;left:0;width:100vw;height:100vh;
+  z-index:0;display:block;touch-action:none
+}
+
+/* === SCROLL DRIVER (creates scrollable height, invisible) === */
+#sd{position:relative;z-index:1;pointer-events:none}
+
+/* === UI LAYER (fixed overlay) === */
+#ui{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  z-index:10;pointer-events:none;overflow:hidden
+}
+
+/* === PANELS === */
+.panel{
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  display:flex;align-items:center;
+  /* content docked to right side so planet stays visible */
+  justify-content:flex-end;
+  padding-right:2.5rem;
+  opacity:0;pointer-events:none;
+  transition:opacity .65s ease, transform .65s ease;
+  transform:translateX(30px)
+}
+.panel.active{opacity:1;transform:translateX(0);pointer-events:auto}
+
+/* Hero panel: no side card, show nothing so universe is fully visible */
+#p0{justify-content:center;align-items:flex-end;padding-bottom:3.5rem;padding-right:0}
+#p0 .gc{display:none}
+#p0 .pc{max-width:100%;text-align:center}
+
+/* Panel content wrapper */
+.pc{
+  text-align:left;padding:0;max-width:340px;width:100%;
+  position:relative
+}
+
+/* Glass card — no box, just text floating in space */
+.gc{
+  background:none;
+  backdrop-filter:none;-webkit-backdrop-filter:none;
+  border:none;border-radius:0;
+  padding:1.2rem 0;
+  box-shadow:none
+}
+/* Give text a deep shadow so it's readable over any planet/space */
+.proj-title,.proj-tagline,.proj-desc,.proj-overline,.demo-btn,
+.contact-title,.contact-sub,.overline,.hero-sub,.hero-title{
+  text-shadow:0 2px 24px rgba(0,0,0,.95),0 0 50px rgba(0,0,0,.8)
+}
+/* Thin separator line instead of a card border */
+.pc::before{
+  content:'';display:block;width:2px;height:2.5rem;
+  background:linear-gradient(to bottom,transparent,var(--cyan),transparent);
+  margin-bottom:1rem
+}
+
+/* --- Hero panel (p0) --- */
+.overline{
+  font-family:var(--mono);font-size:.65rem;letter-spacing:.25em;
+  color:var(--cyan);text-transform:uppercase;margin-bottom:1rem;
+  opacity:.8
+}
+.hero-title{
+  font-family:var(--mono);font-size:clamp(2.2rem,6vw,4rem);
+  font-weight:700;line-height:1.05;margin-bottom:1.2rem;
+  background:linear-gradient(135deg,#fff 30%,var(--cyan) 70%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text
+}
+.hero-title span{
+  background:linear-gradient(135deg,var(--cyan),var(--magenta));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text
+}
+.hero-sub{
+  color:var(--dim);font-size:1rem;line-height:1.7;margin-bottom:1.8rem
+}
+.hero-stats{
+  display:flex;gap:1.5rem;justify-content:center;
+  flex-wrap:wrap;margin-bottom:2rem
+}
+.stat-item{display:flex;flex-direction:column;align-items:center;gap:.2rem}
+.stat-num{
+  font-family:var(--mono);font-size:1.6rem;font-weight:700;
+  color:var(--cyan)
+}
+.stat-label{font-size:.7rem;color:var(--dim);text-transform:uppercase;letter-spacing:.1em}
+
+/* Scroll hint */
+.scroll-hint{
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  color:var(--dim);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;
+  animation:float 2.5s ease-in-out infinite
+}
+.scroll-line{
+  width:1px;height:40px;
+  background:linear-gradient(to bottom,var(--cyan),transparent);
+  animation:grow-line 2.5s ease-in-out infinite
+}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+@keyframes grow-line{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+
+/* --- Project panels --- */
+.proj-overline{
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;
+  color:var(--cyan);text-transform:uppercase;margin-bottom:.6rem;opacity:.7
+}
+.proj-title{
+  font-family:var(--mono);font-size:clamp(1.4rem,4vw,2.2rem);
+  font-weight:700;margin-bottom:.5rem;
+  background:linear-gradient(135deg,#fff,var(--cyan));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text
+}
+.proj-tagline{
+  font-size:.9rem;color:var(--cyan);margin-bottom:.8rem;
+  font-style:italic;opacity:.8
+}
+.proj-desc{
+  color:var(--dim);font-size:.88rem;line-height:1.65;margin-bottom:1.2rem
+}
+.proj-meta{
+  display:flex;gap:.5rem;justify-content:flex-start;
+  flex-wrap:wrap;margin-bottom:1.2rem
+}
+.tag{
+  padding:.25rem .8rem;border-radius:20px;font-size:.72rem;font-weight:600;
+  letter-spacing:.04em;border:1px solid rgba(0,255,255,.25);
+  background:rgba(0,255,255,.07);color:var(--cyan)
+}
+.demo-btn{
+  display:inline-block;padding:.75rem 2rem;
+  background:linear-gradient(135deg,var(--cyan),var(--magenta));
+  color:#000;border-radius:50px;font-weight:700;font-size:.85rem;
+  letter-spacing:.06em;text-transform:uppercase;
+  transition:transform .2s,box-shadow .2s;pointer-events:auto;
+  box-shadow:0 0 20px rgba(0,255,255,.3)
+}
+.demo-btn:hover{transform:scale(1.06) translateY(-2px);box-shadow:0 0 30px rgba(0,255,255,.5)}
+
+/* --- Contact panel --- */
+.contact-title{
+  font-family:var(--mono);font-size:clamp(1.6rem,5vw,2.8rem);
+  font-weight:700;margin-bottom:.8rem;
+  background:linear-gradient(135deg,#ff8800,#ff4400,#ff0055);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text
+}
+.contact-sub{color:var(--dim);font-size:.95rem;line-height:1.7;margin-bottom:1.8rem}
+.contact-btns{display:flex;gap:.8rem;justify-content:flex-start;flex-wrap:wrap}
+.cta-primary{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.8rem 2rem;border-radius:50px;font-weight:700;font-size:.85rem;
+  letter-spacing:.05em;text-transform:uppercase;pointer-events:auto;
+  transition:transform .2s,box-shadow .2s
+}
+.cta-fire{
+  background:linear-gradient(135deg,#ff8800,#ff4400);color:#fff;
+  box-shadow:0 0 25px rgba(255,100,0,.4)
+}
+.cta-fire:hover{transform:scale(1.06);box-shadow:0 0 40px rgba(255,100,0,.6)}
+.cta-ghost{
+  background:transparent;color:var(--white);
+  border:1px solid rgba(255,255,255,.3)
+}
+.cta-ghost:hover{transform:scale(1.04);border-color:rgba(255,255,255,.6)}
+
+/* === NAV DOTS (right edge) === */
+#nav-dots{
+  position:fixed;right:1.5rem;top:50%;transform:translateY(-50%);
+  z-index:20;display:flex;flex-direction:column;gap:10px;
+  pointer-events:auto
+}
+.nd{
+  width:8px;height:8px;border-radius:50%;cursor:pointer;
+  background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.15);
+  transition:all .3s ease;position:relative
+}
+.nd.active{background:var(--cyan);box-shadow:0 0 8px var(--cyan);transform:scale(1.3)}
+.nd:hover{background:rgba(0,255,255,.5);transform:scale(1.2)}
+.nd-tip{
+  position:absolute;right:16px;top:50%;transform:translateY(-50%);
+  background:var(--glass);backdrop-filter:blur(10px);
+  border:1px solid var(--border);border-radius:8px;
+  padding:.3rem .7rem;font-size:.7rem;white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity .2s;color:var(--white)
+}
+.nd:hover .nd-tip{opacity:1}
+
+/* === PLANET HUD (top center) === */
+#planet-hud{
+  position:fixed;top:1.5rem;left:50%;transform:translateX(-50%);
+  z-index:20;pointer-events:none;
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--cyan);
+  background:var(--glass);backdrop-filter:blur(12px);
+  border:1px solid var(--border);border-radius:30px;
+  padding:.4rem 1.2rem;opacity:0;transition:opacity .4s
+}
+#planet-hud.show{opacity:1}
+
+/* === LOGO (top left) === */
+#logo{
+  position:fixed;top:1.5rem;left:1.5rem;z-index:20;
+  font-family:var(--mono);font-size:.9rem;font-weight:700;
+  color:var(--white);letter-spacing:.08em;pointer-events:auto;
+  text-shadow:0 0 20px rgba(0,255,255,.3)
+}
+#logo span{color:var(--cyan)}
+
+/* === SECTION COUNTER (bottom center) === */
+#section-counter{
+  position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);
+  z-index:20;font-family:var(--mono);font-size:.65rem;
+  letter-spacing:.15em;color:var(--dim);pointer-events:none
+}
+
+/* === AUDIO TOGGLE === */
+#audio-btn{
+  position:fixed;bottom:2rem;right:1.5rem;z-index:20;
+  width:40px;height:40px;border-radius:50%;
+  background:var(--glass);backdrop-filter:blur(12px);
+  border:1px solid var(--border);color:var(--cyan);
+  font-size:1rem;cursor:pointer;pointer-events:auto;
+  transition:all .2s;display:flex;align-items:center;justify-content:center
+}
+#audio-btn:hover{background:rgba(0,255,255,.15);box-shadow:0 0 15px rgba(0,255,255,.3)}
+
+/* === LOADING SCREEN === */
+#loading{
+  position:fixed;inset:0;z-index:100;
+  background:var(--bg);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:2rem;
+  transition:opacity .8s ease
+}
+#loading.done{opacity:0;pointer-events:none}
+.loading-title{
+  font-family:var(--mono);font-size:1.2rem;font-weight:700;
+  color:var(--cyan);letter-spacing:.2em;text-transform:uppercase
+}
+.loading-bar{
+  width:200px;height:2px;background:rgba(255,255,255,.1);border-radius:2px;
+  overflow:hidden
+}
+.loading-fill{
+  height:100%;width:0%;background:linear-gradient(90deg,var(--cyan),var(--magenta));
+  transition:width .3s ease;border-radius:2px
+}
+.loading-sub{
+  font-size:.75rem;color:var(--dim);letter-spacing:.1em;text-transform:uppercase
+}
+
+/* === MOBILE === */
+@media(max-width:768px){
+  /* Panels stack at bottom so full universe shows above */
+  .panel{
+    justify-content:center;align-items:flex-end;
+    padding-right:0;padding-bottom:1.5rem
+  }
+  #p0{padding-bottom:2rem}
+  .pc{max-width:100%;padding:0 1rem}
+  .gc{padding:1.2rem 1.4rem;border-radius:14px;max-height:42vh;overflow-y:auto}
+  .proj-title{font-size:1.25rem}
+  .proj-desc{font-size:.8rem;line-height:1.5;
+    /* clamp to 3 lines on small screens */
+    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .proj-meta{display:none} /* hide tags on mobile to save space */
+  .hero-stats{gap:1rem}
+  .contact-btns{flex-direction:column;align-items:flex-start}
+  #nav-dots{right:.5rem}
+  .nd{width:6px;height:6px}
+  .nd-tip{display:none}
+  #logo{font-size:.8rem}
+  #planet-hud{font-size:.6rem;padding:.3rem .9rem}
+}
+@media(max-width:480px){
+  .gc{padding:1.4rem 1.2rem}
+  .hero-title{font-size:2rem}
+  .proj-title{font-size:1.4rem}
+}
+
+/* Scanline overlay (subtle) */
+body::after{
+  content:'';position:fixed;inset:0;z-index:5;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px);
+  opacity:.4
+}
+
+/* Cursor glow on desktop */
+@media(hover:hover){
+  body{cursor:none}
+  #cursor{
+    position:fixed;z-index:999;pointer-events:none;
+    width:12px;height:12px;border-radius:50%;
+    background:var(--cyan);mix-blend-mode:screen;
+    transform:translate(-50%,-50%);transition:transform .1s,width .2s,height .2s;
+    box-shadow:0 0 15px var(--cyan),0 0 30px rgba(0,255,255,.4)
+  }
+  #cursor-ring{
+    position:fixed;z-index:998;pointer-events:none;
+    width:36px;height:36px;border-radius:50%;
+    border:1px solid rgba(0,255,255,.4);
+    transform:translate(-50%,-50%);
+    transition:transform .12s ease-out,width .3s,height .3s,border-color .3s
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Loading screen -->
+<div id="loading">
+  <div class="loading-title">WebCraft Universe</div>
+  <div class="loading-bar"><div class="loading-fill" id="loading-fill"></div></div>
+  <div class="loading-sub">Initializing cosmos...</div>
+</div>
+
+<!-- Custom cursor (desktop) -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- Three.js canvas -->
+<canvas id="c"></canvas>
+
+<!-- Scroll height driver (height set by JS) -->
+<div id="sd"></div>
+
+<!-- Fixed logo -->
+<div id="logo">Web<span>Craft</span></div>
+
+<!-- Section counter -->
+<div id="section-counter">01 / 12</div>
+
+<!-- Planet HUD -->
+<div id="planet-hud">Approaching...</div>
+
+<!-- Audio toggle -->
+<button id="audio-btn" title="Toggle ambient audio">♫</button>
+
+<!-- Nav dots -->
+<div id="nav-dots"></div>
+
+<!-- All section panels (inside fixed UI layer) -->
+<div id="ui">
+
+<!-- PANEL 0: HERO — no card, just scroll prompt at bottom -->
+<div class="panel active" id="p0" data-section="0">
+  <div class="pc">
+    <div class="gc"><!-- hidden by #p0 .gc{display:none} --></div>
+    <div class="scroll-hint" style="color:rgba(255,255,255,.45)">
+      <span style="font-family:var(--mono);font-size:.65rem;letter-spacing:.2em">scroll to explore</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 1: Old Monk ★ FIRST ★ -->
+<div class="panel" id="p1" data-section="1">
+  <div class="pc">
+    <div class="gc">
+      <div class="proj-overline" style="color:#ffd700">Food &amp; Dining · Planet I</div>
+      <h2 class="proj-title" style="background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;background-clip:text">Old Monk Food Street</h2>
+      <p class="proj-tagline" style="color:#ffd700">Thodupuzha's Premier Food Destination</p>
+      <p class="proj-desc">A spectacular 5-page food court website in black &amp; gold—multi-vendor menus, events calendar, live Instagram feed, interactive gallery, and contact with map.</p>
+      <div class="proj-meta">
+        <span class="tag" style="color:#ffd700">Food Court</span>
+        <span class="tag" style="color:#ffd700">5 Pages</span>
+        <span class="tag" style="color:#ffd700">Black &amp; Gold</span>
+      </div>
+      <a href="demos/food-street/" class="demo-btn" target="_blank" style="background:linear-gradient(135deg,#ffd700,#ff8c00);color:#0a0500">View Live Demo →</a>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 2: UFC ★ SECOND ★ -->
+<div class="panel" id="p2" data-section="2">
+  <div class="pc">
+    <div class="gc">
+      <div class="proj-overline" style="color:#ef4444">MMA Academy · Planet II</div>
+      <h2 class="proj-title" style="background:linear-gradient(135deg,#ef4444,#ff8c00);-webkit-background-clip:text;background-clip:text">Ultimate Fight Club</h2>
+      <p class="proj-tagline" style="color:#ef4444">Multi-Discipline Martial Arts Academy</p>
+      <p class="proj-desc">A battle-ready MMA academy covering BJJ, Muay Thai, Wrestling &amp; Boxing—instructor bios, training schedules, and a live active site with real bookings.</p>
+      <div class="proj-meta">
+        <span class="tag" style="color:#ef4444">MMA</span>
+        <span class="tag" style="color:#ef4444">Active Site</span>
+        <span class="tag" style="color:#ef4444">Multi-discipline</span>
+      </div>
+      <a href="demos/mma/" class="demo-btn" target="_blank" style="background:linear-gradient(135deg,#ef4444,#b91c1c);color:#fff">View Live Demo →</a>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 3: AyurLife -->
+<div class="panel" id="p3" data-section="3">
+  <div class="pc">
+    <div class="gc">
+      <div class="proj-overline">Healthcare · Planet III</div>
+      <h2 class="proj-title">AyurLife Wellness</h2>
+      <p class="proj-tagline">Ayurveda &amp; Holistic Healing Centre</p>
+      <p class="proj-desc">A serene wellness website with treatment menus, expert doctor profiles, and patient testimonials—designed to build trust and convert visitors into bookings.</p>
+      <div class="proj-meta">
+        <span class="tag">Healthcare</span>
+        <span class="tag">2 Pages</span>
+        <span class="tag">Booking CTA</span>
+      </div>
+      <a href="demos/ayurveda/" class="demo-btn" target="_blank">View Live Demo →</a>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 4: Elegance Studio -->
+<div class="panel" id="p4" data-section="4">
+  <div class="pc">
+    <div class="gc">
+      <div class="proj-overline">Beauty · Planet IV</div>
+      <h2 class="proj-title">Elegance Studio</h2>
+      <p class="proj-tagline">Premium Beauty &amp; Bridal Services</p>
+      <p class="proj-desc">An elegant beauty salon website with full service menus, before/after galleries, bridal packages, and seamless appointment booking.</p>
+      <div class="proj-meta">
+        <span class="tag">Beauty</span>
+        <span class="tag">1 Page</span>
+        <span class="tag">Gallery</span>
+      </div>
+      <a href="demos/beauty-salon/" class="demo-btn" target="_blank">View Live Demo →</a>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 5: PrimeLedger -->
+<div class="panel" id="p5" data-section="5">
+  <div class="pc">
+    <div class="gc">
+      <div class="proj-overline">Finance · Planet V</div>
+      <h2 class="proj-title">PrimeLedger &amp; Co.</h2>
+      <p class="proj-tagline">Chartered Accountants &amp; Financial Advisors</p>
+      <p class="proj-desc">A professional CA firm website with service breakdowns, team profiles, client testimonials, and a consultation CTA that drives enquiries.</p>
+      <div class="proj-meta">
+        <span class="tag">Professional</span>
+        <span class="tag">1 Page</span>
+        <span class="tag">Trust Signals</span>
+      </div>
+      <a href="demos/ca-firm/" class="demo-btn" target="_blank">View Live Demo →</a>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 6: VELOUR -->
+<div class="panel" id="p6" data-section="6">
+  <div class="pc">
+    <div class="gc">
+      <div class="proj-overline">Luxury · Planet VI</div>
+      <h2 class="proj-title" style="background:linear-gradient(135deg,#c9a96e,#e8d5a3);-webkit-background-clip:text;background-clip:text">VELOUR Cosmetics</h2>
+      <p class="proj-tagline" style="color:#c9a96e">Premium Luxury Beauty Brand</p>
+      <p class="proj-desc">A high-end cosmetics showcase with editorial photography, refined typography, and smooth animations—positioned to compete with international luxury brands.</p>
+      <div class="proj-meta">
+        <span class="tag" style="color:#c9a96e">Cosmetics</span>
+        <span class="tag" style="color:#c9a96e">Product Showcase</span>
+      </div>
+      <a href="demos/cosmetics/" class="demo-btn" target="_blank" style="background:linear-gradient(135deg,#c9a96e,#e8d5a3);color:#1a0a00">View Live Demo →</a>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 7: BrightSmile -->
+<div class="panel" id="p7" data-section="7">
+  <div class="pc">
+    <div class="gc">
+      <div class="proj-overline">Healthcare · Planet VII</div>
+      <h2 class="proj-title" style="background:linear-gradient(135deg,#e0f2fe,#7dd3fc);-webkit-background-clip:text;background-clip:text">BrightSmile Dental</h2>
+      <p class="proj-tagline" style="color:#7dd3fc">Modern Dental Care &amp; Cosmetic Dentistry</p>
+      <p class="proj-desc">A clean, trustworthy dental clinic website with treatment galleries, doctor credentials, before/after cases, and easy appointment scheduling.</p>
+      <div class="proj-meta">
+        <span class="tag" style="color:#7dd3fc">Dental</span>
+        <span class="tag" style="color:#7dd3fc">2 Pages</span>
+        <span class="tag" style="color:#7dd3fc">Before/After</span>
+      </div>
+      <a href="demos/dental/" class="demo-btn" target="_blank" style="background:linear-gradient(135deg,#e0f2fe,#bae6fd);color:#0c4a6e">View Live Demo →</a>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 8: FitCore -->
+<div class="panel" id="p8" data-section="8">
+  <div class="pc">
+    <div class="gc">
+      <div class="proj-overline">Fitness · Planet VIII</div>
+      <h2 class="proj-title">FitCore Fitness Studio</h2>
+      <p class="proj-tagline">High-Performance Gym &amp; Wellness</p>
+      <p class="proj-desc">A high-energy gym website with membership plan comparisons, trainer profiles, weekly class schedules, transformation gallery, and bold CTAs.</p>
+      <div class="proj-meta">
+        <span class="tag">Fitness</span>
+        <span class="tag">1 Page</span>
+        <span class="tag">Memberships</span>
+      </div>
+      <a href="demos/gym/" class="demo-btn" target="_blank" style="background:linear-gradient(135deg,#dc2626,#7f1d1d);color:#fff">View Live Demo →</a>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 9: PrintHub -->
+<div class="panel" id="p9" data-section="9">
+  <div class="pc">
+    <div class="gc">
+      <div class="proj-overline">Services · Planet IX</div>
+      <h2 class="proj-title" style="background:linear-gradient(135deg,#a78bfa,#7c3aed);-webkit-background-clip:text;background-clip:text">PrintHub Digital Press</h2>
+      <p class="proj-tagline" style="color:#a78bfa">Fast, Quality Printing for Every Need</p>
+      <p class="proj-desc">A printing shop website with full product catalog, transparent pricing, portfolio of past work, and a quick quote request form for fast conversions.</p>
+      <div class="proj-meta">
+        <span class="tag" style="color:#a78bfa">Printing</span>
+        <span class="tag" style="color:#a78bfa">1 Page</span>
+        <span class="tag" style="color:#a78bfa">Quote Form</span>
+      </div>
+      <a href="demos/printing/" class="demo-btn" target="_blank">View Live Demo →</a>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 10: Riders Point -->
+<div class="panel" id="p10" data-section="10">
+  <div class="pc">
+    <div class="gc">
+      <div class="proj-overline">Motorsport · Planet X</div>
+      <h2 class="proj-title" style="background:linear-gradient(135deg,#f97316,#ea580c);-webkit-background-clip:text;background-clip:text">Riders Point</h2>
+      <p class="proj-tagline" style="color:#f97316">Premium Motorsport Gear &amp; Accessories</p>
+      <p class="proj-desc">A premium motorsport retail website showcasing helmets, riding gear, accessories, and brand partnerships—with product catalog and gear guide sections.</p>
+      <div class="proj-meta">
+        <span class="tag" style="color:#f97316">Motorsport</span>
+        <span class="tag" style="color:#f97316">Retail</span>
+        <span class="tag" style="color:#f97316">Brand Catalog</span>
+      </div>
+      <a href="demos/motorsport/" class="demo-btn" target="_blank" style="background:linear-gradient(135deg,#f97316,#ea580c);color:#fff">View Live Demo →</a>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 11: CONTACT -->
+<div class="panel" id="p11" data-section="11">
+  <div class="pc">
+    <div class="gc" style="border-color:rgba(255,136,0,.2);box-shadow:0 0 80px rgba(255,80,0,.1),0 20px 60px rgba(0,0,0,.5)">
+      <div class="overline" style="color:#ff8800">Ready to Launch?</div>
+      <h2 class="contact-title">Let's Build<br>Something Brilliant</h2>
+      <p class="contact-sub">Your customers are searching online right now. Let's make sure they find you—with a website that converts visitors into loyal customers.</p>
+      <div class="hero-stats" style="margin-bottom:1.5rem">
+        <div class="stat-item"><span class="stat-num" style="color:#ff8800">₹4,999</span><span class="stat-label">Starting Price</span></div>
+        <div class="stat-item"><span class="stat-num" style="color:#ff8800">7 Days</span><span class="stat-label">Delivery</span></div>
+        <div class="stat-item"><span class="stat-num" style="color:#ff8800">Free</span><span class="stat-label">Consultation</span></div>
+      </div>
+      <div class="contact-btns">
+        <a href="tel:+919999999999" class="cta-primary cta-fire">📞 Call Now</a>
+        <a href="https://wa.me/919999999999" class="cta-primary cta-ghost" target="_blank">💬 WhatsApp</a>
+        <a href="mailto:hello@webcraft.studio" class="cta-primary cta-ghost">✉️ Email Us</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end #ui -->
+
+<script type="module">
+import * as THREE from 'three';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass }     from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass }     from 'three/addons/postprocessing/OutputPass.js';
+
+// ─── GSAP Plugin Registration ───────────────────────────────────────────────
+gsap.registerPlugin(ScrollTrigger);
+
+// ─── CONSTANTS ───────────────────────────────────────────────────────────────
+const NUM_SECTIONS = 12;
+const SECTION_HEIGHT = typeof window !== 'undefined' ? window.innerHeight : 800;
+const isMobile = /iPhone|iPad|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
+const PX_RATIO = Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2);
+
+// Section / planet config — Old Monk & UFC lead the journey
+const SECTIONS_DATA = [
+  { label:'Universe',    color:0x00ffff,  size:0    }, // 0: hero
+  { label:'Old Monk',    color:0xfbbf24,  size:3.8,  rings:true },         // 1
+  { label:'UFC',         color:0xef4444,  size:3.1,  lava:true, pulse:true }, // 2
+  { label:'AyurLife',    color:0x4ade80,  size:3.2  },  // 3
+  { label:'Elegance',    color:0xf9a8d4,  size:2.8  },  // 4
+  { label:'PrimeLedger', color:0x60a5fa,  size:2.6  },  // 5
+  { label:'VELOUR',      color:0xc9a96e,  size:3.0  },  // 6
+  { label:'BrightSmile', color:0xe0f2fe,  size:2.5  },  // 7
+  { label:'FitCore',     color:0x6b7280,  size:2.7  },  // 8
+  { label:'PrintHub',    color:0xa78bfa,  size:2.6  },  // 9
+  { label:'Riders Point',color:0xf97316,  size:2.9  },  // 10
+  { label:'Contact',     color:0xff6600,  size:4.5,  sun:true   }, // 11
+];
+
+// Planet 3D positions (index 0 = hero, no planet mesh; 1-11 = actual planets)
+const PLANET_POSITIONS = [
+  new THREE.Vector3(0, 0, 0),          // 0: hero origin (camera start)
+  new THREE.Vector3(-10, 3, -48),      // 1: AyurLife
+  new THREE.Vector3(11, -5, -96),      // 2: Elegance
+  new THREE.Vector3(-8,  8, -144),     // 3: PrimeLedger
+  new THREE.Vector3(12, -4, -192),     // 4: VELOUR
+  new THREE.Vector3(-11, 2, -240),     // 5: BrightSmile
+  new THREE.Vector3(9,  6, -288),      // 6: Old Monk
+  new THREE.Vector3(-7, -9, -336),     // 7: FitCore
+  new THREE.Vector3(13, 4, -384),      // 8: UFC
+  new THREE.Vector3(-10,-3, -432),     // 9: PrintHub
+  new THREE.Vector3(8,  9, -480),      // 10: Riders Point
+  new THREE.Vector3(0,  0, -530),      // 11: Contact (large sun)
+];
+
+// Camera waypoints — pulled back further so more universe is visible
+const CAM_WAYPOINTS = PLANET_POSITIONS.map((p, i) => {
+  const side = i % 2 === 0 ? 1 : -1;
+  const zOffset = isMobile ? 24 : 20;
+  return new THREE.Vector3(p.x + side * 5, p.y + 3, p.z + zOffset);
+});
+// Hero: pull camera back so full universe visible on open
+CAM_WAYPOINTS[0].set(0, 4, isMobile ? 36 : 28);
+
+// ─── SCENE SETUP ─────────────────────────────────────────────────────────────
+const canvas = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: !isMobile, alpha: false, powerPreference: 'high-performance' });
+renderer.setPixelRatio(PX_RATIO);
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 0.8; // toned down — original universe feel
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x000008);
+scene.fog = new THREE.FogExp2(0x000008, 0.0028);
+
+// Wider FOV on mobile so the full universe fits the screen
+const camera = new THREE.PerspectiveCamera(isMobile ? 85 : 60, window.innerWidth / window.innerHeight, 0.1, 2000);
+camera.position.copy(CAM_WAYPOINTS[0]);
+
+// Camera state
+const camTarget = new THREE.Vector3();
+const camTargetSmooth = new THREE.Vector3().copy(CAM_WAYPOINTS[0]);
+
+// ─── LIGHTING ─────────────────────────────────────────────────────────────────
+const ambientLight = new THREE.HemisphereLight(0x0a0a2a, 0x000000, 0.6);
+scene.add(ambientLight);
+
+const sunLight = new THREE.DirectionalLight(0xffffff, 1.2);
+sunLight.position.set(40, 30, 20);
+scene.add(sunLight);
+
+const fillLight = new THREE.DirectionalLight(0x1a0050, 0.4);
+fillLight.position.set(-40, -20, -10);
+scene.add(fillLight);
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+function lerp(a, b, t) { return a + (b - a) * t; }
+
+function createCanvasTexture(fn, size = 512) {
+  const c = document.createElement('canvas');
+  c.width = c.height = size;
+  fn(c.getContext('2d'), size);
+  return new THREE.CanvasTexture(c);
+}
+
+function noise2d(x, y) {
+  return Math.sin(x * 12.9898 + y * 78.233) * 43758.5453 % 1;
+}
+
+function fbm(x, y, octaves = 4) {
+  let v = 0, amp = 0.5, freq = 1;
+  for (let i = 0; i < octaves; i++) {
+    v += amp * (Math.sin(x * freq) * Math.cos(y * freq + 0.7) * 0.5 + 0.5);
+    amp *= 0.5; freq *= 2.1;
+  }
+  return v;
+}
+
+// ─── PROCEDURAL PLANET TEXTURES ──────────────────────────────────────────────
+function makeEarthTex() {
+  return createCanvasTexture((ctx, s) => {
+    // Ocean base
+    const grad = ctx.createLinearGradient(0, 0, s, s);
+    grad.addColorStop(0, '#0d4f3c'); grad.addColorStop(.4, '#1a7a55');
+    grad.addColorStop(.7, '#2563a8'); grad.addColorStop(1, '#1e3a6e');
+    ctx.fillStyle = grad; ctx.fillRect(0, 0, s, s);
+    // Landmasses
+    ctx.fillStyle = '#4ade80';
+    for (let i = 0; i < 30; i++) {
+      const x = Math.random() * s, y = Math.random() * s, r = 20 + Math.random() * 60;
+      const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+      g.addColorStop(0, 'rgba(34,197,94,.9)'); g.addColorStop(1, 'rgba(34,197,94,0)');
+      ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(x, y, r, r * .7, Math.random() * Math.PI, 0, Math.PI * 2); ctx.fill();
+    }
+    // Atmosphere line
+    const atm = ctx.createLinearGradient(0, 0, 0, s);
+    atm.addColorStop(0, 'rgba(100,200,255,.3)'); atm.addColorStop(.5, 'transparent');
+    ctx.fillStyle = atm; ctx.fillRect(0, 0, s, s);
+  });
+}
+
+function makePinkGasTex() {
+  return createCanvasTexture((ctx, s) => {
+    const g = ctx.createLinearGradient(0, 0, s, s);
+    g.addColorStop(0, '#fce7f3'); g.addColorStop(.3, '#f9a8d4'); g.addColorStop(.6, '#ec4899'); g.addColorStop(1, '#be185d');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, s, s);
+    // Cloud bands
+    for (let y = 0; y < s; y += 18) {
+      const w = 0.3 + Math.random() * 0.4;
+      ctx.fillStyle = `rgba(255,182,193,${w})`;
+      ctx.fillRect(0, y + Math.sin(y * .05) * 10, s, 8 + Math.random() * 12);
+    }
+  });
+}
+
+function makeRockyTex() {
+  return createCanvasTexture((ctx, s) => {
+    const g = ctx.createRadialGradient(s/2, s/2, 0, s/2, s/2, s*.7);
+    g.addColorStop(0, '#475569'); g.addColorStop(.5, '#334155'); g.addColorStop(1, '#1e293b');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, s, s);
+    // Craters
+    for (let i = 0; i < 20; i++) {
+      const x = Math.random() * s, y = Math.random() * s, r = 5 + Math.random() * 25;
+      const cg = ctx.createRadialGradient(x, y, 0, x, y, r);
+      cg.addColorStop(0, 'rgba(0,0,0,.5)'); cg.addColorStop(.7, 'rgba(0,0,0,.2)'); cg.addColorStop(1, 'rgba(100,116,139,.3)');
+      ctx.fillStyle = cg; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+    }
+  });
+}
+
+function makeGoldTex() {
+  return createCanvasTexture((ctx, s) => {
+    const g = ctx.createLinearGradient(0, 0, s, s);
+    g.addColorStop(0, '#78350f'); g.addColorStop(.3, '#d97706'); g.addColorStop(.6, '#fbbf24'); g.addColorStop(1, '#c9a96e');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, s, s);
+    // Shimmer
+    for (let i = 0; i < 40; i++) {
+      const x = Math.random() * s, y = Math.random() * s, r = 2 + Math.random() * 15;
+      ctx.fillStyle = `rgba(255,220,100,${.1 + Math.random() * .3})`;
+      ctx.beginPath(); ctx.ellipse(x, y, r, r * .4, Math.random() * Math.PI, 0, Math.PI * 2); ctx.fill();
+    }
+  });
+}
+
+function makeIceTex() {
+  return createCanvasTexture((ctx, s) => {
+    const g = ctx.createLinearGradient(0, 0, s, s);
+    g.addColorStop(0, '#e0f2fe'); g.addColorStop(.4, '#bae6fd'); g.addColorStop(.8, '#7dd3fc'); g.addColorStop(1, '#38bdf8');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, s, s);
+    // Cracks
+    ctx.strokeStyle = 'rgba(255,255,255,.6)'; ctx.lineWidth = 1;
+    for (let i = 0; i < 15; i++) {
+      ctx.beginPath(); ctx.moveTo(Math.random() * s, Math.random() * s);
+      for (let j = 0; j < 5; j++) ctx.lineTo(Math.random() * s, Math.random() * s);
+      ctx.stroke();
+    }
+  });
+}
+
+function makeAmberTex() {
+  return createCanvasTexture((ctx, s) => {
+    const g = ctx.createLinearGradient(0, 0, s, s);
+    g.addColorStop(0, '#431407'); g.addColorStop(.3, '#9a3412'); g.addColorStop(.6, '#f97316'); g.addColorStop(1, '#fbbf24');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, s, s);
+    // Great spot
+    const spot = ctx.createRadialGradient(s*.6, s*.4, 0, s*.6, s*.4, s*.18);
+    spot.addColorStop(0, 'rgba(255,80,0,.8)'); spot.addColorStop(1, 'transparent');
+    ctx.fillStyle = spot; ctx.beginPath(); ctx.ellipse(s*.6, s*.4, s*.18, s*.1, .5, 0, Math.PI*2); ctx.fill();
+    // Bands
+    for (let y = 0; y < s; y += 28) {
+      ctx.fillStyle = `rgba(0,0,0,${.1 + Math.random() * .2})`;
+      ctx.fillRect(0, y, s, 12);
+    }
+  });
+}
+
+function makeIronTex() {
+  return createCanvasTexture((ctx, s) => {
+    const g = ctx.createLinearGradient(0, 0, s, s);
+    g.addColorStop(0, '#111827'); g.addColorStop(.5, '#374151'); g.addColorStop(1, '#1f2937');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, s, s);
+    // Metal ridges
+    for (let i = 0; i < 60; i++) {
+      const y = Math.random() * s;
+      ctx.strokeStyle = `rgba(75,85,99,${.2 + Math.random() * .4})`; ctx.lineWidth = 1 + Math.random() * 2;
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(s, y + (Math.random() - .5) * 30); ctx.stroke();
+    }
+    // Hotspots
+    for (let i = 0; i < 5; i++) {
+      const x = Math.random() * s, y = Math.random() * s;
+      const rg = ctx.createRadialGradient(x, y, 0, x, y, 30);
+      rg.addColorStop(0, 'rgba(239,68,68,.4)'); rg.addColorStop(1, 'transparent');
+      ctx.fillStyle = rg; ctx.beginPath(); ctx.arc(x, y, 30, 0, Math.PI * 2); ctx.fill();
+    }
+  });
+}
+
+function makeLavaTex() {
+  return createCanvasTexture((ctx, s) => {
+    ctx.fillStyle = '#0f0000'; ctx.fillRect(0, 0, s, s);
+    // Lava fissures
+    for (let i = 0; i < 25; i++) {
+      const x = Math.random() * s, y = Math.random() * s;
+      const rg = ctx.createRadialGradient(x, y, 0, x, y, 30 + Math.random() * 40);
+      rg.addColorStop(0, `rgba(255,${50+Math.floor(Math.random()*100)},0,.9)`);
+      rg.addColorStop(.5, `rgba(180,0,0,.4)`); rg.addColorStop(1, 'transparent');
+      ctx.fillStyle = rg; ctx.beginPath(); ctx.ellipse(x, y, 35, 20, Math.random() * Math.PI, 0, Math.PI * 2); ctx.fill();
+    }
+    // Crust
+    ctx.fillStyle = 'rgba(20,0,0,.7)';
+    for (let i = 0; i < 40; i++) {
+      const x = Math.random() * s, y = Math.random() * s, r = 10 + Math.random() * 40;
+      ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+    }
+  });
+}
+
+function makePurpleTex() {
+  return createCanvasTexture((ctx, s) => {
+    const g = ctx.createLinearGradient(0, 0, s, s);
+    g.addColorStop(0, '#2e1065'); g.addColorStop(.4, '#6d28d9'); g.addColorStop(.8, '#a78bfa'); g.addColorStop(1, '#7c3aed');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, s, s);
+    for (let i = 0; i < 30; i++) {
+      const x = Math.random() * s, y = Math.random() * s, r = 5 + Math.random() * 25;
+      ctx.fillStyle = `rgba(167,139,250,${.1 + Math.random() * .3})`;
+      ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+    }
+  });
+}
+
+function makeOrangeTex() {
+  return createCanvasTexture((ctx, s) => {
+    const g = ctx.createLinearGradient(0, 0, s, s);
+    g.addColorStop(0, '#431407'); g.addColorStop(.3, '#c2410c'); g.addColorStop(.6, '#f97316'); g.addColorStop(1, '#fdba74');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, s, s);
+    // Speed streaks
+    ctx.strokeStyle = 'rgba(255,200,100,.3)'; ctx.lineWidth = 1;
+    for (let i = 0; i < 20; i++) {
+      const y = Math.random() * s;
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(s, y + (Math.random() - .5) * 40); ctx.stroke();
+    }
+  });
+}
+
+function makeSunTex() {
+  return createCanvasTexture((ctx, s) => {
+    const g = ctx.createRadialGradient(s/2, s/2, 0, s/2, s/2, s*.6);
+    g.addColorStop(0, '#ffffff'); g.addColorStop(.2, '#fef08a'); g.addColorStop(.5, '#f97316'); g.addColorStop(.8, '#dc2626'); g.addColorStop(1, '#7f1d1d');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, s, s);
+    // Sunspots
+    for (let i = 0; i < 8; i++) {
+      const angle = Math.random() * Math.PI * 2, dist = Math.random() * s * .3;
+      const x = s/2 + Math.cos(angle) * dist, y = s/2 + Math.sin(angle) * dist;
+      const sg = ctx.createRadialGradient(x, y, 0, x, y, 15 + Math.random() * 20);
+      sg.addColorStop(0, 'rgba(0,0,0,.5)'); sg.addColorStop(1, 'transparent');
+      ctx.fillStyle = sg; ctx.beginPath(); ctx.arc(x, y, 20, 0, Math.PI * 2); ctx.fill();
+    }
+    // Flare rays
+    ctx.strokeStyle = 'rgba(255,220,100,.15)'; ctx.lineWidth = 2;
+    for (let i = 0; i < 12; i++) {
+      const a = (i / 12) * Math.PI * 2;
+      ctx.beginPath();
+      ctx.moveTo(s/2 + Math.cos(a) * s*.25, s/2 + Math.sin(a) * s*.25);
+      ctx.lineTo(s/2 + Math.cos(a) * s*.55, s/2 + Math.sin(a) * s*.55);
+      ctx.stroke();
+    }
+  });
+}
+
+// Textures aligned to new SECTIONS_DATA order
+const TEXTURES = [null, makeAmberTex, makeLavaTex, makeEarthTex, makePinkGasTex, makeRockyTex, makeGoldTex, makeIceTex, makeIronTex, makePurpleTex, makeOrangeTex, makeSunTex];
+
+// ─── GLOW SPRITE HELPER ───────────────────────────────────────────────────────
+function makeGlowSprite(color, size = 12) {
+  const c = document.createElement('canvas'); c.width = c.height = 128;
+  const ctx = c.getContext('2d');
+  const g = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
+  const r = (color >> 16) & 0xff, gv = (color >> 8) & 0xff, b = color & 0xff;
+  g.addColorStop(0, `rgba(${r},${gv},${b},1)`);
+  g.addColorStop(.3, `rgba(${r},${gv},${b},.5)`);
+  g.addColorStop(.7, `rgba(${r},${gv},${b},.15)`);
+  g.addColorStop(1, `rgba(${r},${gv},${b},0)`);
+  ctx.fillStyle = g; ctx.fillRect(0, 0, 128, 128);
+  const tex = new THREE.CanvasTexture(c);
+  const mat = new THREE.SpriteMaterial({ map: tex, blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, opacity: .7 });
+  const sprite = new THREE.Sprite(mat); sprite.scale.setScalar(size);
+  return sprite;
+}
+
+// ─── CREATE PLANETS ───────────────────────────────────────────────────────────
+const planets = [];
+const planetGlows = [];
+const planetMeshes = [];
+
+for (let i = 1; i < NUM_SECTIONS; i++) {
+  const data = SECTIONS_DATA[i];
+  const pos = PLANET_POSITIONS[i];
+
+  // Point light — subtle, not overwhelming
+  const light = new THREE.PointLight(data.color, 1.5, 55, 2);
+  light.position.copy(pos);
+  scene.add(light);
+
+  // Planet mesh
+  const texFn = TEXTURES[i];
+  const tex = texFn ? texFn() : null;
+  const isEmissive = data.sun || data.lava || data.pulse;
+  const mat = new THREE.MeshPhysicalMaterial({
+    map: tex,
+    roughness: data.sun ? 1.0 : (data.lava ? 0.9 : 0.6),
+    metalness: data.sun ? 0 : (i === 4 ? 0.8 : (i === 8 ? 0.1 : 0.2)),
+    emissive: new THREE.Color(data.sun ? 0xff4400 : (data.lava ? 0x880000 : data.color)).multiplyScalar(isEmissive ? 1 : 0),
+    emissiveMap: isEmissive ? tex : null,
+    emissiveIntensity: data.sun ? 2.5 : (data.lava ? 1.5 : 0),
+  });
+  const geo = new THREE.SphereGeometry(data.size, isMobile ? 32 : 64, isMobile ? 32 : 64);
+  const mesh = new THREE.Mesh(geo, mat);
+  mesh.position.copy(pos);
+  mesh.userData = { index: i, data, basePos: pos.clone(), rotSpeed: 0.003 + Math.random() * 0.003 };
+  scene.add(mesh);
+  planetMeshes.push(mesh);
+
+  // Saturn rings for Old Monk
+  if (data.rings) {
+    const ringGeo = new THREE.RingGeometry(data.size * 1.4, data.size * 2.4, isMobile ? 48 : 96);
+    // UV remap for ring texture
+    const pos2 = ringGeo.attributes.position;
+    const uv = ringGeo.attributes.uv;
+    const v3 = new THREE.Vector3();
+    for (let j = 0; j < pos2.count; j++) {
+      v3.fromBufferAttribute(pos2, j);
+      uv.setXY(j, (v3.length() - data.size * 1.4) / (data.size * 1.0), 0);
+    }
+    const ringTex = createCanvasTexture((ctx, s) => {
+      const g = ctx.createLinearGradient(0, 0, s, 0);
+      g.addColorStop(0, 'rgba(251,191,36,0)'); g.addColorStop(.1, 'rgba(251,191,36,.6)');
+      g.addColorStop(.4, 'rgba(251,191,36,.4)'); g.addColorStop(.6, 'rgba(180,120,20,.5)');
+      g.addColorStop(.8, 'rgba(251,191,36,.3)'); g.addColorStop(1, 'rgba(251,191,36,0)');
+      ctx.fillStyle = g; ctx.fillRect(0, 0, s, s);
+    }, 256);
+    const ringMat = new THREE.MeshBasicMaterial({ map: ringTex, side: THREE.DoubleSide, transparent: true, opacity: .85, depthWrite: false });
+    const ring = new THREE.Mesh(ringGeo, ringMat);
+    ring.rotation.x = Math.PI * 0.42;
+    ring.position.copy(pos);
+    scene.add(ring);
+    mesh.userData.ring = ring;
+  }
+
+  // Glow sprite — subtle atmospheric halo, not blinding
+  const glow = makeGlowSprite(data.color, data.size * (data.sun ? 5 : 2.5));
+  glow.position.copy(pos);
+  glow.material.opacity = data.sun ? 0.55 : 0.22;
+  scene.add(glow);
+  planetGlows.push(glow);
+
+  planets.push({ mesh, light, glow, data, pos });
+}
+
+// ─── STARFIELD ────────────────────────────────────────────────────────────────
+function createStarLayer(count, spread, size, opacity) {
+  const geo = new THREE.BufferGeometry();
+  const pos = new Float32Array(count * 3);
+  const sizes = new Float32Array(count);
+  for (let i = 0; i < count; i++) {
+    pos[i * 3]     = (Math.random() - .5) * spread;
+    pos[i * 3 + 1] = (Math.random() - .5) * spread * .6;
+    pos[i * 3 + 2] = -Math.random() * 700;
+    sizes[i] = Math.random() * size + 0.5;
+  }
+  geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  geo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+  const mat = new THREE.PointsMaterial({
+    color: 0xffffff, size: size * .5,
+    sizeAttenuation: true, transparent: true, opacity,
+    blending: THREE.AdditiveBlending, depthWrite: false
+  });
+  return new THREE.Points(geo, mat);
+}
+
+// Fewer, dimmer stars — original universe feel, not overwhelming
+const starCount = isMobile ? 700 : 1800;
+const stars1 = createStarLayer(starCount,       600, 1.5, 0.45);
+const stars2 = createStarLayer(Math.floor(starCount * .5), 400, 1.0, 0.28);
+const stars3 = createStarLayer(Math.floor(starCount * .25), 200, 0.7, 0.18);
+scene.add(stars1, stars2, stars3);
+
+// ─── NEBULA CLOUDS ────────────────────────────────────────────────────────────
+const nebulaConfigs = [
+  { pos: [-80, 20, -150], color: 0x4a1d96, size: 60, opacity: .12 },
+  { pos: [90, -30, -250], color: 0x1e3a5f, size: 70, opacity: .10 },
+  { pos: [-60, 50, -350], color: 0x7f1d1d, size: 55, opacity: .10 },
+  { pos: [70, -60, -420], color: 0x14532d, size: 65, opacity: .08 },
+  { pos: [-30, 30, -500], color: 0x4c1d95, size: 75, opacity: .12 },
+];
+
+nebulaConfigs.forEach(cfg => {
+  const c = document.createElement('canvas'); c.width = c.height = 128;
+  const ctx = c.getContext('2d');
+  const g = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
+  const r = (cfg.color >> 16) & 0xff, gv = (cfg.color >> 8) & 0xff, b = cfg.color & 0xff;
+  g.addColorStop(0, `rgba(${r},${gv},${b},1)`); g.addColorStop(.5, `rgba(${r},${gv},${b},.4)`); g.addColorStop(1, `rgba(${r},${gv},${b},0)`);
+  ctx.fillStyle = g; ctx.fillRect(0, 0, 128, 128);
+  const tex = new THREE.CanvasTexture(c);
+  const mat = new THREE.SpriteMaterial({ map: tex, blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, opacity: cfg.opacity });
+  const sprite = new THREE.Sprite(mat);
+  sprite.position.set(...cfg.pos);
+  sprite.scale.setScalar(cfg.size);
+  scene.add(sprite);
+});
+
+// ─── SHOOTING STARS ───────────────────────────────────────────────────────────
+const shootingStarPool = [];
+const SHOOT_MAX = isMobile ? 4 : 8;
+
+function spawnShootingStar() {
+  if (shootingStarPool.length >= SHOOT_MAX) return;
+  const baseZ = camera.position.z;
+  const sx = (Math.random() - 0.5) * 180, sy = (Math.random() - 0.5) * 90;
+  const sz = baseZ - 30 - Math.random() * 120;
+  const len = 8 + Math.random() * 18;
+  const angle = Math.PI * 0.3 + Math.random() * 0.4;
+  const ex = sx + Math.cos(angle) * len, ey = sy - Math.sin(angle) * len;
+  const pts = [new THREE.Vector3(sx, sy, sz), new THREE.Vector3(ex, ey, sz)];
+  const geo = new THREE.BufferGeometry().setFromPoints(pts);
+  const mat = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.85 });
+  const line = new THREE.Line(geo, mat);
+  scene.add(line);
+  shootingStarPool.push(line);
+  gsap.to(mat, {
+    opacity: 0, duration: 0.6 + Math.random() * 0.4, delay: Math.random() * 0.2,
+    onComplete: () => {
+      scene.remove(line); geo.dispose(); mat.dispose();
+      shootingStarPool.splice(shootingStarPool.indexOf(line), 1);
+    }
+  });
+}
+
+// ─── ORBITAL MOONS ────────────────────────────────────────────────────────────
+const orbitingMoons = [];
+// Add moons to planets: indices in planetMeshes (0-based), so section-1
+// Old Monk=0, UFC=1, AyurLife=2, BrightSmile=6, Riders=9
+const MOON_CONFIGS = [
+  { pi: 0, count: 2, color: 0xc8b89a, orbitR: 6.0 },  // Old Monk: 2 moons
+  { pi: 1, count: 1, color: 0x660000, orbitR: 5.2 },  // UFC: 1 red moon
+  { pi: 2, count: 1, color: 0x5ecc6e, orbitR: 4.8 },  // AyurLife
+  { pi: 6, count: 1, color: 0xaaddff, orbitR: 4.2 },  // BrightSmile
+  { pi: 9, count: 1, color: 0xcc8833, orbitR: 4.5 },  // Riders Point
+];
+MOON_CONFIGS.forEach(cfg => {
+  const parentMesh = planetMeshes[cfg.pi];
+  if (!parentMesh) return;
+  for (let m = 0; m < cfg.count; m++) {
+    const r = 0.25 + Math.random() * 0.18;
+    const geo = new THREE.SphereGeometry(r, 12, 12);
+    const mat = new THREE.MeshPhysicalMaterial({ color: cfg.color, roughness: 0.85, metalness: 0.05 });
+    const moon = new THREE.Mesh(geo, mat);
+    const orbitR = cfg.orbitR + m * 1.5;
+    const speed = 0.28 + Math.random() * 0.22;
+    const phase = Math.random() * Math.PI * 2;
+    const tilt = (Math.random() - 0.5) * 0.5;
+    moon.userData = { parentMesh, orbitR, speed, phase, tilt };
+    scene.add(moon);
+    orbitingMoons.push(moon);
+  }
+});
+
+// ─── UFC LAVA GLOW RING ───────────────────────────────────────────────────────
+// UFC is section 2 → planetMeshes[1] → PLANET_POSITIONS[2]
+const ufcPos = PLANET_POSITIONS[2];
+const LAVA_COUNT = isMobile ? 100 : 220;
+const lavaBuf = new Float32Array(LAVA_COUNT * 3);
+for (let i = 0; i < LAVA_COUNT; i++) {
+  const angle = (i / LAVA_COUNT) * Math.PI * 2 + Math.random() * 0.3;
+  const r = 4.8 + Math.random() * 2.0;
+  const spread = (Math.random() - 0.5) * 2.5;
+  lavaBuf[i * 3]     = ufcPos.x + Math.cos(angle) * r;
+  lavaBuf[i * 3 + 1] = ufcPos.y + spread;
+  lavaBuf[i * 3 + 2] = ufcPos.z + Math.sin(angle) * r;
+}
+const lavaRingGeo = new THREE.BufferGeometry();
+lavaRingGeo.setAttribute('position', new THREE.BufferAttribute(lavaBuf, 3));
+const lavaRingMat = new THREE.PointsMaterial({
+  color: 0xff2200, size: 0.45, transparent: true, opacity: 0.75,
+  blending: THREE.AdditiveBlending, depthWrite: false
+});
+const lavaRing = new THREE.Points(lavaRingGeo, lavaRingMat);
+scene.add(lavaRing);
+
+// Outer diffuse halo for UFC
+const lavaGlow2 = makeGlowSprite(0xff1100, 22);
+lavaGlow2.position.copy(ufcPos);
+lavaGlow2.material.opacity = 0.25;
+scene.add(lavaGlow2);
+
+// ─── CAMERA CURVE ─────────────────────────────────────────────────────────────
+const camCurve = new THREE.CatmullRomCurve3(CAM_WAYPOINTS, false, 'catmullrom', 0.3);
+const lookCurve = new THREE.CatmullRomCurve3(PLANET_POSITIONS, false, 'catmullrom', 0.3);
+
+// ─── POST-PROCESSING ──────────────────────────────────────────────────────────
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+
+const bloomPass = new UnrealBloomPass(
+  new THREE.Vector2(window.innerWidth * PX_RATIO, window.innerHeight * PX_RATIO),
+  isMobile ? 0.35 : 0.7, // strength — subtle, not blinding
+  0.5,                    // radius
+  0.55                    // threshold — only very bright things glow
+);
+composer.addPass(bloomPass);
+composer.addPass(new OutputPass());
+
+// ─── SCROLL STATE ─────────────────────────────────────────────────────────────
+let scrollT = 0;          // [0, 1] global progress
+let currentSection = 0;
+const prevSection = { val: 0 };
+
+// Set scroll driver height
+document.getElementById('sd').style.height = `${NUM_SECTIONS * 100}vh`;
+
+// ─── LENIS + GSAP SCROLL ──────────────────────────────────────────────────────
+let lenis;
+try {
+  lenis = new Lenis({ lerp: isMobile ? 0.12 : 0.08, smoothWheel: true, touchMultiplier: 2.5, infinite: false });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+  gsap.ticker.lagSmoothing(0);
+} catch(e) {
+  console.warn('Lenis init failed, using native scroll');
+}
+
+// Scroll progress - dual approach: ScrollTrigger + direct fallback
+function readScrollProgress() {
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  return maxScroll > 0 ? window.scrollY / maxScroll : 0;
+}
+
+ScrollTrigger.create({
+  trigger: document.getElementById('sd'),
+  start: 'top top',
+  end: 'bottom bottom',
+  scrub: true,
+  onUpdate: self => { scrollT = self.progress; }
+});
+
+// Fallback: also listen to native scroll
+window.addEventListener('scroll', () => { scrollT = readScrollProgress(); }, { passive: true });
+
+// ─── NAV DOTS ─────────────────────────────────────────────────────────────────
+const navDots = document.getElementById('nav-dots');
+const labels = SECTIONS_DATA.map(s => s.label);
+labels.forEach((label, i) => {
+  const dot = document.createElement('div');
+  dot.className = 'nd' + (i === 0 ? ' active' : '');
+  dot.innerHTML = `<div class="nd-tip">${label}</div>`;
+  dot.addEventListener('click', () => {
+    const target = i / (NUM_SECTIONS - 1);
+    const scrollTarget = target * (document.getElementById('sd').offsetHeight - window.innerHeight);
+    if (lenis) lenis.scrollTo(scrollTarget, { duration: 1.5 });
+    else window.scrollTo({ top: scrollTarget, behavior: 'smooth' });
+  });
+  navDots.appendChild(dot);
+});
+const dotEls = navDots.querySelectorAll('.nd');
+
+// ─── SECTION PANELS ───────────────────────────────────────────────────────────
+const panels = document.querySelectorAll('.panel');
+const sectionCounter = document.getElementById('section-counter');
+const planetHud = document.getElementById('planet-hud');
+
+function updateSection(idx) {
+  if (idx === prevSection.val) return;
+  panels[prevSection.val]?.classList.remove('active');
+  panels[idx]?.classList.add('active');
+  dotEls.forEach((d, i) => d.classList.toggle('active', i === idx));
+  sectionCounter.textContent = `${String(idx + 1).padStart(2, '0')} / ${NUM_SECTIONS}`;
+  prevSection.val = idx;
+
+  // HUD
+  if (idx > 0 && idx < NUM_SECTIONS) {
+    planetHud.textContent = `▶ ${SECTIONS_DATA[idx].label}`;
+    planetHud.classList.add('show');
+    setTimeout(() => planetHud.classList.remove('show'), 3000);
+  }
+}
+
+// ─── RAYCASTING (hover) ───────────────────────────────────────────────────────
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+let hoveredPlanet = null;
+
+document.addEventListener('mousemove', e => {
+  mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+});
+
+// ─── CUSTOM CURSOR ────────────────────────────────────────────────────────────
+const cursorDot = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursor-ring');
+let cx = 0, cy = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => { cx = e.clientX; cy = e.clientY; });
+
+// ─── AUDIO (Interstellar — Cornfield Chase, starts at 24s) ───────────────────
+const bgAudio = new Audio('interstellar.webm');
+bgAudio.loop = true;
+bgAudio.volume = 0;
+bgAudio.preload = 'auto';
+let audioStarted = false;
+
+function startInterstellar() {
+  if (audioStarted) return;
+  audioStarted = true;
+  bgAudio.currentTime = 24;
+  bgAudio.play().catch(() => {}); // may be blocked until user gesture
+  gsap.to(bgAudio, { volume: 0.38, duration: 3.5, ease: 'power1.inOut' });
+  document.getElementById('audio-btn').textContent = '♫';
+}
+
+document.getElementById('audio-btn').addEventListener('click', () => {
+  if (!audioStarted) {
+    startInterstellar();
+  } else if (bgAudio.paused) {
+    bgAudio.play();
+    gsap.to(bgAudio, { volume: 0.38, duration: 1.5 });
+    document.getElementById('audio-btn').textContent = '♫';
+  } else {
+    gsap.to(bgAudio, { volume: 0, duration: 1.2, onComplete: () => bgAudio.pause() });
+    document.getElementById('audio-btn').textContent = '♪';
+  }
+});
+
+// Auto-start on first user interaction (scroll or click)
+['scroll','click','touchstart'].forEach(ev =>
+  document.addEventListener(ev, startInterstellar, { once: true, passive: true })
+);
+
+// ─── RESIZE ───────────────────────────────────────────────────────────────────
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.fov = window.innerWidth < 768 ? 85 : 60;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  composer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// ─── ANIMATION LOOP ───────────────────────────────────────────────────────────
+const clock = new THREE.Clock();
+const _v3 = new THREE.Vector3();
+const _scaleVec = new THREE.Vector3();
+
+// ─── MOBILE TOUCH SWIPE ───────────────────────────────────────────────────────
+if (isMobile) {
+  let touchStartY = 0;
+  document.addEventListener('touchstart', e => { touchStartY = e.touches[0].clientY; }, { passive: true });
+  document.addEventListener('touchend', e => {
+    const dy = touchStartY - e.changedTouches[0].clientY;
+    if (Math.abs(dy) < 40) return;
+    const dir = dy > 0 ? 1 : -1;
+    const targetSection = Math.max(0, Math.min(NUM_SECTIONS - 1, currentSection + dir));
+    const targetPct = targetSection / (NUM_SECTIONS - 1);
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    if (lenis) lenis.scrollTo(targetPct * maxScroll, { duration: 1.2 });
+    else window.scrollTo({ top: targetPct * maxScroll, behavior: 'smooth' });
+  }, { passive: true });
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+  const t = clock.getElapsedTime();
+  const dt = clock.getDelta ? 0.016 : 0.016;
+
+  // Section index from scroll
+  const raw = scrollT * (NUM_SECTIONS - 1);
+  const newSection = Math.round(raw);
+  currentSection = Math.max(0, Math.min(NUM_SECTIONS - 1, newSection));
+  updateSection(currentSection);
+
+  // Camera follows curve
+  const safeT = Math.max(0.001, Math.min(0.999, scrollT));
+  const targetCamPos = camCurve.getPoint(safeT);
+  const targetLookAt = lookCurve.getPoint(safeT);
+
+  // Smooth camera movement
+  camera.position.lerp(targetCamPos, 0.06);
+  camTargetSmooth.lerp(targetLookAt, 0.06);
+  camera.lookAt(camTargetSmooth);
+
+  // Planet rotations & pulse
+  planetMeshes.forEach((mesh, i) => {
+    const data = mesh.userData.data;
+    mesh.rotation.y += mesh.userData.rotSpeed;
+    if (data.rings && mesh.userData.ring) {
+      mesh.userData.ring.rotation.z += 0.001;
+    }
+    // Pulse for UFC lava planet — toned down
+    if (data.pulse) {
+      const pulse = 0.7 + Math.sin(t * 3) * 0.15;
+      mesh.material.emissiveIntensity = 0.8 * pulse;
+      planets[i].light.intensity = 1.8 + Math.sin(t * 3) * 0.5;
+    }
+    // Sun breathing — gentle
+    if (data.sun) {
+      mesh.material.emissiveIntensity = 1.2 + Math.sin(t * 0.8) * 0.2;
+      planets[i].light.intensity = 2.5 + Math.sin(t * 0.8) * 0.5;
+    }
+    // Float animation
+    mesh.position.y = mesh.userData.basePos.y + Math.sin(t * 0.5 + i * 1.1) * 0.25;
+
+    // Very subtle highlight — planets stay dark/rich, not washed out
+    const sectionDist = Math.abs(currentSection - (i + 1));
+    const highlight = Math.max(0, 1 - sectionDist);
+    if (!data.pulse && !data.sun) {
+      mesh.material.emissiveIntensity = highlight * 0.08; // was 0.3
+      mesh.material.emissive.setHex(data.color);
+    }
+    // Scale when focused
+    const targetScale = currentSection === i + 1 ? 1.06 : 1.0;
+    _scaleVec.setScalar(targetScale);
+    mesh.scale.lerp(_scaleVec, 0.05);
+    // Glow opacity — very dim unless focused
+    planets[i].glow.material.opacity = data.sun
+      ? (0.45 + Math.sin(t * .8) * .07)
+      : (0.12 + highlight * 0.18);
+  });
+
+  // Orbital moons
+  orbitingMoons.forEach(moon => {
+    const p = moon.userData;
+    const angle = t * p.speed + p.phase;
+    moon.position.set(
+      p.parentMesh.position.x + Math.cos(angle) * p.orbitR,
+      p.parentMesh.position.y + Math.sin(angle) * p.orbitR * p.tilt,
+      p.parentMesh.position.z + Math.sin(angle) * p.orbitR
+    );
+  });
+
+  // Shooting stars — random bursts
+  if (Math.random() < (Math.random() < 0.05 ? 0.25 : 0.005)) spawnShootingStar();
+
+  // UFC lava ring pulse
+  lavaRing.rotation.y += 0.004;
+  lavaRingMat.opacity = 0.55 + Math.sin(t * 5) * 0.25;
+  lavaRingMat.size = 0.35 + Math.sin(t * 3.5) * 0.12;
+  lavaGlow2.material.opacity = 0.18 + Math.sin(t * 2) * 0.08;
+
+  // Star parallax (move slower than camera)
+  stars1.position.z = camera.position.z * 0.15;
+  stars2.position.z = camera.position.z * 0.1;
+  stars3.position.z = camera.position.z * 0.05;
+
+  // Bloom: slightly higher near special planets, always stays subtle
+  const isSpecial = SECTIONS_DATA[currentSection]?.sun || SECTIONS_DATA[currentSection]?.lava;
+  const targetBloom = isMobile ? (isSpecial ? 0.6 : 0.35) : (isSpecial ? 1.1 : 0.7);
+  bloomPass.strength = THREE.MathUtils.lerp(bloomPass.strength, targetBloom, 0.05);
+
+  // Raycasting (desktop only)
+  if (!isMobile) {
+    raycaster.setFromCamera(mouse, camera);
+    const hits = raycaster.intersectObjects(planetMeshes);
+    if (hits.length > 0) {
+      canvas.style.cursor = 'pointer';
+      const hit = hits[0].object;
+      if (hoveredPlanet !== hit) {
+        hoveredPlanet = hit;
+        gsap.to(hit.scale, { x: 1.12, y: 1.12, z: 1.12, duration: .4 });
+        // tilt toward mouse
+        gsap.to(hit.rotation, { x: mouse.y * .15, z: mouse.x * -.1, duration: .5 });
+      }
+    } else {
+      if (hoveredPlanet) {
+        gsap.to(hoveredPlanet.scale, { x: 1, y: 1, z: 1, duration: .4 });
+        gsap.to(hoveredPlanet.rotation, { x: 0, z: 0, duration: .5 });
+        hoveredPlanet = null;
+      }
+      canvas.style.cursor = 'none';
+    }
+
+    // Custom cursor
+    rx += (cx - rx) * 0.12;
+    ry += (cy - ry) * 0.12;
+    if (cursorDot) { cursorDot.style.left = cx + 'px'; cursorDot.style.top = cy + 'px'; }
+    if (cursorRing) { cursorRing.style.left = rx + 'px'; cursorRing.style.top = ry + 'px'; }
+  }
+
+  composer.render();
+}
+
+// ─── LOADING SEQUENCE ─────────────────────────────────────────────────────────
+const fill = document.getElementById('loading-fill');
+const loadingEl = document.getElementById('loading');
+let loadPct = 0;
+const loadInterval = setInterval(() => {
+  loadPct = Math.min(loadPct + Math.random() * 15, 95);
+  if (fill) fill.style.width = loadPct + '%';
+}, 120);
+
+// Start render loop, hide loading after brief delay
+requestAnimationFrame(animate);
+setTimeout(() => {
+  clearInterval(loadInterval);
+  if (fill) fill.style.width = '100%';
+  setTimeout(() => {
+    if (loadingEl) loadingEl.classList.add('done');
+    setTimeout(() => { if (loadingEl) loadingEl.remove(); }, 900);
+  }, 400);
+}, 1800);
+
+</script>
+</body>
+</html>
