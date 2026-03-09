@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightSmile Dental Clinic | Best Dental Care in Thodupuzha</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;color:#222}
+a{text-decoration:none;color:inherit}
+
+nav{background:#fff;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 15px rgba(0,0,0,.06);position:sticky;top:0;z-index:100}
+nav .logo{font-size:1.3rem;font-weight:800;color:#1565c0}
+nav .logo span{color:#42a5f5}
+nav .nav-links{display:flex;gap:2rem;font-size:.9rem;font-weight:500;align-items:center}
+nav .nav-links a:hover{color:#1565c0}
+.nav-cta{background:#1565c0;color:#fff!important;padding:.6rem 1.5rem;border-radius:50px;font-size:.85rem}
+.nav-cta:hover{background:#0d47a1}
+
+.hero{background:linear-gradient(135deg,#e3f2fd 0%,#bbdefb 50%,#e1f5fe 100%);padding:5rem 2rem;display:flex;align-items:center;justify-content:center;min-height:80vh}
+.hero-inner{max-width:1100px;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.hero-text h1{font-size:2.8rem;font-weight:800;line-height:1.15;color:#0d47a1;margin-bottom:1rem}
+.hero-text h1 span{color:#42a5f5}
+.hero-text p{font-size:1.1rem;color:#546e7a;line-height:1.7;margin-bottom:2rem}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{background:#1565c0;color:#fff;padding:.9rem 2rem;border-radius:50px;font-weight:600;font-size:.95rem;display:inline-flex;align-items:center;gap:.5rem;transition:.3s}
+.btn-primary:hover{background:#0d47a1;transform:translateY(-2px)}
+.btn-outline{border:2px solid #1565c0;color:#1565c0;padding:.85rem 2rem;border-radius:50px;font-weight:600;font-size:.95rem;transition:.3s}
+.btn-outline:hover{background:#1565c0;color:#fff}
+.hero-visual{text-align:center;font-size:12rem;line-height:1}
+
+.trust-bar{background:#fff;padding:2rem;display:flex;justify-content:center;gap:3rem;flex-wrap:wrap;box-shadow:0 2px 20px rgba(0,0,0,.04)}
+.trust-item{text-align:center}
+.trust-item .num{font-size:2rem;font-weight:800;color:#1565c0}
+.trust-item .lbl{font-size:.8rem;color:#888;margin-top:.2rem}
+
+section{padding:4rem 2rem}
+.section-header{text-align:center;margin-bottom:3rem}
+.section-header h2{font-size:2rem;font-weight:800;color:#0d47a1;margin-bottom:.5rem}
+.section-header p{color:#777;font-size:1rem}
+
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;max-width:1000px;margin:0 auto}
+.service-card{background:#fff;border:1px solid #e3f2fd;border-radius:16px;padding:2rem;text-align:center;transition:.3s}
+.service-card:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(21,101,192,.1);border-color:#90caf9}
+.service-card .s-icon{font-size:2.5rem;margin-bottom:1rem}
+.service-card h3{font-size:1.05rem;margin-bottom:.5rem;color:#1565c0}
+.service-card p{font-size:.85rem;color:#777;line-height:1.5}
+
+.about{background:#f8fbff}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;max-width:1000px;margin:0 auto;align-items:center}
+.about-img{font-size:10rem;text-align:center}
+.about-text h2{font-size:1.8rem;font-weight:800;color:#0d47a1;margin-bottom:1rem}
+.about-text p{color:#666;line-height:1.7;margin-bottom:1rem;font-size:.95rem}
+.doc-card{background:#fff;border-radius:16px;padding:1.5rem;display:flex;gap:1rem;align-items:center;border:1px solid #e3f2fd;margin-top:1.5rem}
+.doc-avatar{width:60px;height:60px;background:#e3f2fd;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+.doc-info h4{font-size:.95rem;color:#1565c0}
+.doc-info p{font-size:.8rem;color:#888}
+
+.testimonials{background:#fff}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:1000px;margin:0 auto}
+.testi-card{background:#f8fbff;padding:2rem;border-radius:16px;border:1px solid #e3f2fd}
+.testi-card .stars{color:#ffc107;font-size:1.1rem;margin-bottom:.75rem}
+.testi-card blockquote{font-size:.92rem;color:#555;line-height:1.6;font-style:italic;margin-bottom:1rem}
+.testi-card .author{font-size:.85rem;font-weight:600;color:#1565c0}
+
+.hours{background:#0d47a1;color:#fff;padding:3rem 2rem;text-align:center}
+.hours h2{font-size:1.8rem;margin-bottom:1.5rem}
+.hours-grid{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap}
+.hour-item{background:rgba(255,255,255,.1);padding:1.5rem 2rem;border-radius:12px;min-width:200px}
+.hour-item h4{font-size:.85rem;opacity:.7;margin-bottom:.3rem}
+.hour-item p{font-size:1rem;font-weight:600}
+
+.contact{background:#f8fbff}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;max-width:1000px;margin:0 auto}
+.contact-info h3{font-size:1.4rem;color:#0d47a1;margin-bottom:1.5rem}
+.contact-item{display:flex;gap:1rem;align-items:flex-start;margin-bottom:1.5rem}
+.contact-item .c-icon{width:45px;height:45px;background:#e3f2fd;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.contact-item h4{font-size:.9rem;color:#333;margin-bottom:.2rem}
+.contact-item p{font-size:.85rem;color:#777}
+.map-placeholder{background:#e3f2fd;border-radius:16px;height:100%;min-height:300px;display:flex;align-items:center;justify-content:center;color:#90caf9;font-size:1.2rem;font-weight:600;border:2px dashed #90caf9}
+
+.whatsapp-float{position:fixed;bottom:2rem;right:2rem;background:#25d366;color:#fff;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;box-shadow:0 5px 25px rgba(37,211,102,.4);z-index:99;transition:.3s}
+.whatsapp-float:hover{transform:scale(1.1)}
+
+footer{background:#0d47a1;color:rgba(255,255,255,.7);text-align:center;padding:2rem;font-size:.85rem}
+
+/* SERVICES PAGE LINK */
+.services-link{text-align:center;margin-top:2rem}
+.services-link a{color:#1565c0;font-weight:600;font-size:.95rem;border-bottom:2px solid #90caf9;padding-bottom:2px}
+
+@media(max-width:768px){
+  .hero-inner{grid-template-columns:1fr}
+  .hero-text h1{font-size:2rem}
+  .hero-visual{font-size:6rem}
+  .about-grid,.contact-grid{grid-template-columns:1fr}
+  nav .nav-links{gap:1rem;font-size:.8rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Bright<span>Smile</span> &#129463;</div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <a href="tel:+914862220000" class="nav-cta">&#128222; Call Now</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <h1>Your Smile Deserves the <span>Best Care</span></h1>
+      <p>Thodupuzha's trusted multi-speciality dental clinic. Advanced treatments, gentle care, and beautiful smiles since 2010. Walk-ins welcome.</p>
+      <div class="hero-btns">
+        <a href="tel:+914862220000" class="btn-primary">&#128222; Book Appointment</a>
+        <a href="services.html" class="btn-outline">Our Services &rarr;</a>
+      </div>
+    </div>
+    <div class="hero-visual">&#129463;</div>
+  </div>
+</section>
+
+<div class="trust-bar">
+  <div class="trust-item"><div class="num">15+</div><div class="lbl">Years Experience</div></div>
+  <div class="trust-item"><div class="num">12,000+</div><div class="lbl">Happy Patients</div></div>
+  <div class="trust-item"><div class="num">4.8 &#11088;</div><div class="lbl">Google Rating</div></div>
+  <div class="trust-item"><div class="num">3</div><div class="lbl">Specialist Doctors</div></div>
+</div>
+
+<section id="services">
+  <div class="section-header">
+    <h2>Our Dental Services</h2>
+    <p>Complete dental care under one roof with latest technology</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="s-icon">&#128171;</div>
+      <h3>Teeth Cleaning</h3>
+      <p>Professional scaling and polishing to remove plaque and tartar buildup.</p>
+    </div>
+    <div class="service-card">
+      <div class="s-icon">&#10024;</div>
+      <h3>Teeth Whitening</h3>
+      <p>Advanced laser whitening for a brighter, more confident smile.</p>
+    </div>
+    <div class="service-card">
+      <div class="s-icon">&#129702;</div>
+      <h3>Dental Implants</h3>
+      <p>Permanent tooth replacement with high-quality titanium implants.</p>
+    </div>
+    <div class="service-card">
+      <div class="s-icon">&#128168;</div>
+      <h3>Root Canal</h3>
+      <p>Painless root canal treatment with modern rotary instruments.</p>
+    </div>
+    <div class="service-card">
+      <div class="s-icon">&#128170;</div>
+      <h3>Orthodontics / Braces</h3>
+      <p>Metal braces, ceramic braces, and clear aligners for perfect alignment.</p>
+    </div>
+    <div class="service-card">
+      <div class="s-icon">&#128118;</div>
+      <h3>Kids Dentistry</h3>
+      <p>Gentle, child-friendly dental care in a fun, comfortable environment.</p>
+    </div>
+  </div>
+  <div class="services-link"><a href="services.html">View All Services & Pricing &rarr;</a></div>
+</section>
+
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-img">&#129489;&#8205;&#9877;&#65039;</div>
+    <div class="about-text">
+      <h2>Experienced Doctors You Can Trust</h2>
+      <p>At BrightSmile, we combine years of clinical expertise with the latest dental technology to deliver comfortable, effective treatments. Our clinic is equipped with digital X-rays, laser equipment, and sterilized instruments for your safety.</p>
+      <p>We believe everyone deserves a healthy, beautiful smile regardless of budget. That's why we offer flexible payment options and transparent pricing.</p>
+      <div class="doc-card">
+        <div class="doc-avatar">&#129489;&#8205;&#9877;&#65039;</div>
+        <div class="doc-info">
+          <h4>Dr. Anitha Mathew, MDS</h4>
+          <p>Chief Dentist | Orthodontics Specialist | 15 Years Experience</p>
+        </div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-avatar">&#129489;&#8205;&#9877;&#65039;</div>
+        <div class="doc-info">
+          <h4>Dr. Rahul Menon, BDS</h4>
+          <p>Implantologist | Cosmetic Dentistry | 10 Years Experience</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <div class="section-header">
+    <h2>What Our Patients Say</h2>
+    <p>Real reviews from real patients</p>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="stars">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
+      <blockquote>"Best dental clinic in Thodupuzha! Dr. Anitha was very gentle with my root canal. Zero pain. Highly recommended for anyone scared of dentists."</blockquote>
+      <div class="author">- Priya K., Thodupuzha</div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
+      <blockquote>"Got my braces done here. The clinic is super clean and modern. Staff is very friendly. My teeth look amazing now!"</blockquote>
+      <div class="author">- Meera S., Muthalakodam</div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
+      <blockquote>"Took my kids for their first dental checkup. The doctors were so patient and made my children comfortable. Will definitely come back."</blockquote>
+      <div class="author">- Arun T., Manakkad</div>
+    </div>
+  </div>
+</section>
+
+<section class="hours">
+  <h2>&#128340; Clinic Hours</h2>
+  <div class="hours-grid">
+    <div class="hour-item"><h4>Monday - Friday</h4><p>9:00 AM - 7:00 PM</p></div>
+    <div class="hour-item"><h4>Saturday</h4><p>9:00 AM - 5:00 PM</p></div>
+    <div class="hour-item"><h4>Sunday</h4><p>10:00 AM - 1:00 PM</p></div>
+    <div class="hour-item"><h4>Emergency</h4><p>24/7 Available</p></div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h3>Visit Us / Get in Touch</h3>
+      <div class="contact-item">
+        <div class="c-icon">&#128205;</div>
+        <div><h4>Address</h4><p>1st Floor, City Centre Building,<br>Idukki Road, Thodupuzha, Kerala 685584</p></div>
+      </div>
+      <div class="contact-item">
+        <div class="c-icon">&#128222;</div>
+        <div><h4>Phone</h4><p>+91 4862 220 000<br>+91 98765 43210</p></div>
+      </div>
+      <div class="contact-item">
+        <div class="c-icon">&#128231;</div>
+        <div><h4>Email</h4><p>info@smilecaredental.in</p></div>
+      </div>
+      <div class="contact-item">
+        <div class="c-icon">&#128242;</div>
+        <div><h4>WhatsApp</h4><p>+91 98765 43210 (Quick Appointment)</p></div>
+      </div>
+    </div>
+    <div class="map-placeholder">&#128506; Google Map Embed Here</div>
+  </div>
+</section>
+
+<a href="https://wa.me/919876543210" class="whatsapp-float">&#128172;</a>
+
+<footer>
+  <p>&copy; 2025 BrightSmile Dental Clinic, Thodupuzha. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>

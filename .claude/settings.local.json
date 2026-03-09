@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app@latest:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run:*)",
+      "Bash(mkdir:*)",
+      "Bash(LOCALAPPDATA=\"D:\\\\\\\\AppData\\\\\\\\Local\" npx next:*)",
+      "Bash(LOCALAPPDATA=\"D:\\\\\\\\AppData\\\\\\\\Local\" npx tsc:*)",
+      "Bash(LOCALAPPDATA=\"D:\\\\AppData\\\\Local\" node:*)",
+      "Bash(TEMP=\"/d/tmp\" TMP=\"/d/tmp\" TMPDIR=\"/d/tmp\" LOCALAPPDATA=\"D:\\\\\\\\AppData\\\\\\\\Local\" npm run:*)",
+      "Bash(TEMP=\"/d/tmp\" TMP=\"/d/tmp\" TMPDIR=\"/d/tmp\" LOCALAPPDATA=\"D:\\\\\\\\AppData\\\\\\\\Local\" NODE_OPTIONS=\"--max-old-space-size=4096\" npm run:*)",
+      "Bash(TEMP=\"/d/tmp\" TMP=\"/d/tmp\" TMPDIR=\"/d/tmp\" LOCALAPPDATA=\"D:\\\\\\\\AppData\\\\\\\\Local\" NODE_OPTIONS=\"--max-old-space-size=4096\" NEXT_PRIVATE_TURBOPACK=false npm run:*)",
+      "Bash(TEMP=\"/d/tmp\" TMP=\"/d/tmp\" TMPDIR=\"/d/tmp\" LOCALAPPDATA=\"D:\\\\AppData\\\\Local\" NODE_OPTIONS=\"--max-old-space-size=4096\" NEXT_PRIVATE_TURBOPACK=false npm run:*)",
+      "Bash(cat:*)",
+      "Bash(npm config:*)",
+      "Bash(node --version)",
+      "Read(//c/Users/Administrator/**)",
+      "Bash(TEMP=\"/d/tmp\" TMP=\"/d/tmp\" TMPDIR=\"/d/tmp\" LOCALAPPDATA=\"D:\\\\AppData\\\\Local\" npm run:*)",
+      "Bash(TEMP=\"/d/tmp\" TMP=\"/d/tmp\" TMPDIR=\"/d/tmp\" LOCALAPPDATA=\"D:\\\\AppData\\\\Local\" node_modules/.bin/next build:*)",
+      "Bash(echo \"EXIT:$?\")",
+      "Read(//d//**)",
+      "WebFetch(domain:ashwinmcgithub.github.io)",
+      "Bash(git:*)"
+    ]
+  }
+}

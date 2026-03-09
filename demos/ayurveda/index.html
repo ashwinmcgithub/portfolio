@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AyurLife Ayurveda Centre | Authentic Ayurvedic Treatments in Thodupuzha</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;color:#2d2d2d;background:#fdfdf5}
+a{text-decoration:none;color:inherit}
+
+nav{background:rgba(255,255,255,.95);backdrop-filter:blur(10px);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;box-shadow:0 2px 15px rgba(0,0,0,.04)}
+nav .logo{font-size:1.3rem;font-weight:800;color:#2e7d32}
+nav .logo span{color:#81c784}
+nav .nav-links{display:flex;gap:2rem;font-size:.9rem;font-weight:500;align-items:center}
+.nav-cta{background:#2e7d32;color:#fff!important;padding:.6rem 1.5rem;border-radius:50px;font-size:.85rem}
+
+.hero{background:linear-gradient(135deg,#e8f5e9,#c8e6c9,#dcedc8);min-height:85vh;display:flex;align-items:center;padding:5rem 2rem}
+.hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1fr;gap:4rem;align-items:center}
+.hero h1{font-size:2.8rem;font-weight:800;color:#1b5e20;line-height:1.15;margin-bottom:1rem}
+.hero h1 span{color:#43a047}
+.hero>div p{font-size:1.1rem;color:#4e6e50;line-height:1.7;margin-bottom:2rem}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-g{background:#2e7d32;color:#fff;padding:.9rem 2rem;border-radius:50px;font-weight:600;transition:.3s;display:inline-flex;align-items:center;gap:.5rem}
+.btn-g:hover{background:#1b5e20;transform:translateY(-2px)}
+.btn-go{border:2px solid #2e7d32;color:#2e7d32;padding:.85rem 2rem;border-radius:50px;font-weight:600;transition:.3s}
+.btn-go:hover{background:#2e7d32;color:#fff}
+.hero-visual{text-align:center;font-size:10rem}
+
+section{padding:4rem 2rem}
+.sec-h{text-align:center;margin-bottom:3rem}
+.sec-h h2{font-size:2rem;font-weight:800;color:#1b5e20;margin-bottom:.5rem}
+.sec-h p{color:#777;font-size:1rem}
+
+.treatments{background:#fff}
+.treat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:1100px;margin:0 auto}
+.treat-card{background:#fdfdf5;border:1px solid #e8f5e9;border-radius:16px;padding:2rem;transition:.3s}
+.treat-card:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(46,125,50,.1);border-color:#a5d6a7}
+.treat-card .t-icon{font-size:2.2rem;margin-bottom:.75rem}
+.treat-card h3{font-size:1.05rem;color:#2e7d32;margin-bottom:.5rem}
+.treat-card p{font-size:.85rem;color:#666;line-height:1.5}
+.treat-card .t-duration{margin-top:.75rem;font-size:.8rem;color:#81c784;font-weight:600}
+
+.philosophy{background:linear-gradient(135deg,#1b5e20,#2e7d32);color:#fff;text-align:center;padding:4rem 2rem}
+.philosophy h2{font-size:2rem;margin-bottom:1rem}
+.philosophy p{max-width:700px;margin:0 auto;opacity:.85;line-height:1.7;font-size:1.05rem}
+.phil-grid{display:flex;gap:2rem;justify-content:center;margin-top:2.5rem;flex-wrap:wrap}
+.phil-item{background:rgba(255,255,255,.1);padding:1.5rem 2rem;border-radius:12px;min-width:180px;text-align:center}
+.phil-item .p-icon{font-size:2rem;margin-bottom:.5rem}
+.phil-item h4{font-size:.9rem}
+
+.doc-section{background:#fdfdf5}
+.doc-grid{max-width:800px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.doc-card{background:#fff;border-radius:16px;padding:2rem;text-align:center;border:1px solid #e8f5e9}
+.doc-card .avatar{width:80px;height:80px;background:#e8f5e9;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 1rem}
+.doc-card h3{font-size:1rem;color:#2e7d32}
+.doc-card .qual{font-size:.8rem;color:#888;margin:.3rem 0}
+.doc-card .exp{font-size:.85rem;color:#666;margin-top:.5rem}
+
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:1000px;margin:0 auto}
+.testi{background:#fff;padding:2rem;border-radius:16px;border:1px solid #e8f5e9}
+.testi .stars{color:#ffc107;margin-bottom:.5rem}
+.testi q{font-size:.9rem;color:#555;line-height:1.6;display:block;margin-bottom:.75rem}
+.testi .auth{font-size:.8rem;font-weight:600;color:#2e7d32}
+
+.contact{background:#fff}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;max-width:1000px;margin:0 auto}
+.c-info h3{font-size:1.4rem;color:#1b5e20;margin-bottom:1.5rem}
+.c-item{display:flex;gap:1rem;margin-bottom:1.5rem;align-items:flex-start}
+.c-icon{width:45px;height:45px;background:#e8f5e9;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.c-item h4{font-size:.9rem;color:#333;margin-bottom:.2rem}
+.c-item p{font-size:.85rem;color:#777}
+.map-ph{background:#e8f5e9;border-radius:16px;height:100%;min-height:300px;display:flex;align-items:center;justify-content:center;color:#81c784;font-size:1.2rem;font-weight:600;border:2px dashed #a5d6a7}
+
+.wa-float{position:fixed;bottom:2rem;right:2rem;background:#25d366;color:#fff;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;box-shadow:0 5px 25px rgba(37,211,102,.4);z-index:99}
+
+footer{background:#1b5e20;color:rgba(255,255,255,.7);text-align:center;padding:2rem;font-size:.85rem}
+.svc-link{text-align:center;margin-top:2rem}
+.svc-link a{color:#2e7d32;font-weight:600;border-bottom:2px solid #a5d6a7;padding-bottom:2px}
+
+@media(max-width:768px){
+  .hero-inner{grid-template-columns:1fr}
+  .hero h1{font-size:2rem}
+  .doc-grid,.contact-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">AyurLife <span>Ayurveda</span> &#127807;</div>
+  <div class="nav-links">
+    <a href="#treatments">Treatments</a>
+    <a href="#doctors">Doctors</a>
+    <a href="#contact">Contact</a>
+    <a href="tel:+914862221111" class="nav-cta">&#128222; Book Now</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Heal Naturally with <span>Authentic Ayurveda</span></h1>
+      <p>Thodupuzha's premier Ayurvedic treatment centre. Traditional Kerala Ayurveda therapies combined with modern diagnostics for complete healing of body, mind, and soul.</p>
+      <div class="hero-btns">
+        <a href="tel:+914862221111" class="btn-g">&#128222; Book Consultation</a>
+        <a href="treatments.html" class="btn-go">View Treatments &rarr;</a>
+      </div>
+    </div>
+    <div class="hero-visual">&#127807;</div>
+  </div>
+</section>
+
+<section class="treatments" id="treatments">
+  <div class="sec-h">
+    <h2>Our Ayurvedic Treatments</h2>
+    <p>Time-tested therapies for lasting wellness</p>
+  </div>
+  <div class="treat-grid">
+    <div class="treat-card">
+      <div class="t-icon">&#128166;</div>
+      <h3>Panchakarma Therapy</h3>
+      <p>Complete body detoxification through 5 purification procedures. Removes deep-rooted toxins and rejuvenates the body.</p>
+      <div class="t-duration">Duration: 7-21 days</div>
+    </div>
+    <div class="treat-card">
+      <div class="t-icon">&#129506;</div>
+      <h3>Abhyangam (Oil Massage)</h3>
+      <p>Full body warm oil massage using medicated herbal oils. Relieves stress, improves circulation, and nourishes the skin.</p>
+      <div class="t-duration">Duration: 45-60 mins</div>
+    </div>
+    <div class="treat-card">
+      <div class="t-icon">&#128167;</div>
+      <h3>Shirodhara</h3>
+      <p>Continuous stream of warm medicated oil on the forehead. Excellent for insomnia, anxiety, migraines, and mental clarity.</p>
+      <div class="t-duration">Duration: 30-45 mins</div>
+    </div>
+    <div class="treat-card">
+      <div class="t-icon">&#129474;</div>
+      <h3>Njavarakizhi</h3>
+      <p>Bolus therapy with medicated rice. Strengthens muscles, rejuvenates skin, and is highly effective for neurological disorders.</p>
+      <div class="t-duration">Duration: 45 mins</div>
+    </div>
+    <div class="treat-card">
+      <div class="t-icon">&#127793;</div>
+      <h3>Elakizhi (Leaf Bundle)</h3>
+      <p>Herbal leaf poultice massage. Excellent for joint pain, arthritis, spondylitis, and sports injuries.</p>
+      <div class="t-duration">Duration: 45 mins</div>
+    </div>
+    <div class="treat-card">
+      <div class="t-icon">&#9889;</div>
+      <h3>Kativasti</h3>
+      <p>Warm medicated oil pooled on the lower back. Highly effective for lower back pain, sciatica, and lumbar spondylosis.</p>
+      <div class="t-duration">Duration: 30 mins</div>
+    </div>
+  </div>
+  <div class="svc-link"><a href="treatments.html">View All Treatments & Packages &rarr;</a></div>
+</section>
+
+<section class="philosophy">
+  <h2>The AyurLife Approach</h2>
+  <p>We follow the ancient principles of Ashtanga Ayurveda combined with personalized Prakriti (body constitution) analysis to design treatments unique to your body and condition.</p>
+  <div class="phil-grid">
+    <div class="phil-item"><div class="p-icon">&#128300;</div><h4>Prakriti Analysis</h4></div>
+    <div class="phil-item"><div class="p-icon">&#127807;</div><h4>Herbal Medicines</h4></div>
+    <div class="phil-item"><div class="p-icon">&#129506;</div><h4>Expert Therapists</h4></div>
+    <div class="phil-item"><div class="p-icon">&#128150;</div><h4>Holistic Healing</h4></div>
+  </div>
+</section>
+
+<section class="doc-section" id="doctors">
+  <div class="sec-h">
+    <h2>Our Physicians</h2>
+    <p>Experienced Ayurvedic doctors with traditional knowledge</p>
+  </div>
+  <div class="doc-grid">
+    <div class="doc-card">
+      <div class="avatar">&#129489;&#8205;&#9877;&#65039;</div>
+      <h3>Dr. Lakshmi Nair, BAMS, MD</h3>
+      <div class="qual">Specialization: Panchakarma & Women's Health</div>
+      <div class="exp">18 Years Experience | Chief Physician</div>
+    </div>
+    <div class="doc-card">
+      <div class="avatar">&#129489;&#8205;&#9877;&#65039;</div>
+      <h3>Dr. Suresh Kumar, BAMS</h3>
+      <div class="qual">Specialization: Marma Therapy & Joint Disorders</div>
+      <div class="exp">12 Years Experience | Senior Physician</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-h">
+    <h2>Patient Testimonials</h2>
+    <p>Hear from those who found healing here</p>
+  </div>
+  <div class="testi-grid">
+    <div class="testi">
+      <div class="stars">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
+      <q>I suffered from chronic back pain for 5 years. After 14 days of Panchakarma at AyurLife, I feel like a new person. The doctors are genuinely caring.</q>
+      <div class="auth">- Rajesh M., Kattappana</div>
+    </div>
+    <div class="testi">
+      <div class="stars">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
+      <q>The Shirodhara treatment helped me overcome my insomnia completely. I sleep peacefully now without any tablets. Truly grateful to Dr. Lakshmi.</q>
+      <div class="auth">- Suja P., Thodupuzha</div>
+    </div>
+    <div class="testi">
+      <div class="stars">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
+      <q>My mother's knee pain reduced significantly after just 7 sessions of Elakizhi. The therapists are skilled and the atmosphere is very peaceful.</q>
+      <div class="auth">- Vinod K., Muvattupuzha</div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="contact-grid">
+    <div class="c-info">
+      <h3>Visit Our Centre</h3>
+      <div class="c-item"><div class="c-icon">&#128205;</div><div><h4>Address</h4><p>AyurLife Building, Kanjiramattom Road,<br>Thodupuzha, Kerala 685584</p></div></div>
+      <div class="c-item"><div class="c-icon">&#128222;</div><div><h4>Phone</h4><p>+91 4862 221 111<br>+91 90000 11111</p></div></div>
+      <div class="c-item"><div class="c-icon">&#128340;</div><div><h4>Consultation Hours</h4><p>Mon-Sat: 8:30 AM - 6:00 PM<br>Sunday: 9:00 AM - 1:00 PM</p></div></div>
+      <div class="c-item"><div class="c-icon">&#128242;</div><div><h4>WhatsApp</h4><p>+91 90000 11111</p></div></div>
+    </div>
+    <div class="map-ph">&#128506; Google Map Embed Here</div>
+  </div>
+</section>
+
+<a href="#" class="wa-float">&#128172;</a>
+
+<footer>
+  <p>&copy; 2025 AyurLife Ayurveda Centre, Thodupuzha. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>

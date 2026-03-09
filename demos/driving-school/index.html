@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ProDrive Motor School | Best Driving School in Thodupuzha</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;color:#222;background:#f8f9ff}
+a{text-decoration:none;color:inherit}
+nav{background:#fff;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;box-shadow:0 2px 15px rgba(0,0,0,.05)}
+nav .logo{font-size:1.3rem;font-weight:800;color:#283593}
+nav .logo span{color:#5c6bc0}
+nav .nl{display:flex;gap:2rem;font-size:.9rem;font-weight:500;align-items:center}
+.nc{background:#283593;color:#fff!important;padding:.6rem 1.5rem;border-radius:50px;font-size:.85rem}
+
+.hero{background:linear-gradient(135deg,#e8eaf6,#c5cae9,#e8eaf6);min-height:80vh;display:flex;align-items:center;padding:5rem 2rem}
+.hi{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1fr;gap:4rem;align-items:center}
+.hero h1{font-size:2.8rem;font-weight:800;color:#1a237e;line-height:1.15;margin-bottom:1rem}
+.hero h1 span{color:#5c6bc0}
+.hero-text p{font-size:1.1rem;color:#546e7a;line-height:1.7;margin-bottom:2rem}
+.hb{display:flex;gap:1rem;flex-wrap:wrap}
+.bp{background:#283593;color:#fff;padding:.9rem 2rem;border-radius:50px;font-weight:600;transition:.3s}
+.bp:hover{background:#1a237e;transform:translateY(-2px)}
+.bo{border:2px solid #283593;color:#283593;padding:.85rem 2rem;border-radius:50px;font-weight:600;transition:.3s}
+.bo:hover{background:#283593;color:#fff}
+.hv{text-align:center;font-size:10rem}
+
+.stats{background:#283593;color:#fff;padding:2rem;display:flex;justify-content:center;gap:3rem;flex-wrap:wrap}
+.stat{text-align:center}
+.stat .n{font-size:2rem;font-weight:800}
+.stat .l{font-size:.8rem;opacity:.7}
+
+section{padding:4rem 2rem}
+.sh{text-align:center;margin-bottom:3rem}
+.sh h2{font-size:2rem;font-weight:800;color:#1a237e;margin-bottom:.5rem}
+.sh p{color:#777}
+
+.courses{background:#fff}
+.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:1100px;margin:0 auto}
+.cc{background:#f8f9ff;border:1px solid #e8eaf6;border-radius:16px;padding:2rem;transition:.3s}
+.cc:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(40,53,147,.1);border-color:#9fa8da}
+.cc .ci{font-size:2.5rem;margin-bottom:.75rem}
+.cc h3{font-size:1.05rem;color:#283593;margin-bottom:.5rem}
+.cc p{font-size:.85rem;color:#666;line-height:1.5;margin-bottom:.75rem}
+.cc .pr{font-size:1.3rem;font-weight:800;color:#283593}
+.cc .pr span{font-size:.8rem;color:#888;font-weight:400}
+.cc .dur{margin-top:.5rem;font-size:.8rem;color:#9fa8da;font-weight:600}
+
+.process{background:#f8f9ff}
+.pg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;max-width:900px;margin:0 auto;text-align:center}
+.ps{position:relative}
+.ps .num{width:50px;height:50px;background:#283593;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.2rem;margin:0 auto 1rem}
+.ps h4{font-size:.95rem;color:#283593;margin-bottom:.3rem}
+.ps p{font-size:.82rem;color:#777}
+
+.vehicles{background:#fff}
+.vg{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;max-width:800px;margin:0 auto}
+.vc{background:#f8f9ff;border:1px solid #e8eaf6;border-radius:16px;padding:2rem;text-align:center;min-width:160px;transition:.3s}
+.vc:hover{border-color:#283593}
+.vc .vi{font-size:3rem;margin-bottom:.5rem}
+.vc h4{font-size:.9rem;color:#283593}
+.vc p{font-size:.78rem;color:#888}
+
+.tg{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:1000px;margin:0 auto}
+.tc{background:#fff;padding:2rem;border-radius:16px;border:1px solid #e8eaf6}
+.tc .stars{color:#ffc107;margin-bottom:.5rem}
+.tc q{font-size:.9rem;color:#555;line-height:1.6;display:block;margin-bottom:.75rem}
+.tc .au{font-size:.8rem;font-weight:600;color:#283593}
+
+.ct{background:#1a237e;color:#fff;text-align:center;padding:3rem 2rem}
+.ct h2{font-size:2rem;margin-bottom:1rem}
+.ct p{opacity:.8;margin-bottom:1.5rem;max-width:500px;margin-left:auto;margin-right:auto}
+.ctb{display:inline-block;background:#fff;color:#1a237e;padding:1rem 2.5rem;border-radius:50px;font-weight:700;font-size:1.05rem}
+.ctb:hover{background:#e8eaf6}
+
+.contact-s{background:#f8f9ff}
+.cog{display:grid;grid-template-columns:1fr 1fr;gap:3rem;max-width:1000px;margin:0 auto}
+.coi h3{font-size:1.4rem;color:#1a237e;margin-bottom:1.5rem}
+.coitem{display:flex;gap:1rem;margin-bottom:1.5rem}
+.coicon{width:45px;height:45px;background:#e8eaf6;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.coitem h4{font-size:.9rem;margin-bottom:.2rem}
+.coitem p{font-size:.85rem;color:#777}
+.mp{background:#e8eaf6;border-radius:16px;height:100%;min-height:300px;display:flex;align-items:center;justify-content:center;color:#9fa8da;font-size:1.1rem;font-weight:600;border:2px dashed #9fa8da}
+
+footer{background:#1a237e;color:rgba(255,255,255,.6);text-align:center;padding:2rem;font-size:.85rem}
+@media(max-width:768px){.hi,.cog{grid-template-columns:1fr}.hero h1{font-size:2rem}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Pro<span>Drive</span> &#128663;</div>
+  <div class="nl"><a href="#courses">Courses</a><a href="#contact">Contact</a><a href="tel:+914862221414" class="nc">&#128222; Enroll Now</a></div>
+</nav>
+
+<section class="hero">
+  <div class="hi">
+    <div class="hero-text">
+      <h1>Learn to Drive <span>Confidently & Safely</span></h1>
+      <p>Thodupuzha's most trusted motor driving school since 2005. Expert instructors, modern vehicles, and a 98% first-attempt pass rate. Get your license the right way.</p>
+      <div class="hb">
+        <a href="tel:+914862221414" class="bp">&#128222; Enroll Today</a>
+        <a href="#courses" class="bo">View Courses &rarr;</a>
+      </div>
+    </div>
+    <div class="hv">&#128663;</div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat"><div class="n">20+</div><div class="l">Years Experience</div></div>
+  <div class="stat"><div class="n">8,000+</div><div class="l">Students Trained</div></div>
+  <div class="stat"><div class="n">98%</div><div class="l">Pass Rate</div></div>
+  <div class="stat"><div class="n">4.5 &#11088;</div><div class="l">Google Rating</div></div>
+</div>
+
+<section class="courses" id="courses">
+  <div class="sh"><h2>Our Driving Courses</h2><p>Flexible packages for every learner</p></div>
+  <div class="cg">
+    <div class="cc">
+      <div class="ci">&#128661;</div>
+      <h3>Two Wheeler (Scooter/Bike)</h3>
+      <p>Complete two-wheeler training including traffic rules, road safety, and practical riding skills.</p>
+      <div class="pr">&#8377;2,500 <span>full course</span></div>
+      <div class="dur">Duration: 10 days | 1 hour/day</div>
+    </div>
+    <div class="cc">
+      <div class="ci">&#128663;</div>
+      <h3>Light Motor Vehicle (Car)</h3>
+      <p>Comprehensive car driving course covering city driving, highway driving, parking, and reverse.</p>
+      <div class="pr">&#8377;5,000 <span>full course</span></div>
+      <div class="dur">Duration: 20 days | 1 hour/day</div>
+    </div>
+    <div class="cc">
+      <div class="ci">&#128666;</div>
+      <h3>Heavy Vehicle (Truck/Bus)</h3>
+      <p>Professional heavy vehicle training for commercial license. Includes gear shifting and maneuvering skills.</p>
+      <div class="pr">&#8377;8,000 <span>full course</span></div>
+      <div class="dur">Duration: 30 days | 1.5 hours/day</div>
+    </div>
+    <div class="cc">
+      <div class="ci">&#128657;</div>
+      <h3>Auto Rickshaw</h3>
+      <p>Auto rickshaw driving training with focus on narrow road navigation and passenger safety.</p>
+      <div class="pr">&#8377;3,500 <span>full course</span></div>
+      <div class="dur">Duration: 12 days | 1 hour/day</div>
+    </div>
+  </div>
+</section>
+
+<section class="process">
+  <div class="sh"><h2>How It Works</h2><p>4 simple steps to your driving license</p></div>
+  <div class="pg">
+    <div class="ps"><div class="num">1</div><h4>Enroll</h4><p>Call or visit to register. Choose your course and preferred timing.</p></div>
+    <div class="ps"><div class="num">2</div><h4>Learn</h4><p>Daily practical training with experienced instructor in dual-control vehicle.</p></div>
+    <div class="ps"><div class="num">3</div><h4>Practice</h4><p>Extra practice sessions on test routes. Mock test to build confidence.</p></div>
+    <div class="ps"><div class="num">4</div><h4>Get License</h4><p>We assist with RTO paperwork. Appear for test with confidence.</p></div>
+  </div>
+</section>
+
+<section class="vehicles">
+  <div class="sh"><h2>Our Training Vehicles</h2><p>Well-maintained, dual-control vehicles for safe learning</p></div>
+  <div class="vg">
+    <div class="vc"><div class="vi">&#128663;</div><h4>Maruti Swift</h4><p>Hatchback Training</p></div>
+    <div class="vc"><div class="vi">&#128661;</div><h4>Honda Activa</h4><p>Scooter Training</p></div>
+    <div class="vc"><div class="vi">&#128666;</div><h4>Tata Truck</h4><p>Heavy Vehicle Training</p></div>
+    <div class="vc"><div class="vi">&#128657;</div><h4>Bajaj Auto</h4><p>Auto Training</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="sh"><h2>Student Reviews</h2><p>Join thousands of confident drivers</p></div>
+  <div class="tg">
+    <div class="tc"><div class="stars">&#11088;&#11088;&#11088;&#11088;&#11088;</div><q>Best driving school in Thodupuzha. The instructor was very patient and taught me everything from basics. Passed on first attempt!</q><div class="au">- Anitha R., Thodupuzha</div></div>
+    <div class="tc"><div class="stars">&#11088;&#11088;&#11088;&#11088;&#11088;</div><q>I was very nervous about driving but the trainers here made me feel comfortable. The dual-control car gave me extra confidence. Thank you ProDrive!</q><div class="au">- Deepa M., Muthalakodam</div></div>
+    <div class="tc"><div class="stars">&#11088;&#11088;&#11088;&#11088;&#11088;</div><q>Got my heavy vehicle license through ProDrive. Professional training and they helped with all the RTO paperwork too. Highly recommended.</q><div class="au">- Biju K., Manakkad</div></div>
+  </div>
+</section>
+
+<section class="ct">
+  <h2>Ready to Start Driving?</h2>
+  <p>Enroll today and get on the road with confidence. Flexible timings available - morning, afternoon, and evening batches.</p>
+  <a href="tel:+914862221414" class="ctb">&#128222; Call +91 4862 221414</a>
+</section>
+
+<section class="contact-s" id="contact">
+  <div class="cog">
+    <div class="coi">
+      <h3>Visit ProDrive</h3>
+      <div class="coitem"><div class="coicon">&#128205;</div><div><h4>Address</h4><p>Parekkattu Building, Muvattupuzha Road,<br>Near Prakash Pump, Thodupuzha 685584</p></div></div>
+      <div class="coitem"><div class="coicon">&#128222;</div><div><h4>Phone</h4><p>+91 4862 221414<br>+91 94474 66266</p></div></div>
+      <div class="coitem"><div class="coicon">&#128340;</div><div><h4>Office Hours</h4><p>Mon-Sat: 8:00 AM - 6:00 PM<br>Training: 6:00 AM - 7:00 PM</p></div></div>
+    </div>
+    <div class="mp">&#128506; Google Map Here</div>
+  </div>
+</section>
+
+<footer><p>&copy; 2025 ProDrive Motor School, Thodupuzha.</p></footer>
+</body>
+</html>

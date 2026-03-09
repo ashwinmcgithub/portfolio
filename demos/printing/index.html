@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PrintHub Digital Press | Printing Services in Thodupuzha</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;color:#222;background:#faf5ff}
+a{text-decoration:none;color:inherit}
+nav{background:#fff;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;box-shadow:0 2px 15px rgba(0,0,0,.05)}
+nav .logo{font-size:1.3rem;font-weight:800;color:#6a1b9a}
+nav .logo span{color:#ab47bc}
+nav .nl{display:flex;gap:2rem;font-size:.9rem;font-weight:500;align-items:center}
+.nc{background:#6a1b9a;color:#fff!important;padding:.6rem 1.5rem;border-radius:50px;font-size:.85rem}
+
+.hero{background:linear-gradient(135deg,#f3e5f5,#e1bee7,#f3e5f5);min-height:80vh;display:flex;align-items:center;padding:5rem 2rem}
+.hi{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1fr;gap:4rem;align-items:center}
+.hero h1{font-size:2.8rem;font-weight:800;color:#4a148c;line-height:1.15;margin-bottom:1rem}
+.hero h1 span{color:#8e24aa}
+.ht p{font-size:1.1rem;color:#666;line-height:1.7;margin-bottom:2rem}
+.hb{display:flex;gap:1rem;flex-wrap:wrap}
+.bp{background:#6a1b9a;color:#fff;padding:.9rem 2rem;border-radius:50px;font-weight:600;transition:.3s}
+.bp:hover{background:#4a148c}
+.bo{border:2px solid #6a1b9a;color:#6a1b9a;padding:.85rem 2rem;border-radius:50px;font-weight:600;transition:.3s}
+.bo:hover{background:#6a1b9a;color:#fff}
+.hv{text-align:center;font-size:10rem}
+
+section{padding:4rem 2rem}
+.sh{text-align:center;margin-bottom:3rem}
+.sh h2{font-size:2rem;font-weight:800;color:#4a148c;margin-bottom:.5rem}
+.sh p{color:#777}
+
+.services{background:#fff}
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;max-width:1100px;margin:0 auto}
+.sc{background:#faf5ff;border:1px solid #f3e5f5;border-radius:16px;padding:2rem;text-align:center;transition:.3s}
+.sc:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(106,27,154,.1);border-color:#ce93d8}
+.sc .si{font-size:2.5rem;margin-bottom:.75rem}
+.sc h3{font-size:1rem;color:#6a1b9a;margin-bottom:.5rem}
+.sc p{font-size:.85rem;color:#666;line-height:1.5}
+
+.pricing{background:#faf5ff}
+.ptable{max-width:800px;margin:0 auto;width:100%;border-collapse:collapse;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 5px 20px rgba(0,0,0,.05)}
+.ptable th{background:#6a1b9a;color:#fff;padding:1rem;font-size:.85rem;text-align:left}
+.ptable td{padding:.8rem 1rem;border-bottom:1px solid #f3e5f5;font-size:.88rem;color:#555}
+.ptable tr:hover td{background:#faf5ff}
+.ptable .price{font-weight:700;color:#6a1b9a}
+
+.whyus{background:#fff}
+.wg{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;max-width:1000px;margin:0 auto}
+.wc{display:flex;gap:1rem;align-items:flex-start}
+.wi{width:45px;height:45px;background:#f3e5f5;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+.wc h4{font-size:.95rem;color:#6a1b9a;margin-bottom:.3rem}
+.wc p{font-size:.83rem;color:#777;line-height:1.5}
+
+.ct{background:linear-gradient(135deg,#6a1b9a,#4a148c);color:#fff;text-align:center;padding:3rem 2rem}
+.ct h2{font-size:2rem;margin-bottom:1rem}
+.ct p{opacity:.8;margin-bottom:1.5rem}
+.ctb{display:inline-block;background:#fff;color:#6a1b9a;padding:1rem 2.5rem;border-radius:50px;font-weight:700}
+
+.contact{background:#faf5ff}
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:3rem;max-width:1000px;margin:0 auto}
+.ci h3{font-size:1.4rem;color:#4a148c;margin-bottom:1.5rem}
+.citem{display:flex;gap:1rem;margin-bottom:1.5rem}
+.cicon{width:45px;height:45px;background:#f3e5f5;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.citem h4{font-size:.9rem;margin-bottom:.2rem}
+.citem p{font-size:.85rem;color:#777}
+.mp{background:#f3e5f5;border-radius:16px;height:100%;min-height:300px;display:flex;align-items:center;justify-content:center;color:#ce93d8;font-size:1.1rem;font-weight:600;border:2px dashed #ce93d8}
+
+footer{background:#4a148c;color:rgba(255,255,255,.6);text-align:center;padding:2rem;font-size:.85rem}
+@media(max-width:768px){.hi,.cg{grid-template-columns:1fr}.hero h1{font-size:2rem}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Print<span>Hub</span> &#128424;</div>
+  <div class="nl"><a href="#services">Services</a><a href="#pricing">Pricing</a><a href="#contact">Contact</a><a href="tel:+919447523113" class="nc">&#128222; Get Quote</a></div>
+</nav>
+
+<section class="hero">
+  <div class="hi">
+    <div class="ht">
+      <h1>Quality Printing. <span>Quick Turnaround.</span></h1>
+      <p>Thodupuzha's go-to digital printing press. Business cards to banners, wedding cards to brochures - we print everything with precision, vibrant colours, and at prices that work for you.</p>
+      <div class="hb">
+        <a href="tel:+919447523113" class="bp">&#128222; Get Free Quote</a>
+        <a href="#pricing" class="bo">See Pricing &rarr;</a>
+      </div>
+    </div>
+    <div class="hv">&#128424;</div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="sh"><h2>What We Print</h2><p>Complete printing solutions for businesses and individuals</p></div>
+  <div class="sg">
+    <div class="sc"><div class="si">&#128196;</div><h3>Business Cards</h3><p>Premium quality cards on 300gsm art paper. Matte, glossy, or textured finish. Same-day available.</p></div>
+    <div class="sc"><div class="si">&#128240;</div><h3>Brochures & Flyers</h3><p>Single page flyers to multi-fold brochures. Full color offset or digital printing.</p></div>
+    <div class="sc"><div class="si">&#127881;</div><h3>Wedding Cards</h3><p>Beautiful invitation cards with custom design. Embossing, foil printing, and specialty paper available.</p></div>
+    <div class="sc"><div class="si">&#128444;</div><h3>Flex & Banners</h3><p>Large format flex printing, vinyl banners, standees, and hoardings up to any size.</p></div>
+    <div class="sc"><div class="si">&#128203;</div><h3>Bills & Receipts</h3><p>Multi-part NCR forms, receipt books, delivery challans, and invoice pads.</p></div>
+    <div class="sc"><div class="si">&#128717;</div><h3>Stickers & Labels</h3><p>Product labels, bottle stickers, packaging labels with die-cut options.</p></div>
+    <div class="sc"><div class="si">&#128214;</div><h3>Books & Catalogs</h3><p>Perfect binding, saddle stitch, or spiral binding for books, catalogs, and manuals.</p></div>
+    <div class="sc"><div class="si">&#128085;</div><h3>T-Shirt Printing</h3><p>Custom t-shirt printing for events, teams, and businesses. Bulk orders welcome.</p></div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <div class="sh"><h2>Indicative Pricing</h2><p>Competitive rates for all your printing needs</p></div>
+  <table class="ptable">
+    <tr><th>Product</th><th>Quantity</th><th>Price</th><th>Turnaround</th></tr>
+    <tr><td>Business Cards (300gsm)</td><td>200 pcs</td><td class="price">&#8377;350</td><td>Same day</td></tr>
+    <tr><td>Business Cards (300gsm)</td><td>500 pcs</td><td class="price">&#8377;600</td><td>Same day</td></tr>
+    <tr><td>A4 Flyers (Full Color)</td><td>100 pcs</td><td class="price">&#8377;500</td><td>1 day</td></tr>
+    <tr><td>A4 Flyers (Full Color)</td><td>500 pcs</td><td class="price">&#8377;1,800</td><td>1-2 days</td></tr>
+    <tr><td>Flex Banner (per sq ft)</td><td>-</td><td class="price">&#8377;12/sqft</td><td>Same day</td></tr>
+    <tr><td>Wedding Cards (Premium)</td><td>100 pcs</td><td class="price">&#8377;3,000+</td><td>3-5 days</td></tr>
+    <tr><td>Bill Books (NCR, 50 sets)</td><td>1 pad</td><td class="price">&#8377;450</td><td>2 days</td></tr>
+    <tr><td>Product Stickers</td><td>500 pcs</td><td class="price">&#8377;800</td><td>1-2 days</td></tr>
+    <tr><td>Custom T-Shirt</td><td>1 pc</td><td class="price">&#8377;350</td><td>1 day</td></tr>
+  </table>
+</section>
+
+<section class="whyus">
+  <div class="sh"><h2>Why PrintHub?</h2><p>We're not just a printing shop - we're your printing partner</p></div>
+  <div class="wg">
+    <div class="wc"><div class="wi">&#9889;</div><div><h4>Express Printing</h4><p>Same-day delivery for business cards, flyers, and banners. Rush orders accepted.</p></div></div>
+    <div class="wc"><div class="wi">&#127912;</div><div><h4>Free Design Service</h4><p>Don't have a design? Our in-house designer creates it for you at no extra charge.</p></div></div>
+    <div class="wc"><div class="wi">&#128176;</div><div><h4>Best Prices Guaranteed</h4><p>Competitive pricing without compromising quality. Bulk discounts available.</p></div></div>
+    <div class="wc"><div class="wi">&#128666;</div><div><h4>Free Delivery</h4><p>Free delivery within Thodupuzha town for orders above &#8377;500.</p></div></div>
+    <div class="wc"><div class="wi">&#10024;</div><div><h4>Premium Quality</h4><p>Latest Konica Minolta digital press and HP large format printer for vibrant output.</p></div></div>
+    <div class="wc"><div class="wi">&#128241;</div><div><h4>WhatsApp Orders</h4><p>Just send your design on WhatsApp. We'll print and deliver. Simple.</p></div></div>
+  </div>
+</section>
+
+<section class="ct">
+  <h2>Need Something Printed?</h2>
+  <p>Call us or WhatsApp your design for a quick quote. Free design consultation available.</p>
+  <a href="tel:+919447523113" class="ctb">&#128222; Call +91 94475 23113</a>
+</section>
+
+<section class="contact" id="contact">
+  <div class="cg">
+    <div class="ci">
+      <h3>Visit Our Press</h3>
+      <div class="citem"><div class="cicon">&#128205;</div><div><h4>Address</h4><p>T.C.M Buildings, Manakadu Junction,<br>Thodupuzha, Kerala 685584</p></div></div>
+      <div class="citem"><div class="cicon">&#128222;</div><div><h4>Phone</h4><p>+91 94475 23113<br>+91 4862 225 000</p></div></div>
+      <div class="citem"><div class="cicon">&#128340;</div><div><h4>Working Hours</h4><p>Mon-Sat: 9:00 AM - 7:00 PM<br>Sunday: Closed</p></div></div>
+      <div class="citem"><div class="cicon">&#128242;</div><div><h4>WhatsApp</h4><p>+91 94475 23113 (Send design files)</p></div></div>
+    </div>
+    <div class="mp">&#128506; Google Map Here</div>
+  </div>
+</section>
+
+<footer><p>&copy; 2025 PrintHub Digital Press, Thodupuzha.</p></footer>
+</body>
+</html>

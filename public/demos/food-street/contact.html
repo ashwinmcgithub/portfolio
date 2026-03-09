@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visit Us | Old Monk Food Street Thodupuzha</title>
+  <meta name="description" content="Find Old Monk Food Street on River View Road, Thodupuzha Kerala. Open 10AM–12AM daily. Get directions and contact us.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    .page-hero-bg {
+      background:
+        linear-gradient(0deg, rgba(8,8,8,0.9) 0%, rgba(8,8,8,0.55) 100%),
+        url('https://images.unsplash.com/photo-1514190051997-0f6f39ca5cde?w=1600&q=80') center/cover;
+    }
+    .hours-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .hours-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.2rem;
+      transition: border-color 0.3s;
+    }
+    .hours-card:hover { border-color: rgba(255,215,0,0.3); }
+    .hours-card.today {
+      border-color: var(--yellow);
+      background: rgba(255,215,0,0.06);
+    }
+    .hours-day {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 0.4rem;
+    }
+    .hours-card.today .hours-day { color: var(--yellow); }
+    .hours-time {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.3rem;
+      color: var(--white);
+      letter-spacing: 1px;
+    }
+    .hours-status {
+      font-size: 0.68rem;
+      font-weight: 600;
+      margin-top: 4px;
+      color: #22c55e;
+    }
+    .info-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .info-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem;
+      text-align: center;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .info-card:hover { transform: translateY(-6px); border-color: rgba(255,215,0,0.3); }
+    .info-card-icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
+    .info-card-title { font-weight: 700; font-size: 0.98rem; color: var(--white); margin-bottom: 0.5rem; }
+    .info-card-val { font-size: 0.88rem; color: var(--gray); line-height: 1.7; }
+    .info-card-val a { color: var(--yellow); text-decoration: none; }
+    .directions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+      margin-top: 3rem;
+    }
+    .direction-steps { display: flex; flex-direction: column; gap: 1.2rem; }
+    .direction-step {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .step-number {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--yellow);
+      color: var(--black);
+      font-weight: 700;
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-text { font-size: 0.9rem; color: var(--light); line-height: 1.7; padding-top: 6px; }
+    .faq-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+    .faq-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .faq-question {
+      padding: 1.2rem 1.5rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .faq-question:hover { color: var(--yellow); }
+    .faq-question .faq-icon { font-size: 1.2rem; transition: transform 0.3s; color: var(--yellow); flex-shrink: 0; }
+    .faq-answer {
+      padding: 0 1.5rem;
+      font-size: 0.88rem;
+      color: var(--gray);
+      line-height: 1.8;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.4s;
+    }
+    .faq-item.open .faq-answer { max-height: 200px; padding-bottom: 1.2rem; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    @media(max-width:768px){ .directions-grid{ grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo">VISIT US</div>
+  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+</div>
+<div class="cursor"></div>
+<div class="cursor-follower"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">OLD <span>MONK</span><span class="dot">·</span>FS</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="menu.html">Menu</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="contact.html">Visit Us</a></li>
+  </ul>
+  <a href="contact.html" class="nav-reserve">Find Us</a>
+  <div class="hamburger"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu">
+  <a href="index.html">Home</a><a href="menu.html">Menu</a>
+  <a href="gallery.html">Gallery</a><a href="events.html">Events</a>
+  <a href="contact.html">Visit Us</a>
+</div>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-content reveal">
+    <div class="section-tag">River View Road, Thodupuzha</div>
+    <h1 class="page-hero-title">Come <span>Visit Us</span></h1>
+    <p class="page-hero-sub">We're open 10AM–12AM every day. Find us by the Thodupuzha River.</p>
+  </div>
+</div>
+
+<!-- QUICK INFO CARDS -->
+<section style="padding-bottom:3rem;">
+  <div class="info-cards-grid">
+    <div class="info-card reveal delay-1">
+      <span class="info-card-icon">📍</span>
+      <div class="info-card-title">Address</div>
+      <div class="info-card-val">WP32+RQ6, River View Rd<br>Thodupuzha, Kerala 685608</div>
+    </div>
+    <div class="info-card reveal delay-2">
+      <span class="info-card-icon">🕙</span>
+      <div class="info-card-title">Opening Hours</div>
+      <div class="info-card-val">10:00 AM – 12:00 AM<br><span style="color:#22c55e;font-weight:600;">Open 7 days a week</span></div>
+    </div>
+    <div class="info-card reveal delay-3">
+      <span class="info-card-icon">📸</span>
+      <div class="info-card-title">Social Media</div>
+      <div class="info-card-val"><a href="https://www.instagram.com/old_monk_food_street/" target="_blank">@old_monk_food_street</a><br>Follow for updates & events</div>
+    </div>
+    <div class="info-card reveal delay-4">
+      <span class="info-card-icon">⭐</span>
+      <div class="info-card-title">Rating</div>
+      <div class="info-card-val">4.3/5 on Google Maps<br>395+ verified reviews</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOURS -->
+<section style="padding-top:2rem;background:var(--dark);">
+  <div class="reveal">
+    <div class="section-tag">Opening Times</div>
+    <h2 class="section-title">We're Open <span>Every Day</span></h2>
+    <p class="section-subtitle" style="margin-top:0.75rem;">Come any day of the week — we're always ready to serve you!</p>
+  </div>
+  <div class="hours-grid reveal">
+    <div class="hours-card"><div class="hours-day">Monday</div><div class="hours-time">10AM – 12AM</div><div class="hours-status">● Open</div></div>
+    <div class="hours-card"><div class="hours-day">Tuesday</div><div class="hours-time">10AM – 12AM</div><div class="hours-status">● Open</div></div>
+    <div class="hours-card"><div class="hours-day">Wednesday</div><div class="hours-time">10AM – 12AM</div><div class="hours-status">● Open</div></div>
+    <div class="hours-card"><div class="hours-day">Thursday</div><div class="hours-time">10AM – 12AM</div><div class="hours-status">● Open</div></div>
+    <div class="hours-card"><div class="hours-day">Friday</div><div class="hours-time">10AM – 12AM</div><div class="hours-status">● Open</div></div>
+    <div class="hours-card today"><div class="hours-day">Saturday ✦ Today</div><div class="hours-time">10AM – 12AM</div><div class="hours-status">● Open Now!</div></div>
+    <div class="hours-card"><div class="hours-day">Sunday</div><div class="hours-time">10AM – 12AM</div><div class="hours-status">● Open</div></div>
+  </div>
+  <p style="font-size:0.8rem;color:var(--gray);margin-top:1rem;font-style:italic;">* Best time to visit: 6PM–9PM for live events on weekends</p>
+</section>
+
+<!-- MAP + FORM -->
+<section>
+  <div class="contact-grid">
+    <div class="contact-info reveal-left">
+      <div class="section-tag">Get in Touch</div>
+      <h2 class="section-title">Say <span>Hello</span></h2>
+      <p class="section-subtitle" style="margin-top:0.75rem;max-width:100%;">Have questions, want to book our stage for an event, or just want to say hi? Drop us a message!</p>
+
+      <div class="info-block">
+        <div class="info-label">📍 Location</div>
+        <div class="info-value">WP32+RQ6, River View Road<br>Thodupuzha, Idukki, Kerala – 685608</div>
+      </div>
+
+      <div class="info-block">
+        <div class="info-label">🕙 Hours</div>
+        <div class="info-value">10:00 AM – 12:00 AM<br>All 7 days · Holidays included</div>
+      </div>
+
+      <div class="info-block">
+        <div class="info-label">📸 Instagram</div>
+        <div class="info-value">
+          <a href="https://www.instagram.com/old_monk_food_street/" target="_blank" style="color:var(--yellow);text-decoration:none;">@old_monk_food_street</a>
+          <br>DM us for quick replies
+        </div>
+      </div>
+
+      <div class="info-block">
+        <div class="info-label">⭐ Reviews</div>
+        <div class="info-value">
+          4.3/5 on Google Maps · 395+ Reviews<br>
+          <a href="https://maps.app.goo.gl/" target="_blank" style="color:var(--yellow);font-size:0.85rem;text-decoration:none;">Leave a Google Review →</a>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+        <a href="https://www.google.com/maps/search/?api=1&query=Old+Monk+Food+Street+Thodupuzha" target="_blank" class="btn-primary">📍 Open in Google Maps</a>
+        <a href="https://www.instagram.com/old_monk_food_street/" target="_blank" class="btn-outline">📸 Instagram</a>
+      </div>
+    </div>
+
+    <!-- CONTACT FORM -->
+    <div class="reveal-right">
+      <div class="contact-form">
+        <h3 style="font-family:'Bebas Neue',cursive;font-size:1.8rem;letter-spacing:2px;color:var(--white);margin-bottom:0.5rem;">
+          Send a <span style="color:var(--yellow);">Message</span>
+        </h3>
+        <p style="font-size:0.85rem;color:var(--gray);margin-bottom:2rem;">We'll get back to you via Instagram DM or phone.</p>
+        <form id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Your Name</label>
+              <input type="text" placeholder="e.g. Arun Mathew" required>
+            </div>
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" placeholder="+91 98765 43210">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Subject</label>
+            <select>
+              <option value="">Select a subject...</option>
+              <option>General Enquiry</option>
+              <option>Book the Stage for an Event</option>
+              <option>Vendor Partnership</option>
+              <option>Feedback / Review</option>
+              <option>Media / Press</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea placeholder="Tell us more about your enquiry..." required></textarea>
+          </div>
+          <button type="submit" class="btn-primary" style="width:100%;justify-content:center;border:none;font-size:0.9rem;padding:16px;">
+            Send Message →
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAP -->
+  <div class="map-wrap reveal" style="margin-top:3rem;">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3931.4!2d76.7158!3d9.8944!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b07c474a8b4265b%3A0x74a9939d1bcaece6!2sThodupuzha%2C%20Kerala%20685584!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      title="Old Monk Food Street Location Map">
+    </iframe>
+  </div>
+</section>
+
+<!-- DIRECTIONS -->
+<section style="background:var(--dark);padding-top:5rem;padding-bottom:5rem;">
+  <div class="reveal" style="margin-bottom:2rem;">
+    <div class="section-tag">How to Reach Us</div>
+    <h2 class="section-title">Getting <span>Here</span></h2>
+  </div>
+  <div class="directions-grid">
+    <div>
+      <h3 style="font-weight:600;font-size:1.05rem;color:var(--white);margin-bottom:1.5rem;">From Thodupuzha Town Centre</h3>
+      <div class="direction-steps">
+        <div class="direction-step reveal delay-1">
+          <div class="step-number">1</div>
+          <div class="step-text">Head towards the <strong style="color:var(--yellow);">Thodupuzha River</strong> from the main town circle.</div>
+        </div>
+        <div class="direction-step reveal delay-2">
+          <div class="step-number">2</div>
+          <div class="step-text">Take the <strong style="color:var(--yellow);">River View Road</strong> — the road that runs alongside the river bank.</div>
+        </div>
+        <div class="direction-step reveal delay-3">
+          <div class="step-number">3</div>
+          <div class="step-text">Look for the <strong style="color:var(--yellow);">Old Monk Food Street</strong> signage on your right. Free parking is available.</div>
+        </div>
+        <div class="direction-step reveal delay-4">
+          <div class="step-number">4</div>
+          <div class="step-text">🎉 You've arrived! Google Maps Plus Code: <strong style="color:var(--yellow);">WP32+RQ6</strong></div>
+        </div>
+      </div>
+      <div style="margin-top:2rem;">
+        <a href="https://www.google.com/maps/search/?api=1&query=Old+Monk+Food+Street+Thodupuzha" target="_blank" class="btn-primary">
+          📍 Open in Google Maps
+        </a>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-weight:600;font-size:1.05rem;color:var(--white);margin-bottom:1.5rem;">Nearby Landmarks</h3>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div class="feature-card" style="padding:1rem 1.2rem;">
+          <div style="font-size:0.88rem;color:var(--white);font-weight:600;">🏥 Near Baby Memorial Hospital (CMS Hospital)</div>
+          <div style="font-size:0.8rem;color:var(--gray);margin-top:4px;">River View Road, Thodupuzha</div>
+        </div>
+        <div class="feature-card" style="padding:1rem 1.2rem;">
+          <div style="font-size:0.88rem;color:var(--white);font-weight:600;">🌊 Thodupuzha River Bank</div>
+          <div style="font-size:0.8rem;color:var(--gray);margin-top:4px;">The food street is right on the riverside</div>
+        </div>
+        <div class="feature-card" style="padding:1rem 1.2rem;">
+          <div style="font-size:0.88rem;color:var(--white);font-weight:600;">🚌 KSRTC Bus Stand Thodupuzha</div>
+          <div style="font-size:0.8rem;color:var(--gray);margin-top:4px;">Short auto-rickshaw ride away</div>
+        </div>
+        <div class="feature-card" style="padding:1rem 1.2rem;">
+          <div style="font-size:0.88rem;color:var(--white);font-weight:600;">🅿️ Free Parking Available</div>
+          <div style="font-size:0.8rem;color:var(--gray);margin-top:4px;">Ample parking space for cars and bikes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="reveal" style="margin-bottom:2rem;">
+    <div class="section-tag">FAQ</div>
+    <h2 class="section-title">Common <span>Questions</span></h2>
+  </div>
+  <div class="faq-list reveal" style="max-width:720px;">
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        What are the opening hours?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-answer">We are open every day from 10:00 AM to 12:00 AM (midnight). For the best experience with all vendors and live events, visit us between 6PM and 10PM.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        Is there an entry fee?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-answer">No! Entry to Old Monk Food Street is completely free. You only pay for what you eat and drink. Even our live events are free to attend.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        Is it family-friendly?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-answer">Absolutely! We have a dedicated kids' play area, table service, clean facilities and a variety of food options for all ages. Families are our most valued guests.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        Can I book the stage for a private event?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-answer">Yes! Our riverside stage is available for private events, performances and promotions. Contact us via Instagram DM at @old_monk_food_street or use the form above.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        Is parking available?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-answer">Yes, free parking is available for both cars and two-wheelers. The parking area is right outside the food street entrance on River View Road.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        Are there vegetarian options?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-answer">Definitely! Almost all our vendors offer vegetarian options — from momos and dosas to chaat, juices and desserts. Vegan options are also available on request.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo">OLD <span>MONK</span><span class="dot">·</span>FS</a>
+      <p>Thodupuzha's riverside food destination. Come hungry, leave happy.</p>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/old_monk_food_street/" target="_blank" class="social-btn">📸</a>
+        <a href="https://www.google.com/maps/search/?api=1&query=Old+Monk+Food+Street+Thodupuzha" target="_blank" class="social-btn">📍</a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Pages</h4><ul>
+      <li><a href="index.html">Home</a></li><li><a href="menu.html">Menu</a></li>
+      <li><a href="gallery.html">Gallery</a></li><li><a href="events.html">Events</a></li>
+      <li><a href="contact.html">Visit Us</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Contact</h4><ul>
+      <li><a href="https://www.instagram.com/old_monk_food_street/" target="_blank">Instagram DM</a></li>
+      <li><a href="#">Google Maps</a></li>
+      <li><a href="#">Book the Stage</a></li>
+      <li><a href="#">Leave a Review</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Visit</h4><ul>
+      <li><a href="#">River View Rd, Thodupuzha</a></li>
+      <li><a href="#">Kerala 685608</a></li>
+      <li><a href="#">10AM – 12AM Daily</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Old Monk Food Street. All rights reserved.</p>
+    <p>Built with ❤️ · <a href="#">Portfolio Demo</a></p>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+function toggleFaq(el) {
+  const item = el.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(f => f.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+// Mark today in hours grid
+const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const today = days[new Date().getDay()];
+document.querySelectorAll('.hours-card').forEach(c => {
+  if (c.querySelector('.hours-day').textContent.includes(today)) {
+    c.classList.add('today');
+    c.querySelector('.hours-day').textContent = today + ' ✦ Today';
+    c.querySelector('.hours-status').textContent = '● Open Now!';
+  } else {
+    c.classList.remove('today');
+  }
+});
+</script>
+</body>
+</html>

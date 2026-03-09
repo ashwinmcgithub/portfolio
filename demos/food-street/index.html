@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Old Monk Food Street | Thodupuzha's Premier Food Experience</title>
+  <meta name="description" content="Old Monk Food Street — Thodupuzha's riverside food destination. 7 vendors, momos, Kerala cuisine, live events and more. Open 10AM–12AM daily.">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* Page-specific overrides */
+    .hero { padding-top: var(--nav-h); }
+    .story-section { background: var(--dark); }
+    .vendor-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+    .vendor-chip {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .vendor-chip:hover { border-color: var(--yellow); background: rgba(255,215,0,0.05); }
+    .vendor-chip-icon { font-size: 1.4rem; }
+    .vendor-chip-name { font-size: 0.82rem; font-weight: 600; color: var(--light); }
+    .rating-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,215,0,0.1);
+      border: 1px solid rgba(255,215,0,0.3);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      color: var(--yellow);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo">OLD MONK</div>
+  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+</div>
+
+<!-- CUSTOM CURSOR -->
+<div class="cursor"></div>
+<div class="cursor-follower"></div>
+
+<!-- NAVIGATION -->
+<nav>
+  <a href="index.html" class="nav-logo">OLD <span>MONK</span><span class="dot">·</span>FS</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="menu.html">Menu</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="contact.html">Visit Us</a></li>
+  </ul>
+  <a href="contact.html" class="nav-reserve">Find Us</a>
+  <div class="hamburger" role="button" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="menu.html">Menu</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="events.html">Events</a>
+  <a href="contact.html">Visit Us</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-particles"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Thodupuzha's Premier Riverside Food Destination</div>
+    <h1 class="hero-title">
+      <span class="stroke">Street</span>
+      <span class="yellow">Food</span>
+      Reimagined
+    </h1>
+    <p class="hero-desc">
+      7 handpicked vendors. Riverside vibes. From steaming momos to authentic Kerala flavours — every bite tells a story at Old Monk Food Street.
+    </p>
+    <div class="hero-actions">
+      <a href="menu.html" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8.1 13.34l2.83-2.83L3.91 3.5c-1.56 1.56-1.56 4.09 0 5.66l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.2-1.1-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41L13.41 13l1.47-1.47z"/></svg>
+        Explore Menu
+      </a>
+      <a href="gallery.html" class="btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+        View Gallery
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num"><span data-target="7" data-suffix="+">0+</span></div>
+        <div class="stat-label">Food Vendors</div>
+      </div>
+      <div class="stat" style="border-left:1px solid rgba(255,255,255,0.1);border-right:1px solid rgba(255,255,255,0.1);padding:0 3rem;">
+        <div class="stat-num"><span data-target="395" data-suffix="+">0+</span></div>
+        <div class="stat-label">Google Reviews</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4.3<span style="font-size:1.2rem;color:var(--gray)">★</span></div>
+        <div class="stat-label">Average Rating</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span>Momos</span>
+    <span>Kerala Cuisine</span>
+    <span>Mandi & Alfaham</span>
+    <span>Vada Pav</span>
+    <span>Chaat</span>
+    <span>Monkz Café Teas</span>
+    <span>Fresh Juices</span>
+    <span>Live Events</span>
+    <span>Riverside Vibes</span>
+  </div>
+</div>
+
+<!-- ABOUT SPLIT -->
+<section class="story-section">
+  <div class="about-split">
+    <div class="about-img-wrap reveal-left">
+      <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=700&q=80" alt="Old Monk Food Street ambiance" class="about-img-main">
+      <div class="about-img-badge">
+        <strong>4.3</strong>
+        Google<br>Rating
+      </div>
+    </div>
+    <div class="about-text reveal-right">
+      <div class="section-tag">Our Story</div>
+      <h2 class="section-title">Where Every<br><span>Bite Feels</span><br>Like Home</h2>
+      <div class="gold-divider"></div>
+      <p class="section-subtitle">
+        Nestled along the banks of the Thodupuzha River, Old Monk Food Street is more than a food court — it's a gathering place for food lovers, families, and friends. Seven curated vendors, a stage for live events, and 60+ seats with river views await you.
+      </p>
+      <ul class="about-list" style="list-style:none;">
+        <li>7 handpicked culinary vendors under one roof</li>
+        <li>Live events on our riverside stage</li>
+        <li>Kids' play area for family outings</li>
+        <li>Open daily 10 AM – 12 AM</li>
+        <li>Located on River View Road, Thodupuzha</li>
+        <li>Free parking available for visitors</li>
+      </ul>
+      <div style="margin-top:2rem;display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
+        <a href="contact.html" class="btn-primary">Get Directions</a>
+        <div class="rating-badge">⭐ 4.3 on Google Maps</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section>
+  <div class="text-center reveal">
+    <div class="section-tag">Why Visit Us</div>
+    <h2 class="section-title">The Old Monk <span>Experience</span></h2>
+    <p class="section-subtitle" style="margin:0.75rem auto 0;">Everything you need for a perfect evening — food, vibes, and memories.</p>
+  </div>
+  <div class="features-grid" style="margin-top:3.5rem;">
+    <div class="feature-card reveal delay-1">
+      <span class="feature-icon">🍜</span>
+      <div class="feature-title">Diverse Cuisine</div>
+      <div class="feature-desc">From street momos to mandi, Kerala beef fry to vada pav — there's something for every palate.</div>
+    </div>
+    <div class="feature-card reveal delay-2">
+      <span class="feature-icon">🌊</span>
+      <div class="feature-title">Riverside Ambiance</div>
+      <div class="feature-desc">Dine alongside the serene Thodupuzha River with a cozy, open-air atmosphere you'll love.</div>
+    </div>
+    <div class="feature-card reveal delay-3">
+      <span class="feature-icon">🎶</span>
+      <div class="feature-title">Live Events</div>
+      <div class="feature-desc">Enjoy live music performances and cultural events on our dedicated riverside stage.</div>
+    </div>
+    <div class="feature-card reveal delay-4">
+      <span class="feature-icon">👨‍👩‍👧</span>
+      <div class="feature-title">Family Friendly</div>
+      <div class="feature-desc">A dedicated kids' play area and table service make it perfect for all-day family visits.</div>
+    </div>
+  </div>
+</section>
+
+<!-- VENDORS -->
+<section style="background:var(--dark);padding-top:5rem;padding-bottom:5rem;">
+  <div class="reveal">
+    <div class="section-tag">Our Vendors</div>
+    <h2 class="section-title">7 Vendors, <span>Infinite Flavours</span></h2>
+    <p class="section-subtitle">Each vendor brings a unique culinary tradition to our food street.</p>
+  </div>
+  <div class="vendor-strip">
+    <div class="vendor-chip reveal delay-1"><span class="vendor-chip-icon">🥟</span><span class="vendor-chip-name">Momos & Dimsums</span></div>
+    <div class="vendor-chip reveal delay-1"><span class="vendor-chip-icon">🍛</span><span class="vendor-chip-name">Kerala Specials</span></div>
+    <div class="vendor-chip reveal delay-2"><span class="vendor-chip-icon">🫕</span><span class="vendor-chip-name">Mandi & Alfaham</span></div>
+    <div class="vendor-chip reveal delay-2"><span class="vendor-chip-icon">🥙</span><span class="vendor-chip-name">Vada Pav & Chaat</span></div>
+    <div class="vendor-chip reveal delay-3"><span class="vendor-chip-icon">☕</span><span class="vendor-chip-name">Monkz Café Teas</span></div>
+    <div class="vendor-chip reveal delay-3"><span class="vendor-chip-icon">🥤</span><span class="vendor-chip-name">Fresh Juices</span></div>
+    <div class="vendor-chip reveal delay-4"><span class="vendor-chip-icon">🍕</span><span class="vendor-chip-name">Dosas & Snacks</span></div>
+  </div>
+</section>
+
+<!-- MENU PREVIEW -->
+<section>
+  <div class="reveal" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:2.5rem;">
+    <div>
+      <div class="section-tag">Popular Picks</div>
+      <h2 class="section-title">Fan <span>Favourites</span></h2>
+    </div>
+    <a href="menu.html" class="btn-outline" style="margin-bottom:0.5rem;">See Full Menu →</a>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-card reveal delay-1">
+      <div class="menu-card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1583077874340-79f869e7e8f8?w=600&q=80" alt="Momos" class="menu-card-img">
+        <span class="menu-card-badge">Best Seller</span>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-title">Steamed Momos</div>
+        <div class="menu-card-desc">Soft, juicy dumplings stuffed with seasoned fillings — veg or non-veg, served with spicy chutney.</div>
+      </div>
+      <div class="menu-card-footer">
+        <div class="menu-price">₹60 <span>onwards</span></div>
+        <a href="menu.html" class="menu-order-btn">View More</a>
+      </div>
+    </div>
+    <div class="menu-card reveal delay-2">
+      <div class="menu-card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=600&q=80" alt="Mandi" class="menu-card-img">
+        <span class="menu-card-badge">Signature</span>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-title">Mandi & Alfaham</div>
+        <div class="menu-card-desc">Authentic Arabian Mandi rice with slow-cooked meat, and grilled Alfaham that melts in your mouth.</div>
+      </div>
+      <div class="menu-card-footer">
+        <div class="menu-price">₹180 <span>onwards</span></div>
+        <a href="menu.html" class="menu-order-btn">View More</a>
+      </div>
+    </div>
+    <div class="menu-card reveal delay-3">
+      <div class="menu-card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80" alt="Monkz Tea" class="menu-card-img">
+        <span class="menu-card-badge">Crowd Fav</span>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-title">Monkz Café Teas</div>
+        <div class="menu-card-desc">Award-winning tea blends from our in-house café. Masala, Ginger, Kulhad, Cold Brew and more.</div>
+      </div>
+      <div class="menu-card-footer">
+        <div class="menu-price">₹30 <span>onwards</span></div>
+        <a href="menu.html" class="menu-order-btn">View More</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTAGRAM PREVIEW -->
+<section style="background:var(--dark);padding-top:5rem;padding-bottom:5rem;">
+  <div class="text-center reveal">
+    <div class="section-tag">@old_monk_food_street</div>
+    <h2 class="section-title">Follow Our <span>Story</span></h2>
+    <p class="section-subtitle" style="margin:0.75rem auto 0;">Real moments, real food. Follow us on Instagram for daily updates, reels and behind-the-scenes.</p>
+  </div>
+  <div class="insta-grid" style="margin-top:2.5rem;">
+    <div class="insta-item reveal delay-1">
+      <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&q=80" alt="Food Photo 1">
+      <div class="insta-overlay"><span class="insta-icon">📷</span></div>
+    </div>
+    <div class="insta-item reveal delay-2">
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80" alt="Food Photo 2">
+      <div class="insta-overlay"><span class="insta-icon">📷</span></div>
+    </div>
+    <div class="insta-item reveal delay-3">
+      <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&q=80" alt="Food Photo 3">
+      <div class="insta-overlay"><span class="insta-icon">📷</span></div>
+    </div>
+    <div class="insta-item reveal delay-4">
+      <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=80" alt="Food Photo 4">
+      <div class="insta-overlay"><span class="insta-icon">📷</span></div>
+    </div>
+    <div class="insta-item reveal delay-1">
+      <img src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=400&q=80" alt="Food Photo 5">
+      <div class="insta-overlay"><span class="insta-icon">📷</span></div>
+    </div>
+    <div class="insta-item reveal delay-2">
+      <img src="https://images.unsplash.com/photo-1543353071-087092ec393a?w=400&q=80" alt="Juice Photo">
+      <div class="insta-overlay"><span class="insta-icon">📷</span></div>
+    </div>
+    <div class="insta-item reveal delay-3">
+      <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=400&q=80" alt="Grill Photo">
+      <div class="insta-overlay"><span class="insta-icon">📷</span></div>
+    </div>
+    <div class="insta-item reveal delay-4">
+      <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&q=80" alt="Food Photo 8">
+      <div class="insta-overlay"><span class="insta-icon">📷</span></div>
+    </div>
+  </div>
+  <div class="text-center" style="margin-top:2.5rem;">
+    <a href="https://www.instagram.com/old_monk_food_street/" target="_blank" class="btn-primary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      Follow on Instagram
+    </a>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section>
+  <div class="reveal" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1rem;">
+    <div>
+      <div class="section-tag">Guest Reviews</div>
+      <h2 class="section-title">What People <span>Say</span></h2>
+    </div>
+    <div class="rating-badge" style="margin-bottom:0.5rem;">★ 4.3 · 395+ Google Reviews</div>
+  </div>
+  <div class="testimonials-track">
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"A lovely space to relax with family. The momos are incredible and Monkz Café has the best tea in town. The riverside setting is simply beautiful!"</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">A</div>
+        <div><div class="author-name">Arun Mathew</div><div class="author-sub">Thodupuzha · Google Review</div></div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"The mandi here is absolutely authentic! Great ambiance, live music on weekends, and the service is warm. My whole family loves this place."</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">S</div>
+        <div><div class="author-name">Sneha Raj</div><div class="author-sub">Kochi · Google Review</div></div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★☆</div>
+      <p class="testimonial-text">"Perfect evening spot! Kids had a blast in the play area while we enjoyed delicious food by the river. The variety of food is amazing — something for everyone."</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">R</div>
+        <div><div class="author-name">Riya Thomas</div><div class="author-sub">Ernakulam · Google Review</div></div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"Visited during a live event and it was magical! The food street atmosphere is unlike anywhere else in Thodupuzha. Must-visit for families and food lovers!"</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">P</div>
+        <div><div class="author-name">Priya Krishnan</div><div class="author-sub">Idukki · Google Review</div></div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"Clean facilities, hygienic food, great variety and excellent juices. Monkz Café teas deserve a special mention — I can come just for that!"</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">J</div>
+        <div><div class="author-name">Joseph George</div><div class="author-sub">Thodupuzha · Google Review</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section style="padding:5rem 5vw;background:linear-gradient(135deg,rgba(255,159,28,0.12) 0%,rgba(255,215,0,0.08) 50%,rgba(255,159,28,0.06) 100%);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="text-center reveal">
+    <div class="section-tag">Open Tonight</div>
+    <h2 class="section-title" style="font-size:clamp(2.5rem,6vw,5rem);">Come Hungry,<br><span>Leave Happy</span></h2>
+    <p class="section-subtitle" style="margin:1rem auto;max-width:480px;">River View Rd, Thodupuzha · Open 10AM – 12AM · 7 Days a Week</p>
+    <div class="hero-actions" style="margin-top:2rem;">
+      <a href="menu.html" class="btn-primary">Explore Menu</a>
+      <a href="contact.html" class="btn-outline">Get Directions</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo">OLD <span>MONK</span><span class="dot">·</span>FS</a>
+      <p>Thodupuzha's riverside food destination — where flavours meet the river and every evening becomes a memory.</p>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/old_monk_food_street/" target="_blank" class="social-btn" title="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+        <a href="https://maps.app.goo.gl/WP32RQ6" target="_blank" class="social-btn" title="Google Maps">📍</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Our Menu</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="contact.html">Visit Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Menu</h4>
+      <ul>
+        <li><a href="menu.html">Momos & Dimsums</a></li>
+        <li><a href="menu.html">Kerala Specials</a></li>
+        <li><a href="menu.html">Mandi & Alfaham</a></li>
+        <li><a href="menu.html">Vada Pav & Chaat</a></li>
+        <li><a href="menu.html">Beverages</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Visit Us</h4>
+      <ul>
+        <li><a href="#">River View Rd, Thodupuzha</a></li>
+        <li><a href="#">Kerala 685608</a></li>
+        <li><a href="#">Open 10AM – 12AM</a></li>
+        <li><a href="#">All days of the week</a></li>
+        <li><a href="https://www.instagram.com/old_monk_food_street/" target="_blank">@old_monk_food_street</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Old Monk Food Street. All rights reserved.</p>
+    <p>Built with ❤️ · <a href="#">Portfolio Demo</a></p>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

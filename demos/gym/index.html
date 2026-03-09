@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FitCore Fitness Studio | Best Gym in Thodupuzha</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;color:#fff;background:#111}
+a{text-decoration:none;color:inherit}
+
+nav{background:rgba(17,17,17,.95);backdrop-filter:blur(10px);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(255,255,255,.05)}
+nav .logo{font-size:1.4rem;font-weight:900;color:#ff9800}
+nav .nav-links{display:flex;gap:2rem;font-size:.9rem;font-weight:500;color:rgba(255,255,255,.7);align-items:center}
+nav .nav-links a:hover{color:#ff9800}
+.nav-cta{background:#ff9800;color:#111!important;padding:.6rem 1.5rem;border-radius:50px;font-size:.85rem;font-weight:700}
+
+.hero{min-height:100vh;background:linear-gradient(135deg,#111 0%,#1a1a2e 50%,#16213e 100%);display:flex;align-items:center;padding:5rem 2rem;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(255,152,0,.15),transparent);top:-100px;right:-100px;border-radius:50%}
+.hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.3fr 1fr;gap:3rem;align-items:center;position:relative;z-index:1}
+.hero h1{font-size:3rem;font-weight:900;line-height:1.1;margin-bottom:1rem}
+.hero h1 span{color:#ff9800}
+.hero p{color:rgba(255,255,255,.6);font-size:1.1rem;line-height:1.7;margin-bottom:2rem}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-o{background:#ff9800;color:#111;padding:.9rem 2rem;border-radius:50px;font-weight:700;transition:.3s;display:inline-flex;align-items:center;gap:.5rem}
+.btn-o:hover{background:#ffa726;transform:translateY(-2px)}
+.btn-oo{border:2px solid #ff9800;color:#ff9800;padding:.85rem 2rem;border-radius:50px;font-weight:600;transition:.3s}
+.btn-oo:hover{background:#ff9800;color:#111}
+.hero-visual{text-align:center;font-size:10rem}
+
+section{padding:4rem 2rem}
+.sec-h{text-align:center;margin-bottom:3rem}
+.sec-h h2{font-size:2rem;font-weight:900;margin-bottom:.5rem}
+.sec-h h2 span{color:#ff9800}
+.sec-h p{color:rgba(255,255,255,.5)}
+
+.features{background:#1a1a1a}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;max-width:1100px;margin:0 auto}
+.feat-card{background:#222;border:1px solid #333;border-radius:16px;padding:2rem;text-align:center;transition:.3s}
+.feat-card:hover{border-color:#ff9800;transform:translateY(-5px)}
+.feat-card .f-icon{font-size:2.5rem;margin-bottom:.75rem}
+.feat-card h3{font-size:1rem;color:#ff9800;margin-bottom:.5rem}
+.feat-card p{font-size:.85rem;color:rgba(255,255,255,.5);line-height:1.5}
+
+.plans{background:#111}
+.plan-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:1000px;margin:0 auto}
+.plan{background:#1a1a1a;border:1px solid #333;border-radius:20px;padding:2.5rem 2rem;text-align:center;transition:.3s}
+.plan:hover{border-color:#ff9800}
+.plan.featured{border:2px solid #ff9800;position:relative}
+.plan.featured::before{content:'BEST VALUE';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#ff9800;color:#111;font-size:.7rem;font-weight:800;padding:.3rem 1rem;border-radius:20px}
+.plan h3{font-size:1.1rem;color:#ff9800;margin-bottom:.5rem}
+.plan .price{font-size:2.5rem;font-weight:900;margin:.75rem 0}
+.plan .price span{font-size:1rem;color:rgba(255,255,255,.4)}
+.plan .per{font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:1.5rem}
+.plan ul{list-style:none;text-align:left;margin-bottom:2rem}
+.plan ul li{padding:.5rem 0;border-bottom:1px solid #2a2a2a;font-size:.9rem;color:rgba(255,255,255,.7)}
+.plan ul li::before{content:'&#10003; ';color:#ff9800;font-weight:700}
+.plan-btn{display:inline-block;width:100%;padding:.8rem;background:#ff9800;color:#111;border-radius:50px;font-weight:700;transition:.3s}
+.plan-btn:hover{background:#ffa726}
+
+.trainers{background:#1a1a1a}
+.t-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;max-width:800px;margin:0 auto}
+.trainer{text-align:center;background:#222;border-radius:16px;padding:2rem;border:1px solid #333}
+.trainer .t-av{width:80px;height:80px;background:#333;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 1rem;border:3px solid #ff9800}
+.trainer h4{font-size:.95rem;color:#ff9800}
+.trainer p{font-size:.8rem;color:rgba(255,255,255,.5)}
+
+.schedule{background:#111}
+.sched-table{max-width:800px;margin:0 auto;width:100%;border-collapse:collapse}
+.sched-table th{background:#ff9800;color:#111;padding:1rem;font-size:.85rem;text-align:left}
+.sched-table td{padding:.8rem 1rem;border-bottom:1px solid #222;font-size:.88rem;color:rgba(255,255,255,.7)}
+.sched-table tr:hover td{background:#1a1a1a}
+
+.contact-s{background:#1a1a1a}
+.c-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;max-width:1000px;margin:0 auto}
+.c-info h3{font-size:1.4rem;color:#ff9800;margin-bottom:1.5rem}
+.c-item{display:flex;gap:1rem;margin-bottom:1.5rem}
+.ci{width:45px;height:45px;background:#222;border:1px solid #333;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.c-item h4{font-size:.9rem;margin-bottom:.2rem}
+.c-item p{font-size:.85rem;color:rgba(255,255,255,.5)}
+.map-ph{background:#222;border-radius:16px;height:100%;min-height:300px;display:flex;align-items:center;justify-content:center;color:#555;font-size:1.1rem;font-weight:600;border:2px dashed #333}
+
+footer{background:#0a0a0a;color:rgba(255,255,255,.3);text-align:center;padding:2rem;font-size:.85rem}
+.wa{position:fixed;bottom:2rem;right:2rem;background:#25d366;color:#fff;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;box-shadow:0 5px 25px rgba(37,211,102,.3);z-index:99}
+@media(max-width:768px){.hero-inner{grid-template-columns:1fr}.hero h1{font-size:2rem}.c-grid{grid-template-columns:1fr}.sched-table{font-size:.8rem}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">&#128293; FITCORE</div>
+  <div class="nav-links">
+    <a href="#plans">Plans</a>
+    <a href="#schedule">Schedule</a>
+    <a href="#contact">Contact</a>
+    <a href="tel:+918593814806" class="nav-cta">Join Now</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Transform Your Body. <span>Transform Your Life.</span></h1>
+      <p>Thodupuzha's most equipped fitness studio. Modern machines, certified trainers, AC environment, and a community that pushes you to be your best.</p>
+      <div class="hero-btns">
+        <a href="tel:+918593814806" class="btn-o">&#128293; Start Free Trial</a>
+        <a href="#plans" class="btn-oo">View Plans &rarr;</a>
+      </div>
+    </div>
+    <div class="hero-visual">&#127947;</div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="sec-h"><h2>Why Choose <span>FitCore</span></h2><p>Everything you need under one roof</p></div>
+  <div class="feat-grid">
+    <div class="feat-card"><div class="f-icon">&#127947;</div><h3>Modern Equipment</h3><p>Imported cardio machines, free weights, cable stations, and functional training zone.</p></div>
+    <div class="feat-card"><div class="f-icon">&#129489;&#8205;&#127891;</div><h3>Certified Trainers</h3><p>Personal trainers with ACE/ISSA certification. Custom workout and diet plans.</p></div>
+    <div class="feat-card"><div class="f-icon">&#10052;</div><h3>AC Environment</h3><p>Fully air-conditioned workout floor for comfortable training year-round.</p></div>
+    <div class="feat-card"><div class="f-icon">&#127940;</div><h3>Group Classes</h3><p>Zumba, Yoga, CrossFit, HIIT, and Aerobics classes included in membership.</p></div>
+    <div class="feat-card"><div class="f-icon">&#128587;</div><h3>Separate Ladies Area</h3><p>Dedicated women's section with female trainer for privacy and comfort.</p></div>
+    <div class="feat-card"><div class="f-icon">&#128166;</div><h3>Shower & Locker</h3><p>Clean changing rooms, hot water showers, and secure lockers.</p></div>
+  </div>
+</section>
+
+<section class="plans" id="plans">
+  <div class="sec-h"><h2>Membership <span>Plans</span></h2><p>Choose what works for you</p></div>
+  <div class="plan-grid">
+    <div class="plan">
+      <h3>Monthly</h3>
+      <div class="price">&#8377;1,500<span>/mo</span></div>
+      <div class="per">Billed monthly</div>
+      <ul>
+        <li>Full gym access</li>
+        <li>Group classes</li>
+        <li>Locker facility</li>
+        <li>Basic diet guidance</li>
+      </ul>
+      <a href="tel:+918593814806" class="plan-btn">Get Started</a>
+    </div>
+    <div class="plan featured">
+      <h3>6 Months</h3>
+      <div class="price">&#8377;6,999<span>/6mo</span></div>
+      <div class="per">Save &#8377;2,001</div>
+      <ul>
+        <li>Everything in Monthly</li>
+        <li>Personal trainer (2x/week)</li>
+        <li>Custom diet plan</li>
+        <li>Body composition analysis</li>
+        <li>1 guest pass/month</li>
+      </ul>
+      <a href="tel:+918593814806" class="plan-btn">Get Started</a>
+    </div>
+    <div class="plan">
+      <h3>Annual</h3>
+      <div class="price">&#8377;11,999<span>/yr</span></div>
+      <div class="per">Save &#8377;6,001</div>
+      <ul>
+        <li>Everything in 6 Months</li>
+        <li>Personal trainer (3x/week)</li>
+        <li>Quarterly health checkup</li>
+        <li>Free merchandise</li>
+        <li>Priority booking for classes</li>
+      </ul>
+      <a href="tel:+918593814806" class="plan-btn">Get Started</a>
+    </div>
+  </div>
+</section>
+
+<section class="trainers">
+  <div class="sec-h"><h2>Our <span>Trainers</span></h2><p>Experts who guide your journey</p></div>
+  <div class="t-grid">
+    <div class="trainer"><div class="t-av">&#128170;</div><h4>Arun Kumar</h4><p>Head Trainer | ACE Certified<br>8 Years Experience</p></div>
+    <div class="trainer"><div class="t-av">&#128170;</div><h4>Reshma S.</h4><p>Women's Fitness Coach<br>Zumba & Yoga Instructor</p></div>
+    <div class="trainer"><div class="t-av">&#128170;</div><h4>Vishnu M.</h4><p>Strength & Conditioning<br>CrossFit L2 Trainer</p></div>
+  </div>
+</section>
+
+<section class="schedule" id="schedule">
+  <div class="sec-h"><h2>Class <span>Schedule</span></h2><p>Join group classes at no extra cost</p></div>
+  <table class="sched-table">
+    <tr><th>Class</th><th>Days</th><th>Time</th><th>Trainer</th></tr>
+    <tr><td>Zumba</td><td>Mon, Wed, Fri</td><td>6:00 - 7:00 AM</td><td>Reshma</td></tr>
+    <tr><td>Yoga</td><td>Tue, Thu, Sat</td><td>6:30 - 7:30 AM</td><td>Reshma</td></tr>
+    <tr><td>CrossFit</td><td>Mon, Wed, Fri</td><td>5:00 - 6:00 PM</td><td>Vishnu</td></tr>
+    <tr><td>HIIT</td><td>Tue, Thu</td><td>6:00 - 6:45 PM</td><td>Arun</td></tr>
+    <tr><td>Aerobics</td><td>Sat</td><td>7:00 - 8:00 AM</td><td>Reshma</td></tr>
+  </table>
+</section>
+
+<section class="contact-s" id="contact">
+  <div class="c-grid">
+    <div class="c-info">
+      <h3>Visit FitCore</h3>
+      <div class="c-item"><div class="ci">&#128205;</div><div><h4>Address</h4><p>2nd Floor, City Tower,<br>Kanjiramattom Bypass, Thodupuzha 685584</p></div></div>
+      <div class="c-item"><div class="ci">&#128222;</div><div><h4>Phone</h4><p>+91 85938 14806</p></div></div>
+      <div class="c-item"><div class="ci">&#128340;</div><div><h4>Gym Hours</h4><p>Mon-Sat: 5:00 AM - 10:00 PM<br>Sunday: 6:00 AM - 12:00 PM</p></div></div>
+      <div class="c-item"><div class="ci">&#128242;</div><div><h4>WhatsApp</h4><p>+91 85938 14806</p></div></div>
+    </div>
+    <div class="map-ph">&#128506; Google Map Here</div>
+  </div>
+</section>
+
+<a href="#" class="wa">&#128172;</a>
+<footer><p>&copy; 2025 FitCore Fitness Studio, Thodupuzha.</p></footer>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PrimeLedger & Associates | Chartered Accountants in Thodupuzha</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;color:#222;background:#f5fafa}
+a{text-decoration:none;color:inherit}
+nav{background:#fff;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;box-shadow:0 2px 15px rgba(0,0,0,.05)}
+nav .logo{font-size:1.3rem;font-weight:800;color:#00695c}
+nav .logo span{color:#26a69a}
+nav .nl{display:flex;gap:2rem;font-size:.9rem;font-weight:500;align-items:center}
+.nc{background:#00695c;color:#fff!important;padding:.6rem 1.5rem;border-radius:50px;font-size:.85rem}
+
+.hero{background:linear-gradient(135deg,#e0f2f1,#b2dfdb,#e0f2f1);min-height:80vh;display:flex;align-items:center;padding:5rem 2rem}
+.hi{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1fr;gap:4rem;align-items:center}
+.hero h1{font-size:2.8rem;font-weight:800;color:#004d40;line-height:1.15;margin-bottom:1rem}
+.hero h1 span{color:#00897b}
+.ht p{font-size:1.1rem;color:#546e7a;line-height:1.7;margin-bottom:2rem}
+.hb{display:flex;gap:1rem;flex-wrap:wrap}
+.bp{background:#00695c;color:#fff;padding:.9rem 2rem;border-radius:50px;font-weight:600;transition:.3s}
+.bp:hover{background:#004d40}
+.bo{border:2px solid #00695c;color:#00695c;padding:.85rem 2rem;border-radius:50px;font-weight:600;transition:.3s}
+.bo:hover{background:#00695c;color:#fff}
+.hv{text-align:center;font-size:10rem}
+
+section{padding:4rem 2rem}
+.sh{text-align:center;margin-bottom:3rem}
+.sh h2{font-size:2rem;font-weight:800;color:#004d40;margin-bottom:.5rem}
+.sh p{color:#777}
+
+.services{background:#fff}
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:1100px;margin:0 auto}
+.sc{background:#f5fafa;border:1px solid #e0f2f1;border-radius:16px;padding:2rem;transition:.3s}
+.sc:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(0,105,92,.08);border-color:#80cbc4}
+.sc .si{font-size:2rem;margin-bottom:.75rem}
+.sc h3{font-size:1.05rem;color:#00695c;margin-bottom:.5rem}
+.sc p{font-size:.85rem;color:#666;line-height:1.5}
+
+.stats{background:#00695c;color:#fff;padding:3rem 2rem;display:flex;justify-content:center;gap:3rem;flex-wrap:wrap}
+.stat{text-align:center}
+.stat .n{font-size:2.2rem;font-weight:800}
+.stat .l{font-size:.8rem;opacity:.7;margin-top:.2rem}
+
+.team{background:#f5fafa}
+.tg{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem;max-width:800px;margin:0 auto}
+.tc{background:#fff;border-radius:16px;padding:2rem;text-align:center;border:1px solid #e0f2f1}
+.tc .av{width:80px;height:80px;background:#e0f2f1;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 1rem;border:3px solid #00695c}
+.tc h3{font-size:1rem;color:#00695c}
+.tc .qual{font-size:.8rem;color:#888;margin:.3rem 0}
+.tc .exp{font-size:.85rem;color:#666}
+
+.clients{background:#fff}
+.cl-grid{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;max-width:800px;margin:0 auto}
+.cl-item{background:#f5fafa;border:1px solid #e0f2f1;border-radius:12px;padding:1.5rem 2rem;text-align:center;min-width:150px}
+.cl-item .cli{font-size:2rem;margin-bottom:.5rem}
+.cl-item p{font-size:.85rem;color:#666}
+
+.tstg{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:1000px;margin:0 auto}
+.tst{background:#f5fafa;padding:2rem;border-radius:16px;border:1px solid #e0f2f1}
+.tst .stars{color:#ffc107;margin-bottom:.5rem}
+.tst q{font-size:.9rem;color:#555;line-height:1.6;display:block;margin-bottom:.75rem}
+.tst .au{font-size:.8rem;font-weight:600;color:#00695c}
+
+.ct{background:linear-gradient(135deg,#00695c,#004d40);color:#fff;text-align:center;padding:3rem 2rem}
+.ct h2{font-size:2rem;margin-bottom:1rem}
+.ct p{opacity:.8;margin-bottom:1.5rem;max-width:500px;margin-left:auto;margin-right:auto}
+.ctb{display:inline-block;background:#fff;color:#00695c;padding:1rem 2.5rem;border-radius:50px;font-weight:700}
+
+.contact{background:#f5fafa}
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:3rem;max-width:1000px;margin:0 auto}
+.ci h3{font-size:1.4rem;color:#004d40;margin-bottom:1.5rem}
+.citem{display:flex;gap:1rem;margin-bottom:1.5rem}
+.cicon{width:45px;height:45px;background:#e0f2f1;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.citem h4{font-size:.9rem;margin-bottom:.2rem}
+.citem p{font-size:.85rem;color:#777}
+.mp{background:#e0f2f1;border-radius:16px;height:100%;min-height:300px;display:flex;align-items:center;justify-content:center;color:#80cbc4;font-size:1.1rem;font-weight:600;border:2px dashed #80cbc4}
+
+footer{background:#004d40;color:rgba(255,255,255,.6);text-align:center;padding:2rem;font-size:.85rem}
+@media(max-width:768px){.hi,.cg{grid-template-columns:1fr}.hero h1{font-size:2rem}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Prime<span>Ledger</span> &#128200;</div>
+  <div class="nl"><a href="#services">Services</a><a href="#team">Team</a><a href="#contact">Contact</a><a href="tel:+919446608788" class="nc">&#128222; Free Consultation</a></div>
+</nav>
+
+<section class="hero">
+  <div class="hi">
+    <div class="ht">
+      <h1>Your Trusted <span>Financial Partner</span></h1>
+      <p>Chartered Accountants in Thodupuzha serving businesses and individuals since 2008. Tax planning, GST compliance, audit, company registration, and financial advisory - all under one roof.</p>
+      <div class="hb">
+        <a href="tel:+919446608788" class="bp">&#128222; Free Consultation</a>
+        <a href="#services" class="bo">Our Services &rarr;</a>
+      </div>
+    </div>
+    <div class="hv">&#128200;</div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat"><div class="n">15+</div><div class="l">Years Experience</div></div>
+  <div class="stat"><div class="n">500+</div><div class="l">Clients Served</div></div>
+  <div class="stat"><div class="n">100%</div><div class="l">Compliance Rate</div></div>
+  <div class="stat"><div class="n">50+</div><div class="l">Companies Registered</div></div>
+</div>
+
+<section class="services" id="services">
+  <div class="sh"><h2>Our Services</h2><p>Complete financial and compliance solutions</p></div>
+  <div class="sg">
+    <div class="sc"><div class="si">&#128203;</div><h3>Income Tax Filing</h3><p>Individual and business ITR filing. Tax planning to minimize liability. Assessment representation before IT department.</p></div>
+    <div class="sc"><div class="si">&#128176;</div><h3>GST Registration & Returns</h3><p>GST registration, monthly/quarterly return filing, GST audit, and compliance advisory.</p></div>
+    <div class="sc"><div class="si">&#128209;</div><h3>Accounting & Bookkeeping</h3><p>Complete accounting services using Tally. Monthly financial statements, bank reconciliation, and MIS reports.</p></div>
+    <div class="sc"><div class="si">&#128270;</div><h3>Statutory Audit</h3><p>Tax audit, company audit, cooperative society audit, and trust audit as per applicable laws.</p></div>
+    <div class="sc"><div class="si">&#127970;</div><h3>Company / LLP Registration</h3><p>Private limited company, LLP, OPC, partnership, and trust registration. Complete ROC compliance.</p></div>
+    <div class="sc"><div class="si">&#128202;</div><h3>Business Advisory</h3><p>Business valuation, project reports for bank loans, financial planning, and investment advisory.</p></div>
+    <div class="sc"><div class="si">&#128196;</div><h3>TDS/TCS Compliance</h3><p>TDS return filing, TCS compliance, lower deduction certificates, and TDS assessment representation.</p></div>
+    <div class="sc"><div class="si">&#128188;</div><h3>MSME & Startup Registration</h3><p>Udyam registration, Startup India recognition, FSSAI, trade license, and other business registrations.</p></div>
+  </div>
+</section>
+
+<section class="team" id="team">
+  <div class="sh"><h2>Our Team</h2><p>Experienced professionals dedicated to your financial success</p></div>
+  <div class="tg">
+    <div class="tc">
+      <div class="av">&#129489;&#8205;&#128188;</div>
+      <h3>CA Thomas Mathew, FCA</h3>
+      <div class="qual">Fellow Chartered Accountant</div>
+      <div class="exp">Managing Partner | 20 Years Experience<br>Specialization: Tax & Audit</div>
+    </div>
+    <div class="tc">
+      <div class="av">&#129489;&#8205;&#128188;</div>
+      <h3>CA Priya George, ACA</h3>
+      <div class="qual">Associate Chartered Accountant</div>
+      <div class="exp">Partner | 12 Years Experience<br>Specialization: GST & Company Law</div>
+    </div>
+  </div>
+</section>
+
+<section class="clients">
+  <div class="sh"><h2>Industries We Serve</h2><p>Trusted by businesses across sectors</p></div>
+  <div class="cl-grid">
+    <div class="cl-item"><div class="cli">&#127981;</div><p>Manufacturing</p></div>
+    <div class="cl-item"><div class="cli">&#128722;</div><p>Retail & Trade</p></div>
+    <div class="cl-item"><div class="cli">&#127973;</div><p>Healthcare</p></div>
+    <div class="cl-item"><div class="cli">&#127806;</div><p>Agriculture</p></div>
+    <div class="cl-item"><div class="cli">&#128187;</div><p>IT & Services</p></div>
+    <div class="cl-item"><div class="cli">&#127968;</div><p>Real Estate</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="sh"><h2>Client Testimonials</h2><p>What our clients say about us</p></div>
+  <div class="tstg">
+    <div class="tst"><div class="stars">&#11088;&#11088;&#11088;&#11088;&#11088;</div><q>PrimeLedger has been handling our company's accounts for 8 years. They are thorough, timely, and always keep us compliant. Best CA firm in Thodupuzha.</q><div class="au">- Managing Director, Spice Export Company</div></div>
+    <div class="tst"><div class="stars">&#11088;&#11088;&#11088;&#11088;&#11088;</div><q>They helped me register my startup and set up all the compliance from scratch. Very knowledgeable team and they explain everything in simple terms.</q><div class="au">- Founder, Tech Startup</div></div>
+    <div class="tst"><div class="stars">&#11088;&#11088;&#11088;&#11088;&#11088;</div><q>I was paying too much tax before coming to PrimeLedger. They helped me with proper tax planning and I saved over 2 lakhs last year. Highly recommended.</q><div class="au">- Doctor, Private Practice</div></div>
+  </div>
+</section>
+
+<section class="ct">
+  <h2>Need Financial Guidance?</h2>
+  <p>Book a free 30-minute consultation. We'll review your situation and suggest the best approach - no obligation.</p>
+  <a href="tel:+919446608788" class="ctb">&#128222; Call +91 94466 08788</a>
+</section>
+
+<section class="contact" id="contact">
+  <div class="cg">
+    <div class="ci">
+      <h3>Visit Our Office</h3>
+      <div class="citem"><div class="cicon">&#128205;</div><div><h4>Address</h4><p>Sophya Complex, Fish Market Road,<br>Thodupuzha, Kerala 685584</p></div></div>
+      <div class="citem"><div class="cicon">&#128222;</div><div><h4>Phone</h4><p>+91 94466 08788<br>+91 4862 228801</p></div></div>
+      <div class="citem"><div class="cicon">&#128340;</div><div><h4>Office Hours</h4><p>Mon-Fri: 9:30 AM - 5:30 PM<br>Sat: 10:00 AM - 2:00 PM</p></div></div>
+      <div class="citem"><div class="cicon">&#128231;</div><div><h4>Email</h4><p>info@trustbooks.in</p></div></div>
+    </div>
+    <div class="mp">&#128506; Google Map Here</div>
+  </div>
+</section>
+
+<footer><p>&copy; 2025 PrimeLedger & Associates, Chartered Accountants, Thodupuzha.</p></footer>
+</body>
+</html>

@@ -1,0 +1,13 @@
+node_modules/
+.next/
+out/
+.env
+.env.local
+.DS_Store
+*.log
+AppDataLocal/
+npm-cache/
+/d/
+newjs.js
+interstellar.webm
+index.html
