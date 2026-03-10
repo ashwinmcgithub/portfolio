@@ -50,11 +50,11 @@ export function SplineHero() {
   }, [])
 
   return (
-    <section className="relative w-full min-h-screen bg-black overflow-hidden flex flex-col md:flex-row">
+    <section className="relative w-full bg-black overflow-hidden flex flex-col md:flex-row md:h-screen">
       <Spotlight className="-top-40 left-0 md:left-72 md:-top-20" fill="white" />
 
       <div
-        className="absolute inset-0 z-0 opacity-[0.03]"
+        className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
         style={{
           backgroundImage:
             "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
@@ -62,24 +62,8 @@ export function SplineHero() {
         }}
       />
 
-      {/* Robot — full background on mobile, side panel on desktop */}
-      <div className="absolute inset-0 flex items-center justify-center md:relative md:inset-auto md:flex-1 pointer-events-none md:pointer-events-auto">
-        <div
-          ref={robotWrapRef}
-          className="w-full h-full will-change-transform"
-          style={{ opacity: undefined }}
-        >
-          {/* dim the robot on mobile so text stays readable */}
-          <div className="absolute inset-0 bg-black/60 z-10 md:hidden" />
-          <SplineScene
-            scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-            className="w-full h-full"
-          />
-        </div>
-      </div>
-
-      {/* Text content */}
-      <div className="relative z-10 flex-1 flex flex-col justify-center px-8 md:px-16 lg:px-24 pt-20 pb-24 md:py-0 md:order-first">
+      {/* Text content — top on mobile, left on desktop */}
+      <div className="relative z-10 flex-none md:flex-1 flex flex-col justify-center px-8 md:px-16 lg:px-24 pt-20 pb-8 md:py-0">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 mb-8 w-fit rounded-full border border-emerald-500/20 bg-emerald-500/10">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
           <span className="text-xs font-medium text-emerald-400 tracking-wide">Available for Projects</span>
@@ -133,7 +117,17 @@ export function SplineHero() {
         </div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-40">
+      {/* Robot — fixed height on mobile so canvas can render, flex-1 on desktop */}
+      <div className="relative flex-none h-[420px] md:flex-1 md:h-auto">
+        <div ref={robotWrapRef} className="w-full h-full will-change-transform">
+          <SplineScene
+            scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+            className="w-full h-full"
+          />
+        </div>
+      </div>
+
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex-col items-center gap-2 opacity-40 hidden md:flex">
         <span className="text-[10px] uppercase tracking-widest text-neutral-500">Scroll</span>
         <div className="w-px h-10 bg-gradient-to-b from-neutral-500 to-transparent" />
       </div>
