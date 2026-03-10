@@ -103,6 +103,32 @@ gh api repos/ashwinmcgithub/portfolio/pages/builds --method POST
 
 ---
 
+## Session 4 — Projects section split (2026-03-10)
+
+### What was done
+- Split projects section into two sub-sections:
+  1. **Completed** — Ultimate Fight Club featured as a full-width horizontal card with
+     green "Live" badge, animated glow, and "Completed Project" pill
+  2. **Demo Sites** — the 8 existing demo cards unchanged, each now has a "Demo" badge
+
+### Files changed
+- `components/ui/projects-section.tsx` — complete restructure:
+  - Added `completedProjects` array (UFC entry, href is `"#"` placeholder — update with real URL)
+  - Renamed old array to `demoProjects`
+  - Added section dividers with labels and separators
+  - UFC card: full-width, horizontal layout on md+, animated red glow, year badge
+  - Demo cards: unchanged grid, added "Demo" badge top-left
+
+### ⚠️ TODO
+- Replace `href: "#"` in `completedProjects[0]` in `projects-section.tsx` with the real UFC site URL
+
+### Status
+- Live at https://ashwinmcgithub.github.io/portfolio/
+- UFC shows under "Completed" heading with green pulsing Live indicator
+- 8 demos show under "Demo Sites" heading
+
+---
+
 ## Template for future log entries
 
 ```
