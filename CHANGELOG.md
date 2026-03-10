@@ -129,6 +129,65 @@ gh api repos/ashwinmcgithub/portfolio/pages/builds --method POST
 
 ---
 
+## Session 5 — Robot cursor tracking + mobile fix + card redesign (2026-03-10)
+
+### What was done
+
+#### 1. Robot follows cursor globally
+- Changed `onPointerMove` (section-only) to `window.addEventListener("mousemove")`
+  so the robot tracks the cursor anywhere on the page, not just when hovering the hero.
+- Removed broken `rotateY`/`rotateX` CSS transforms (they're invisible without a
+  CSS `perspective` context on the parent). Replaced with `translate3d` only,
+  with larger values (±50px / ±30px) so the float effect is clearly visible.
+- Added `touchmove` listener for mobile finger tracking.
+
+#### 2. Robot visible on mobile
+- **Root cause of bug:** section had `md:h-screen` — no height on mobile at all.
+  Robot's `absolute inset-0` expanded to 0px, giving Spline nothing to render into.
+- **Fix:** Section is now `h-screen` on ALL breakpoints.
+- Robot is `absolute inset-0` (full-screen background layer) on mobile.
+- Gradient overlay (`rgba` dark fade) keeps text readable over the robot.
+- On desktop the layout stays side-by-side (text left, robot right).
+
+#### 3. GradientCard component — project card redesign
+- Created `components/ui/gradient-card.tsx` — new card with:
+  - 3D tilt on hover (rotateX/Y from mouse position within card bounds)
+  - Cursor-following radial glow spot inside the card
+  - Per-card accent color gradient at top + bottom line
+  - Noise texture overlay for depth
+  - Framer Motion spring animations
+- Replaced `SchemaCard` (imported from `schema-card-with-animated-wave-visualizer`)
+  with `GradientCard` in `projects-section.tsx`.
+- Swapped Lucide icon components for short text labels (`"UFC"`, `"FS"`, etc.)
+  since GradientCard renders the icon as a text node inside a styled box.
+
+#### 4. Ultimate Fight Club link
+- Updated `completedProjects[0].href` from `"#"` to `"https://ultimatefightclub.in"`.
+- Card now opens the live client site in a new tab.
+
+### Files changed
+- `components/ui/spline-hero.tsx` — global mouse/touch tracking, h-screen fix, mobile background layout
+- `components/ui/gradient-card.tsx` — new file, full GradientCard component
+- `components/ui/projects-section.tsx` — swapped SchemaCard → GradientCard, UFC href updated
+
+### Commits (in order)
+```
+2dc3588 feat: make robot follow cursor globally across entire page
+036e3a6 fix: robot cursor tracking visible + show robot on mobile
+956f143 feat: replace SchemaCard with new GradientCard component
+717b129 fix: show robot on mobile with explicit 420px height
+515c094 fix: robot visible on mobile as full-screen background
+87b699b feat: link Ultimate Fight Club card to ultimatefightclub.in
+```
+
+### Status
+- Live at https://ashwinmcgithub.github.io/portfolio/
+- Robot tracks cursor on desktop; tracks finger on mobile
+- Robot visible on mobile as full-screen background behind text
+- UFC card links to https://ultimatefightclub.in
+
+---
+
 ## Template for future log entries
 
 ```
