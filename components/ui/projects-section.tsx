@@ -8,7 +8,7 @@ const completedProjects = [
     category: "Sports & Martial Arts",
     description:
       "Full multi-discipline martial arts academy website with class schedules, trainer profiles, membership plans, and a high-impact dark aesthetic built for the MMA audience.",
-    href: "#",
+    href: "https://ultimatefightclub.in",
     tags: ["HTML", "CSS", "JavaScript"],
     accent: "#e63946",
     icon: "UFC",
