@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events | Old Monk Food Street Thodupuzha</title>
+  <meta name="description" content="Live music, food festivals, cultural performances and more at Old Monk Food Street, Thodupuzha.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    .page-hero-bg {
+      background:
+        linear-gradient(0deg, rgba(8,8,8,0.9) 0%, rgba(8,8,8,0.5) 100%),
+        url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1600&q=80') center/cover;
+    }
+    .event-hero-card {
+      background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,159,28,0.05));
+      border: 1px solid rgba(255,215,0,0.25);
+      border-radius: 24px;
+      padding: 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    .event-hero-img {
+      border-radius: 16px;
+      width: 100%;
+      aspect-ratio: 16/10;
+      object-fit: cover;
+    }
+    .event-hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--yellow);
+      color: var(--black);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 20px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .event-hero-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      color: var(--white);
+      letter-spacing: 2px;
+      line-height: 1.05;
+      margin-bottom: 1rem;
+    }
+    .event-hero-title span { color: var(--yellow); }
+    .event-hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      margin-top: 1.5rem;
+    }
+    .event-meta-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-size: 0.82rem;
+      color: var(--light);
+    }
+    .event-meta-chip span { font-size: 1rem; }
+    .events-timeline {
+      position: relative;
+      padding-left: 3rem;
+    }
+    .events-timeline::before {
+      content: '';
+      position: absolute;
+      left: 10px;
+      top: 0; bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3rem;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: -3rem;
+      top: 6px;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: var(--yellow);
+      border: 3px solid var(--black);
+      box-shadow: 0 0 0 3px rgba(255,215,0,0.3);
+    }
+    .timeline-date {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 0.5rem;
+    }
+    .timeline-content {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .timeline-content:hover { border-color: rgba(255,215,0,0.3); transform: translateX(6px); }
+    .timeline-event-name {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    .timeline-event-desc { font-size: 0.85rem; color: var(--gray); line-height: 1.6; }
+    .stage-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .stage-stat {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .stage-stat:hover { border-color: rgba(255,215,0,0.3); transform: translateY(-4px); }
+    .stage-stat-icon { font-size: 2rem; margin-bottom: 0.75rem; display: block; }
+    .stage-stat-val {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 2.5rem;
+      color: var(--yellow);
+      letter-spacing: 1px;
+      line-height: 1;
+    }
+    .stage-stat-label { font-size: 0.75rem; color: var(--gray); margin-top: 4px; letter-spacing: 1px; text-transform: uppercase; }
+    @media(max-width:900px){
+      .event-hero-card { grid-template-columns:1fr; gap:2rem; }
+      .stage-stats { grid-template-columns:repeat(2,1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo">EVENTS</div>
+  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+</div>
+<div class="cursor"></div>
+<div class="cursor-follower"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">OLD <span>MONK</span><span class="dot">·</span>FS</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="menu.html">Menu</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="contact.html">Visit Us</a></li>
+  </ul>
+  <a href="contact.html" class="nav-reserve">Find Us</a>
+  <div class="hamburger"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu">
+  <a href="index.html">Home</a><a href="menu.html">Menu</a>
+  <a href="gallery.html">Gallery</a><a href="events.html">Events</a>
+  <a href="contact.html">Visit Us</a>
+</div>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-content reveal">
+    <div class="section-tag">Live · Music · Events</div>
+    <h1 class="page-hero-title">Events & <span>Live Shows</span></h1>
+    <p class="page-hero-sub">Our riverside stage comes alive with music, culture and unforgettable performances.</p>
+  </div>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span>Live Music</span><span>Food Festivals</span><span>Cultural Nights</span>
+    <span>DJ Nights</span><span>Kids Events</span><span>Open Mic</span><span>Stand-up Comedy</span>
+  </div>
+</div>
+
+<!-- FEATURED EVENT -->
+<section>
+  <div class="reveal" style="margin-bottom:2.5rem;">
+    <div class="section-tag">Featured Event</div>
+    <h2 class="section-title">What's <span>Coming Up</span></h2>
+  </div>
+
+  <div class="event-hero-card reveal">
+    <div>
+      <div class="event-hero-tag">🎶 Upcoming</div>
+      <h3 class="event-hero-title">Old Monk <span>Night Vibes</span></h3>
+      <p style="font-size:0.92rem;color:var(--gray);line-height:1.8;">
+        Join us for an electrifying evening of live music, delicious food and riverside magic. Our talented performers will take the stage as the Thodupuzha River glimmers under the night sky.
+      </p>
+      <div class="event-hero-meta">
+        <div class="event-meta-chip"><span>📅</span> Every Weekend</div>
+        <div class="event-meta-chip"><span>🕗</span> 7:00 PM – 11:00 PM</div>
+        <div class="event-meta-chip"><span>📍</span> River View Rd Stage</div>
+        <div class="event-meta-chip"><span>🎟️</span> Free Entry</div>
+      </div>
+      <div style="margin-top:2rem;">
+        <a href="contact.html" class="btn-primary">Get Directions →</a>
+      </div>
+    </div>
+    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=700&q=80" alt="Live Event" class="event-hero-img">
+  </div>
+</section>
+
+<!-- UPCOMING EVENTS GRID -->
+<section style="padding-top:2rem;">
+  <div class="reveal" style="margin-bottom:2.5rem;">
+    <div class="section-tag">Schedule</div>
+    <h2 class="section-title">Upcoming <span>Events</span></h2>
+  </div>
+  <div class="events-grid">
+    <div class="event-card reveal delay-1">
+      <div class="event-date-col">
+        <div class="event-day">15</div>
+        <div class="event-month">Mar</div>
+      </div>
+      <div class="event-body">
+        <div class="event-type">🎵 Live Music</div>
+        <div class="event-name">Acoustic Night by the River</div>
+        <div class="event-details">An intimate acoustic performance featuring local talents performing soulful music in a cozy riverside setting.</div>
+        <div class="event-time">🕗 7:30 PM – 10:00 PM &nbsp;|&nbsp; 🎟️ Free Entry</div>
+      </div>
+    </div>
+    <div class="event-card reveal delay-2">
+      <div class="event-date-col">
+        <div class="event-day">22</div>
+        <div class="event-month">Mar</div>
+      </div>
+      <div class="event-body">
+        <div class="event-type">🍜 Food Festival</div>
+        <div class="event-name">Street Food Carnival</div>
+        <div class="event-details">A special pop-up event featuring 15+ vendors, live cooking demos, food tastings and lots of fun for the whole family.</div>
+        <div class="event-time">🕙 10:00 AM – 11:00 PM &nbsp;|&nbsp; 🎟️ Free Entry</div>
+      </div>
+    </div>
+    <div class="event-card reveal delay-1">
+      <div class="event-date-col">
+        <div class="event-day">29</div>
+        <div class="event-month">Mar</div>
+      </div>
+      <div class="event-body">
+        <div class="event-type">🎭 Cultural Night</div>
+        <div class="event-name">Kerala Cultural Evening</div>
+        <div class="event-details">Traditional Kerala art forms, folk dances and classical music performances celebrating our rich cultural heritage.</div>
+        <div class="event-time">🕕 5:00 PM – 9:00 PM &nbsp;|&nbsp; 🎟️ Free Entry</div>
+      </div>
+    </div>
+    <div class="event-card reveal delay-2">
+      <div class="event-date-col">
+        <div class="event-day">05</div>
+        <div class="event-month">Apr</div>
+      </div>
+      <div class="event-body">
+        <div class="event-type">🎤 Open Mic</div>
+        <div class="event-name">Open Mic Night</div>
+        <div class="event-details">Got talent? Come perform! Stand-up comedy, poetry, music — all are welcome on our riverside stage. Sign up at the venue.</div>
+        <div class="event-time">🕖 6:00 PM – 10:00 PM &nbsp;|&nbsp; 🎟️ Free Entry</div>
+      </div>
+    </div>
+    <div class="event-card reveal delay-1">
+      <div class="event-date-col">
+        <div class="event-day">12</div>
+        <div class="event-month">Apr</div>
+      </div>
+      <div class="event-body">
+        <div class="event-type">👨‍👩‍👧 Family Day</div>
+        <div class="event-name">Kids & Family Fun Day</div>
+        <div class="event-details">Special activities for kids, face painting, magic shows and family games. Bring the whole family for a day of fun and food!</div>
+        <div class="event-time">🕙 10:00 AM – 6:00 PM &nbsp;|&nbsp; 🎟️ Free</div>
+      </div>
+    </div>
+    <div class="event-card reveal delay-2">
+      <div class="event-date-col">
+        <div class="event-day">19</div>
+        <div class="event-month">Apr</div>
+      </div>
+      <div class="event-body">
+        <div class="event-type">🎶 DJ Night</div>
+        <div class="event-name">DJ Night: Riverside Rave</div>
+        <div class="event-details">Dance the night away with our resident DJ spinning the best Bollywood, EDM and Malayalam hits by the river.</div>
+        <div class="event-time">🕗 7:00 PM – 12:00 AM &nbsp;|&nbsp; 🎟️ Free Entry</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STAGE INFO -->
+<section style="background:var(--dark);padding-top:5rem;padding-bottom:5rem;">
+  <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
+    <div>
+      <div class="section-tag">Our Stage</div>
+      <h2 class="section-title">The Riverside <span>Stage</span></h2>
+      <div class="gold-divider"></div>
+      <p class="section-subtitle">
+        Our dedicated performance stage sits right by the Thodupuzha River — with stunning views, professional sound setup and space for an audience of 100+. The perfect backdrop for any performance.
+      </p>
+      <ul class="about-list" style="margin-top:1.5rem;list-style:none;">
+        <li>Professional sound & lighting setup</li>
+        <li>100+ audience capacity</li>
+        <li>Riverside backdrop & open-air venue</li>
+        <li>Available for private bookings</li>
+        <li>Weekly performances every weekend</li>
+      </ul>
+      <div style="margin-top:2rem;">
+        <a href="contact.html" class="btn-primary">Book the Stage →</a>
+      </div>
+    </div>
+    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=700&q=80" alt="Stage" style="width:100%;border-radius:20px;aspect-ratio:4/3;object-fit:cover;" class="reveal-right">
+  </div>
+  <div class="stage-stats">
+    <div class="stage-stat reveal delay-1">
+      <span class="stage-stat-icon">🎭</span>
+      <div class="stage-stat-val"><span data-target="50" data-suffix="+">0+</span></div>
+      <div class="stage-stat-label">Events Hosted</div>
+    </div>
+    <div class="stage-stat reveal delay-2">
+      <span class="stage-stat-icon">🎤</span>
+      <div class="stage-stat-val"><span data-target="30" data-suffix="+">0+</span></div>
+      <div class="stage-stat-label">Performers</div>
+    </div>
+    <div class="stage-stat reveal delay-3">
+      <span class="stage-stat-icon">👥</span>
+      <div class="stage-stat-val"><span data-target="100" data-suffix="+">0+</span></div>
+      <div class="stage-stat-label">Audience Capacity</div>
+    </div>
+    <div class="stage-stat reveal delay-4">
+      <span class="stage-stat-icon">🎶</span>
+      <div class="stage-stat-val">Every<br><span style="font-size:1.6rem;">Weekend</span></div>
+      <div class="stage-stat-label">Live Shows</div>
+    </div>
+  </div>
+</section>
+
+<!-- PAST EVENTS GALLERY -->
+<section>
+  <div class="text-center reveal" style="margin-bottom:2.5rem;">
+    <div class="section-tag">Past Events</div>
+    <h2 class="section-title">Memorable <span>Moments</span></h2>
+  </div>
+  <div class="gallery-masonry" style="columns:3;column-gap:1.2rem;">
+    <div class="gallery-item reveal">
+      <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&q=80" alt="Event 1">
+      <div class="gallery-overlay"><span>Cultural Night 2024 🎭</span></div>
+    </div>
+    <div class="gallery-item reveal delay-1">
+      <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=500&q=80" alt="Event 2">
+      <div class="gallery-overlay"><span>Live Music Night 🎶</span></div>
+    </div>
+    <div class="gallery-item reveal delay-2">
+      <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=500&q=80" alt="Event 3">
+      <div class="gallery-overlay"><span>Riverside Rave 🔥</span></div>
+    </div>
+    <div class="gallery-item reveal">
+      <img src="https://images.unsplash.com/photo-1519671282429-b44b4a4ba9ef?w=500&q=80" alt="Event 4">
+      <div class="gallery-overlay"><span>Food Festival 2024 🍜</span></div>
+    </div>
+    <div class="gallery-item reveal delay-1">
+      <img src="https://images.unsplash.com/photo-1504609813442-a8924e83f76e?w=500&q=80" alt="Event 5">
+      <div class="gallery-overlay"><span>Family Fun Day 👨‍👩‍👧</span></div>
+    </div>
+    <div class="gallery-item reveal delay-2">
+      <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=500&q=80" alt="Event 6">
+      <div class="gallery-overlay"><span>Open Mic Night 🎤</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PERFORM WITH US CTA -->
+<section style="background:linear-gradient(135deg,rgba(255,215,0,0.1),rgba(8,8,8,0.9)),url('https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1200&q=80') center/cover;border-top:1px solid var(--border);padding:7rem 5vw;">
+  <div class="text-center reveal">
+    <div class="section-tag">Perform Here</div>
+    <h2 class="section-title" style="font-size:clamp(2.5rem,6vw,5rem);">Want to Perform<br><span>on Our Stage?</span></h2>
+    <p class="section-subtitle" style="margin:1rem auto;max-width:520px;">
+      We welcome musicians, comedians, poets and performers of all kinds. Reach out to book the Old Monk stage for your next show.
+    </p>
+    <div class="hero-actions" style="margin-top:2rem;">
+      <a href="contact.html" class="btn-primary">Get in Touch</a>
+      <a href="https://www.instagram.com/old_monk_food_street/" target="_blank" class="btn-outline">DM on Instagram</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo">OLD <span>MONK</span><span class="dot">·</span>FS</a>
+      <p>Thodupuzha's riverside food destination with live events every weekend.</p>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/old_monk_food_street/" target="_blank" class="social-btn">📸</a>
+        <a href="#" class="social-btn">📍</a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Pages</h4><ul>
+      <li><a href="index.html">Home</a></li><li><a href="menu.html">Menu</a></li>
+      <li><a href="gallery.html">Gallery</a></li><li><a href="events.html">Events</a></li>
+      <li><a href="contact.html">Visit Us</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Events</h4><ul>
+      <li><a href="#">Live Music</a></li><li><a href="#">Food Festivals</a></li>
+      <li><a href="#">Cultural Nights</a></li><li><a href="#">DJ Nights</a></li>
+      <li><a href="contact.html">Book Stage</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Visit</h4><ul>
+      <li><a href="#">River View Rd, Thodupuzha</a></li>
+      <li><a href="#">Kerala 685608</a></li>
+      <li><a href="#">10AM – 12AM Daily</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Old Monk Food Street.</p>
+    <p><a href="#">Portfolio Demo</a></p>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

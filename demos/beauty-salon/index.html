@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elegance Beauty Studio | Best Beauty Salon in Thodupuzha</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;color:#333;background:#fff9fb}
+a{text-decoration:none;color:inherit}
+nav{background:rgba(255,255,255,.95);backdrop-filter:blur(10px);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;box-shadow:0 2px 15px rgba(0,0,0,.04)}
+nav .logo{font-size:1.3rem;font-weight:800;color:#c2185b}
+nav .logo span{color:#f48fb1}
+nav .nl{display:flex;gap:2rem;font-size:.9rem;font-weight:500;align-items:center}
+.nc{background:#c2185b;color:#fff!important;padding:.6rem 1.5rem;border-radius:50px;font-size:.85rem}
+
+.hero{background:linear-gradient(135deg,#fce4ec,#f8bbd0,#fce4ec);min-height:80vh;display:flex;align-items:center;padding:5rem 2rem}
+.hi{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1fr;gap:4rem;align-items:center}
+.hero h1{font-size:2.8rem;font-weight:800;color:#880e4f;line-height:1.15;margin-bottom:1rem}
+.hero h1 span{color:#c2185b}
+.ht p{font-size:1.1rem;color:#777;line-height:1.7;margin-bottom:2rem}
+.hb{display:flex;gap:1rem;flex-wrap:wrap}
+.bp{background:#c2185b;color:#fff;padding:.9rem 2rem;border-radius:50px;font-weight:600;transition:.3s}
+.bp:hover{background:#880e4f}
+.bo{border:2px solid #c2185b;color:#c2185b;padding:.85rem 2rem;border-radius:50px;font-weight:600;transition:.3s}
+.bo:hover{background:#c2185b;color:#fff}
+.hv{text-align:center;font-size:10rem}
+
+section{padding:4rem 2rem}
+.sh{text-align:center;margin-bottom:3rem}
+.sh h2{font-size:2rem;font-weight:800;color:#880e4f;margin-bottom:.5rem}
+.sh p{color:#888}
+
+.services{background:#fff}
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;max-width:1100px;margin:0 auto}
+.sc{background:#fff9fb;border:1px solid #fce4ec;border-radius:16px;padding:2rem;transition:.3s}
+.sc:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(194,24,91,.08);border-color:#f48fb1}
+.sc .si{font-size:2rem;margin-bottom:.75rem}
+.sc h3{font-size:1rem;color:#c2185b;margin-bottom:.3rem}
+.sc p{font-size:.83rem;color:#777;line-height:1.5;margin-bottom:.5rem}
+.sc .pr{font-size:.9rem;font-weight:700;color:#c2185b}
+
+.bridal{background:linear-gradient(135deg,#880e4f,#c2185b);color:#fff;text-align:center;padding:4rem 2rem}
+.bridal h2{font-size:2rem;margin-bottom:1rem}
+.bridal p{opacity:.85;max-width:600px;margin:0 auto 2rem;line-height:1.7}
+.bridal-features{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem}
+.bf{background:rgba(255,255,255,.1);padding:1rem 1.5rem;border-radius:12px;text-align:center;min-width:140px}
+.bf .bfi{font-size:1.5rem;margin-bottom:.3rem}
+.bf p{font-size:.85rem}
+.bridal .bp2{background:#fff;color:#c2185b;padding:1rem 2.5rem;border-radius:50px;font-weight:700;display:inline-block}
+
+.tg{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:1000px;margin:0 auto}
+.tc{background:#fff;padding:2rem;border-radius:16px;border:1px solid #fce4ec}
+.tc .stars{color:#ffc107;margin-bottom:.5rem}
+.tc q{font-size:.9rem;color:#555;line-height:1.6;display:block;margin-bottom:.75rem}
+.tc .au{font-size:.8rem;font-weight:600;color:#c2185b}
+
+.contact{background:#fff}
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:3rem;max-width:1000px;margin:0 auto}
+.ci h3{font-size:1.4rem;color:#880e4f;margin-bottom:1.5rem}
+.citem{display:flex;gap:1rem;margin-bottom:1.5rem}
+.cicon{width:45px;height:45px;background:#fce4ec;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.citem h4{font-size:.9rem;margin-bottom:.2rem}
+.citem p{font-size:.85rem;color:#777}
+.mp{background:#fce4ec;border-radius:16px;height:100%;min-height:300px;display:flex;align-items:center;justify-content:center;color:#f48fb1;font-size:1.1rem;font-weight:600;border:2px dashed #f48fb1}
+
+footer{background:#880e4f;color:rgba(255,255,255,.6);text-align:center;padding:2rem;font-size:.85rem}
+.wa{position:fixed;bottom:2rem;right:2rem;background:#25d366;color:#fff;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;box-shadow:0 5px 25px rgba(37,211,102,.3);z-index:99}
+@media(max-width:768px){.hi,.cg{grid-template-columns:1fr}.hero h1{font-size:2rem}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Elegance <span>Studio</span> &#10024;</div>
+  <div class="nl"><a href="#services">Services</a><a href="#bridal">Bridal</a><a href="#contact">Contact</a><a href="tel:+919000000000" class="nc">&#128222; Book Now</a></div>
+</nav>
+
+<section class="hero">
+  <div class="hi">
+    <div class="ht">
+      <h1>Where Beauty Meets <span>Elegance</span></h1>
+      <p>Thodupuzha's premier ladies beauty studio. Expert stylists, premium products, and a relaxing atmosphere. From everyday grooming to bridal makeovers - we make you glow.</p>
+      <div class="hb">
+        <a href="tel:+919000000000" class="bp">&#128222; Book Appointment</a>
+        <a href="#services" class="bo">Our Services &rarr;</a>
+      </div>
+    </div>
+    <div class="hv">&#128135;</div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="sh"><h2>Our Services & Pricing</h2><p>Premium beauty services at honest prices</p></div>
+  <div class="sg">
+    <div class="sc"><div class="si">&#128135;</div><h3>Hair Cut & Styling</h3><p>Trendy cuts, layers, bangs. Blow dry and styling for any occasion.</p><div class="pr">From &#8377;200</div></div>
+    <div class="sc"><div class="si">&#127912;</div><h3>Hair Coloring</h3><p>Global color, highlights, balayage, fashion colors. L'Oreal & Schwarzkopf products.</p><div class="pr">From &#8377;1,500</div></div>
+    <div class="sc"><div class="si">&#10024;</div><h3>Facial Treatments</h3><p>Cleanup, gold facial, diamond facial, anti-aging treatments for glowing skin.</p><div class="pr">From &#8377;500</div></div>
+    <div class="sc"><div class="si">&#128133;</div><h3>Makeup</h3><p>Party makeup, engagement look, reception makeup. HD & airbrush options available.</p><div class="pr">From &#8377;1,500</div></div>
+    <div class="sc"><div class="si">&#128�;</div><h3>Nail Art & Manicure</h3><p>Gel nails, nail extensions, nail art, manicure & pedicure with spa treatment.</p><div class="pr">From &#8377;300</div></div>
+    <div class="sc"><div class="si">&#129506;</div><h3>Body Spa & Massage</h3><p>Full body relaxation massage, aroma therapy, body scrub and polishing.</p><div class="pr">From &#8377;1,000</div></div>
+    <div class="sc"><div class="si">&#127800;</div><h3>Threading & Waxing</h3><p>Eyebrow shaping, full face threading, full body waxing with Rica wax.</p><div class="pr">From &#8377;50</div></div>
+    <div class="sc"><div class="si">&#128156;</div><h3>Skin Treatments</h3><p>Acne treatment, tan removal, pigmentation treatment, chemical peels.</p><div class="pr">From &#8377;800</div></div>
+  </div>
+</section>
+
+<section class="bridal" id="bridal">
+  <h2>&#128141; Bridal Packages</h2>
+  <p>Your special day deserves special care. Our bridal packages include everything from pre-wedding skin prep to the final bridal look. We make brides glow!</p>
+  <div class="bridal-features">
+    <div class="bf"><div class="bfi">&#128133;</div><p>Bridal Makeup</p></div>
+    <div class="bf"><div class="bfi">&#128135;</div><p>Hair Styling</p></div>
+    <div class="bf"><div class="bfi">&#127800;</div><p>Mehendi</p></div>
+    <div class="bf"><div class="bfi">&#10024;</div><p>Pre-Bridal Facial</p></div>
+    <div class="bf"><div class="bfi">&#128133;</div><p>Saree Draping</p></div>
+  </div>
+  <a href="tel:+919000000000" class="bp2">&#128222; Enquire About Bridal Packages</a>
+</section>
+
+<section>
+  <div class="sh"><h2>What Our Clients Say</h2><p>Happy clients, beautiful transformations</p></div>
+  <div class="tg">
+    <div class="tc"><div class="stars">&#11088;&#11088;&#11088;&#11088;&#11088;</div><q>Got my bridal makeup done here and it was absolutely stunning! Everyone at the wedding was complimenting my look. Thank you Elegance Studio!</q><div class="au">- Sneha J., Thodupuzha</div></div>
+    <div class="tc"><div class="stars">&#11088;&#11088;&#11088;&#11088;&#11088;</div><q>The best salon experience in Thodupuzha. Clean place, friendly staff, and they really know what they're doing. My hair color turned out perfect.</q><div class="au">- Reshma P., Muthalakodam</div></div>
+    <div class="tc"><div class="stars">&#11088;&#11088;&#11088;&#11088;&#11088;</div><q>Love the facial treatments here. My skin has improved so much after the anti-aging facial series. Prices are very reasonable too.</q><div class="au">- Jisha M., Manakkad</div></div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="cg">
+    <div class="ci">
+      <h3>Visit Elegance Studio</h3>
+      <div class="citem"><div class="cicon">&#128205;</div><div><h4>Address</h4><p>1st Floor, Riva Building,<br>Pala Road, Thodupuzha 685584</p></div></div>
+      <div class="citem"><div class="cicon">&#128222;</div><div><h4>Phone</h4><p>+91 90000 00000</p></div></div>
+      <div class="citem"><div class="cicon">&#128340;</div><div><h4>Hours</h4><p>Mon-Sat: 9:30 AM - 7:30 PM<br>Sunday: By appointment only</p></div></div>
+      <div class="citem"><div class="cicon">&#128242;</div><div><h4>WhatsApp / Instagram</h4><p>+91 90000 00000<br>@glowstudiotdp</p></div></div>
+    </div>
+    <div class="mp">&#128506; Google Map Here</div>
+  </div>
+</section>
+
+<a href="#" class="wa">&#128172;</a>
+<footer><p>&copy; 2025 Elegance Beauty Studio, Thodupuzha.</p></footer>
+</body>
+</html>

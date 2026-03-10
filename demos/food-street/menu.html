@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu | Old Monk Food Street Thodupuzha</title>
+  <meta name="description" content="Explore the full menu at Old Monk Food Street — Momos, Kerala cuisine, Mandi, Beverages and more.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    .page-hero-bg {
+      background:
+        linear-gradient(0deg, rgba(8,8,8,0.9) 0%, rgba(8,8,8,0.55) 100%),
+        url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1600&q=80') center/cover;
+    }
+    .menu-category-header {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      letter-spacing: 2px;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .menu-category-header::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .menu-category-header span { color: var(--yellow); font-size: 1.4rem; }
+    .menu-section { margin-bottom: 5rem; }
+    .menu-list-item {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 2rem;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+    .menu-list-item:last-child { border-bottom: none; }
+    .menu-list-item:hover { padding-left: 8px; }
+    .item-info { flex: 1; }
+    .item-name {
+      font-weight: 600;
+      font-size: 0.98rem;
+      color: var(--white);
+      margin-bottom: 0.25rem;
+    }
+    .item-desc { font-size: 0.82rem; color: var(--gray); line-height: 1.6; }
+    .item-tags { display: flex; gap: 0.5rem; margin-top: 0.5rem; flex-wrap: wrap; }
+    .item-tag {
+      font-size: 0.62rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .tag-veg { background: rgba(34,197,94,0.15); color: #22c55e; border: 1px solid rgba(34,197,94,0.3); }
+    .tag-nonveg { background: rgba(239,68,68,0.15); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); }
+    .tag-spicy { background: rgba(249,115,22,0.15); color: #f97316; border: 1px solid rgba(249,115,22,0.3); }
+    .tag-new { background: rgba(255,215,0,0.15); color: var(--yellow); border: 1px solid rgba(255,215,0,0.3); }
+    .item-price {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.5rem;
+      color: var(--yellow);
+      letter-spacing: 1px;
+      white-space: nowrap;
+      padding-top: 2px;
+    }
+    .menu-sidebar {
+      position: sticky;
+      top: calc(var(--nav-h) + 2rem);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 1.5rem;
+      height: fit-content;
+    }
+    .sidebar-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.4rem;
+      letter-spacing: 2px;
+      color: var(--yellow);
+      margin-bottom: 1.2rem;
+    }
+    .sidebar-links { display: flex; flex-direction: column; gap: 0.5rem; }
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+    .sidebar-link:hover, .sidebar-link.active {
+      background: rgba(255,215,0,0.1);
+      color: var(--yellow);
+    }
+    .sidebar-link span { font-size: 1.1rem; }
+    .menu-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .vendor-banner {
+      background: linear-gradient(135deg, rgba(255,215,0,0.12), rgba(255,159,28,0.06));
+      border: 1px solid rgba(255,215,0,0.2);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .vendor-banner-icon { font-size: 2.5rem; flex-shrink: 0; }
+    .vendor-banner-name { font-weight: 700; font-size: 1.1rem; color: var(--yellow); }
+    .vendor-banner-desc { font-size: 0.82rem; color: var(--gray); margin-top: 0.25rem; }
+    @media(max-width:900px){ .menu-layout{ grid-template-columns:1fr; } .menu-sidebar{ position:static; } }
+  </style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo">MENU</div>
+  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+</div>
+
+<!-- CURSOR -->
+<div class="cursor"></div>
+<div class="cursor-follower"></div>
+
+<!-- NAVIGATION -->
+<nav>
+  <a href="index.html" class="nav-logo">OLD <span>MONK</span><span class="dot">·</span>FS</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="menu.html">Menu</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="contact.html">Visit Us</a></li>
+  </ul>
+  <a href="contact.html" class="nav-reserve">Find Us</a>
+  <div class="hamburger"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu">
+  <a href="index.html">Home</a><a href="menu.html">Menu</a>
+  <a href="gallery.html">Gallery</a><a href="events.html">Events</a>
+  <a href="contact.html">Visit Us</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-content reveal">
+    <div class="section-tag">7 Vendors · Endless Choices</div>
+    <h1 class="page-hero-title">Our <span>Menu</span></h1>
+    <p class="page-hero-sub">From Kerala classics to street food from across India — every craving is covered.</p>
+  </div>
+</div>
+
+<!-- MENU TABS (mobile) -->
+<section style="padding:3rem 5vw 0;">
+  <div class="menu-tabs">
+    <button class="tab-btn active" data-cat="all">All Items</button>
+    <button class="tab-btn" data-cat="momos">🥟 Momos</button>
+    <button class="tab-btn" data-cat="kerala">🍛 Kerala</button>
+    <button class="tab-btn" data-cat="mandi">🫕 Mandi</button>
+    <button class="tab-btn" data-cat="chaat">🥙 Chaat</button>
+    <button class="tab-btn" data-cat="beverages">☕ Beverages</button>
+  </div>
+</section>
+
+<!-- MAIN MENU -->
+<section style="padding-top:2rem;">
+  <div class="menu-layout">
+
+    <!-- Sidebar Nav -->
+    <div class="menu-sidebar reveal-left">
+      <div class="sidebar-title">Menu Categories</div>
+      <div class="sidebar-links">
+        <a href="#momos"     class="sidebar-link active"><span>🥟</span> Momos & Dimsums</a>
+        <a href="#kerala"    class="sidebar-link"><span>🍛</span> Kerala Specials</a>
+        <a href="#mandi"     class="sidebar-link"><span>🫕</span> Mandi & Alfaham</a>
+        <a href="#chaat"     class="sidebar-link"><span>🥙</span> Vada Pav & Chaat</a>
+        <a href="#beverages" class="sidebar-link"><span>☕</span> Beverages</a>
+        <a href="#desserts"  class="sidebar-link"><span>🍮</span> Desserts & Sweets</a>
+      </div>
+      <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border);">
+        <div style="font-size:0.72rem;color:var(--gray);letter-spacing:1px;text-transform:uppercase;margin-bottom:0.75rem;">Hours</div>
+        <div style="font-size:0.9rem;color:var(--yellow);font-weight:600;">10:00 AM – 12:00 AM</div>
+        <div style="font-size:0.78rem;color:var(--gray);margin-top:2px;">Open all 7 days</div>
+      </div>
+    </div>
+
+    <!-- Menu Content -->
+    <div class="reveal-right">
+
+      <!-- MOMOS -->
+      <div id="momos" class="menu-section">
+        <div class="vendor-banner">
+          <div class="vendor-banner-icon">🥟</div>
+          <div>
+            <div class="vendor-banner-name">Momo Station</div>
+            <div class="vendor-banner-desc">Handcrafted dumplings steamed or fried to perfection, served fresh with signature chutneys</div>
+          </div>
+        </div>
+        <div class="menu-category-header"><span>🥟</span> Momos & Dimsums</div>
+        <div class="menu-grid" style="margin-bottom:2rem;">
+          <div class="menu-card" data-cat="momos">
+            <div class="menu-card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1583077874340-79f869e7e8f8?w=500&q=80" alt="Steamed Momos" class="menu-card-img">
+              <span class="menu-card-badge">Best Seller</span>
+            </div>
+            <div class="menu-card-body">
+              <div class="menu-card-title">Steamed Veg Momos</div>
+              <div class="menu-card-desc">Soft steamed dumplings with seasoned vegetable filling, served with red chilli chutney.</div>
+              <div class="item-tags"><span class="item-tag tag-veg">Veg</span></div>
+            </div>
+            <div class="menu-card-footer"><div class="menu-price">₹60</div></div>
+          </div>
+          <div class="menu-card" data-cat="momos">
+            <div class="menu-card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1496116218417-1a781b1c416c?w=500&q=80" alt="Fried Momos" class="menu-card-img">
+            </div>
+            <div class="menu-card-body">
+              <div class="menu-card-title">Chicken Momos</div>
+              <div class="menu-card-desc">Juicy chicken filling wrapped in thin dough, steamed or fried as you prefer.</div>
+              <div class="item-tags"><span class="item-tag tag-nonveg">Non-Veg</span><span class="item-tag tag-spicy">Spicy</span></div>
+            </div>
+            <div class="menu-card-footer"><div class="menu-price">₹80</div></div>
+          </div>
+          <div class="menu-card" data-cat="momos">
+            <div class="menu-card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=500&q=80" alt="Pan-fried Momos" class="menu-card-img">
+              <span class="menu-card-badge">New</span>
+            </div>
+            <div class="menu-card-body">
+              <div class="menu-card-title">Pan-fried Momos</div>
+              <div class="menu-card-desc">Golden crispy bottoms with a juicy interior — the best of both worlds, served sizzling hot.</div>
+              <div class="item-tags"><span class="item-tag tag-veg">Veg</span><span class="item-tag tag-new">New</span></div>
+            </div>
+            <div class="menu-card-footer"><div class="menu-price">₹70</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- KERALA -->
+      <div id="kerala" class="menu-section">
+        <div class="vendor-banner">
+          <div class="vendor-banner-icon">🍛</div>
+          <div>
+            <div class="vendor-banner-name">Kerala Kitchen</div>
+            <div class="vendor-banner-desc">Traditional Kerala recipes cooked with authentic spices and fresh local ingredients</div>
+          </div>
+        </div>
+        <div class="menu-category-header"><span>🍛</span> Kerala Specials</div>
+        <div class="menu-list-item">
+          <div class="item-info">
+            <div class="item-name">Kerala Beef Fry</div>
+            <div class="item-desc">Tender beef slow-cooked with fresh coconut slices, curry leaves and bold Kerala spices</div>
+            <div class="item-tags"><span class="item-tag tag-nonveg">Non-Veg</span><span class="item-tag tag-spicy">Spicy</span></div>
+          </div>
+          <div class="item-price">₹120</div>
+        </div>
+        <div class="menu-list-item">
+          <div class="item-info">
+            <div class="item-name">Masala Dosa</div>
+            <div class="item-desc">Crispy fermented rice crepe with spiced potato filling, served with sambar and coconut chutney</div>
+            <div class="item-tags"><span class="item-tag tag-veg">Veg</span></div>
+          </div>
+          <div class="item-price">₹70</div>
+        </div>
+        <div class="menu-list-item">
+          <div class="item-info">
+            <div class="item-name">Fish Curry & Rice</div>
+            <div class="item-desc">Authentic Kerala fish curry simmered in raw mango and kokum, served with steamed rice</div>
+            <div class="item-tags"><span class="item-tag tag-nonveg">Non-Veg</span></div>
+          </div>
+          <div class="item-price">₹110</div>
+        </div>
+        <div class="menu-list-item">
+          <div class="item-info">
+            <div class="item-name">Chicken Curry Meal</div>
+            <div class="item-desc">Full Kerala meal with rice, spicy chicken curry, pickle, pappadom and buttermilk</div>
+            <div class="item-tags"><span class="item-tag tag-nonveg">Non-Veg</span></div>
+          </div>
+          <div class="item-price">₹140</div>
+        </div>
+      </div>
+
+      <!-- MANDI -->
+      <div id="mandi" class="menu-section">
+        <div class="vendor-banner">
+          <div class="vendor-banner-icon">🫕</div>
+          <div>
+            <div class="vendor-banner-name">Mandi Corner</div>
+            <div class="vendor-banner-desc">Slow-cooked Arabian Mandi and Alfaham grills cooked in a traditional underground oven</div>
+          </div>
+        </div>
+        <div class="menu-category-header"><span>🫕</span> Mandi & Alfaham</div>
+        <div class="menu-grid" style="margin-bottom:2rem;">
+          <div class="menu-card" data-cat="mandi">
+            <div class="menu-card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=500&q=80" alt="Mandi" class="menu-card-img">
+              <span class="menu-card-badge">Signature</span>
+            </div>
+            <div class="menu-card-body">
+              <div class="menu-card-title">Chicken Mandi</div>
+              <div class="menu-card-desc">Slow-smoked chicken over fragrant long-grain Basmati rice, Arabian style, served with tomato sauce.</div>
+              <div class="item-tags"><span class="item-tag tag-nonveg">Non-Veg</span></div>
+            </div>
+            <div class="menu-card-footer"><div class="menu-price">₹220</div></div>
+          </div>
+          <div class="menu-card" data-cat="mandi">
+            <div class="menu-card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=500&q=80" alt="Alfaham" class="menu-card-img">
+            </div>
+            <div class="menu-card-body">
+              <div class="menu-card-title">Alfaham Grill</div>
+              <div class="menu-card-desc">Marinated charcoal-grilled chicken infused with special Arabic spices, crispy outside, juicy inside.</div>
+              <div class="item-tags"><span class="item-tag tag-nonveg">Non-Veg</span><span class="item-tag tag-spicy">Spicy</span></div>
+            </div>
+            <div class="menu-card-footer"><div class="menu-price">₹180</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHAAT -->
+      <div id="chaat" class="menu-section">
+        <div class="vendor-banner">
+          <div class="vendor-banner-icon">🥙</div>
+          <div>
+            <div class="vendor-banner-name">Chaat Shack</div>
+            <div class="vendor-banner-desc">Mumbai-style street food — the tangy, spicy, sweet explosion you've been craving</div>
+          </div>
+        </div>
+        <div class="menu-category-header"><span>🥙</span> Vada Pav & Chaat</div>
+        <div class="menu-list-item">
+          <div class="item-info">
+            <div class="item-name">Vada Pav</div>
+            <div class="item-desc">Mumbai's iconic street snack — crispy potato vada in a soft pav bun with green and red chutneys</div>
+            <div class="item-tags"><span class="item-tag tag-veg">Veg</span></div>
+          </div>
+          <div class="item-price">₹40</div>
+        </div>
+        <div class="menu-list-item">
+          <div class="item-info">
+            <div class="item-name">Pani Puri</div>
+            <div class="item-desc">Crisp puris filled with spiced water, tamarind chutney, chaat masala and chickpeas</div>
+            <div class="item-tags"><span class="item-tag tag-veg">Veg</span><span class="item-tag tag-spicy">Tangy</span></div>
+          </div>
+          <div class="item-price">₹50</div>
+        </div>
+        <div class="menu-list-item">
+          <div class="item-info">
+            <div class="item-name">Bhel Puri</div>
+            <div class="item-desc">Puffed rice mixed with vegetables, chutneys and sev — a perfect light evening snack</div>
+            <div class="item-tags"><span class="item-tag tag-veg">Veg</span></div>
+          </div>
+          <div class="item-price">₹45</div>
+        </div>
+        <div class="menu-list-item">
+          <div class="item-info">
+            <div class="item-name">Dahi Papdi Chaat</div>
+            <div class="item-desc">Crispy papdis topped with spiced yoghurt, tamarind chutney, onion and fresh coriander</div>
+            <div class="item-tags"><span class="item-tag tag-veg">Veg</span></div>
+          </div>
+          <div class="item-price">₹60</div>
+        </div>
+      </div>
+
+      <!-- BEVERAGES -->
+      <div id="beverages" class="menu-section">
+        <div class="vendor-banner">
+          <div class="vendor-banner-icon">☕</div>
+          <div>
+            <div class="vendor-banner-name">Monkz Café</div>
+            <div class="vendor-banner-desc">Thodupuzha's best-rated teas, fresh-pressed juices and cold brews</div>
+          </div>
+        </div>
+        <div class="menu-category-header"><span>☕</span> Beverages & Monkz Café</div>
+        <div class="menu-grid" style="margin-bottom:2rem;">
+          <div class="menu-card" data-cat="beverages">
+            <div class="menu-card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=500&q=80" alt="Masala Tea" class="menu-card-img">
+              <span class="menu-card-badge">Must Try</span>
+            </div>
+            <div class="menu-card-body">
+              <div class="menu-card-title">Masala Kulhad Tea</div>
+              <div class="menu-card-desc">Classic chai brewed with whole spices, ginger and fresh milk, served in an earthen kulhad.</div>
+              <div class="item-tags"><span class="item-tag tag-veg">Veg</span></div>
+            </div>
+            <div class="menu-card-footer"><div class="menu-price">₹30</div></div>
+          </div>
+          <div class="menu-card" data-cat="beverages">
+            <div class="menu-card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1543353071-087092ec393a?w=500&q=80" alt="Fresh Juice" class="menu-card-img">
+            </div>
+            <div class="menu-card-body">
+              <div class="menu-card-title">Fresh Fruit Juice</div>
+              <div class="menu-card-desc">Cold-pressed seasonal fruits — watermelon, pineapple, mango and more. Fresh daily.</div>
+              <div class="item-tags"><span class="item-tag tag-veg">Veg</span></div>
+            </div>
+            <div class="menu-card-footer"><div class="menu-price">₹50</div></div>
+          </div>
+          <div class="menu-card" data-cat="beverages">
+            <div class="menu-card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=500&q=80" alt="Cold Brew" class="menu-card-img">
+              <span class="menu-card-badge">New</span>
+            </div>
+            <div class="menu-card-body">
+              <div class="menu-card-title">Cold Brew Coffee</div>
+              <div class="menu-card-desc">Smooth, low-acidity cold brew steeped for 12+ hours. Perfect for warm evenings.</div>
+              <div class="item-tags"><span class="item-tag tag-veg">Veg</span><span class="item-tag tag-new">New</span></div>
+            </div>
+            <div class="menu-card-footer"><div class="menu-price">₹80</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DESSERTS -->
+      <div id="desserts" class="menu-section">
+        <div class="menu-category-header"><span>🍮</span> Desserts & Sweets</div>
+        <div class="menu-list-item">
+          <div class="item-info">
+            <div class="item-name">Tender Coconut Ice Cream</div>
+            <div class="item-desc">Creamy homemade coconut ice cream topped with fresh coconut bits</div>
+            <div class="item-tags"><span class="item-tag tag-veg">Veg</span></div>
+          </div>
+          <div class="item-price">₹60</div>
+        </div>
+        <div class="menu-list-item">
+          <div class="item-info">
+            <div class="item-name">Gulab Jamun</div>
+            <div class="item-desc">Soft milk-solid dumplings soaked in rose-flavoured sugar syrup, served warm</div>
+            <div class="item-tags"><span class="item-tag tag-veg">Veg</span></div>
+          </div>
+          <div class="item-price">₹50</div>
+        </div>
+        <div class="menu-list-item">
+          <div class="item-info">
+            <div class="item-name">Kesari / Halwa</div>
+            <div class="item-desc">Kerala-style semolina halwa with saffron, cashews and ghee</div>
+            <div class="item-tags"><span class="item-tag tag-veg">Veg</span></div>
+          </div>
+          <div class="item-price">₹40</div>
+        </div>
+      </div>
+
+    </div><!-- /menu content -->
+  </div><!-- /menu layout -->
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo">OLD <span>MONK</span><span class="dot">·</span>FS</a>
+      <p>Thodupuzha's riverside food destination. 7 vendors, live events and endless flavours await.</p>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/old_monk_food_street/" target="_blank" class="social-btn" title="Instagram">📸</a>
+        <a href="#" class="social-btn" title="Google Maps">📍</a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Pages</h4><ul>
+      <li><a href="index.html">Home</a></li><li><a href="menu.html">Menu</a></li>
+      <li><a href="gallery.html">Gallery</a></li><li><a href="events.html">Events</a></li>
+      <li><a href="contact.html">Visit Us</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Menu</h4><ul>
+      <li><a href="#momos">Momos</a></li><li><a href="#kerala">Kerala Specials</a></li>
+      <li><a href="#mandi">Mandi & Alfaham</a></li><li><a href="#chaat">Vada Pav & Chaat</a></li>
+      <li><a href="#beverages">Beverages</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Visit</h4><ul>
+      <li><a href="#">River View Rd, Thodupuzha</a></li>
+      <li><a href="#">Kerala 685608</a></li>
+      <li><a href="#">10AM – 12AM Daily</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Old Monk Food Street. All rights reserved.</p>
+    <p>Built with ❤️ · <a href="#">Portfolio Demo</a></p>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

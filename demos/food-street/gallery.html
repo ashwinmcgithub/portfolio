@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery | Old Monk Food Street Thodupuzha</title>
+  <meta name="description" content="Photos and videos from Old Monk Food Street — real food, real vibes, real moments.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    .page-hero-bg {
+      background:
+        linear-gradient(0deg, rgba(8,8,8,0.9) 0%, rgba(8,8,8,0.55) 100%),
+        url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1600&q=80') center/cover;
+    }
+    .gallery-filter {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+    .gallery-masonry {
+      column-gap: 1.2rem;
+    }
+    .gallery-item[data-type] {
+      cursor: pointer;
+    }
+    .video-indicator {
+      position: absolute;
+      top: 12px; left: 12px;
+      background: rgba(8,8,8,0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,215,0,0.3);
+      color: var(--yellow);
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    /* Instagram embed section */
+    .insta-embed-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .insta-embed-wrap {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .insta-embed-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .insta-embed-wrap:hover img { transform: scale(1.06); }
+    .insta-embed-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(8,8,8,0.65);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      opacity: 0;
+      transition: opacity 0.35s;
+    }
+    .insta-embed-wrap:hover .insta-embed-overlay { opacity: 1; }
+    .insta-embed-overlay a {
+      background: var(--yellow);
+      color: var(--black);
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    @media(max-width:768px){
+      .insta-embed-grid{ grid-template-columns:repeat(2,1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo">GALLERY</div>
+  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+</div>
+<div class="cursor"></div>
+<div class="cursor-follower"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">OLD <span>MONK</span><span class="dot">·</span>FS</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="menu.html">Menu</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="contact.html">Visit Us</a></li>
+  </ul>
+  <a href="contact.html" class="nav-reserve">Find Us</a>
+  <div class="hamburger"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu">
+  <a href="index.html">Home</a><a href="menu.html">Menu</a>
+  <a href="gallery.html">Gallery</a><a href="events.html">Events</a>
+  <a href="contact.html">Visit Us</a>
+</div>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-content reveal">
+    <div class="section-tag">Food · Vibes · Moments</div>
+    <h1 class="page-hero-title">Our <span>Gallery</span></h1>
+    <p class="page-hero-sub">A visual journey through the flavours, sights and stories of Old Monk Food Street.</p>
+  </div>
+</div>
+
+<!-- PHOTO GALLERY -->
+<section>
+  <div class="reveal" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem;">
+    <div>
+      <div class="section-tag">Photos</div>
+      <h2 class="section-title">Food <span>Moments</span></h2>
+    </div>
+    <a href="https://www.instagram.com/old_monk_food_street/" target="_blank" class="btn-outline">Follow @old_monk_food_street →</a>
+  </div>
+
+  <!-- Filter Tabs -->
+  <div class="gallery-filter reveal">
+    <button class="tab-btn active" onclick="filterGallery('all', this)">All</button>
+    <button class="tab-btn" onclick="filterGallery('food', this)">Food</button>
+    <button class="tab-btn" onclick="filterGallery('vibes', this)">Vibes & Ambiance</button>
+    <button class="tab-btn" onclick="filterGallery('events', this)">Events</button>
+    <button class="tab-btn" onclick="filterGallery('drinks', this)">Drinks</button>
+  </div>
+
+  <!-- Masonry Gallery -->
+  <div class="gallery-masonry" style="columns:3;column-gap:1.2rem;" id="galleryGrid">
+
+    <div class="gallery-item reveal" data-cat="food">
+      <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&q=80" alt="Street Food">
+      <div class="gallery-overlay"><span>Street Food Heaven 🍕</span></div>
+    </div>
+
+    <div class="gallery-item reveal delay-1" data-cat="food">
+      <img src="https://images.unsplash.com/photo-1583077874340-79f869e7e8f8?w=500&q=80" alt="Momos">
+      <div class="gallery-overlay"><span>Fresh Momos 🥟</span></div>
+    </div>
+
+    <div class="gallery-item reveal delay-2" data-cat="vibes">
+      <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=500&q=80" alt="Ambiance">
+      <div class="gallery-overlay"><span>Riverside Ambiance 🌊</span></div>
+    </div>
+
+    <div class="gallery-item reveal" data-cat="food">
+      <img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=500&q=80" alt="Mandi">
+      <div class="gallery-overlay"><span>Signature Mandi 🫕</span></div>
+    </div>
+
+    <div class="gallery-item reveal delay-1" data-cat="drinks">
+      <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=500&q=80" alt="Tea">
+      <div class="gallery-overlay"><span>Monkz Café Tea ☕</span></div>
+    </div>
+
+    <div class="gallery-item reveal delay-2" data-cat="food">
+      <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=500&q=80" alt="Dosa">
+      <div class="gallery-overlay"><span>Crispy Dosas 🥞</span></div>
+    </div>
+
+    <div class="gallery-item reveal" data-cat="drinks">
+      <img src="https://images.unsplash.com/photo-1543353071-087092ec393a?w=500&q=80" alt="Juice">
+      <div class="gallery-overlay"><span>Fresh Juices 🥤</span></div>
+    </div>
+
+    <div class="gallery-item reveal delay-1" data-cat="food">
+      <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=500&q=80" alt="Grilled">
+      <div class="gallery-overlay"><span>Alfaham Grill 🔥</span></div>
+    </div>
+
+    <div class="gallery-item reveal delay-2" data-cat="vibes">
+      <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=80" alt="Food Court">
+      <div class="gallery-overlay"><span>Our Food Court 🏠</span></div>
+    </div>
+
+    <div class="gallery-item reveal" data-cat="events">
+      <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=500&q=80" alt="Live Event">
+      <div class="gallery-overlay"><span>Live Events 🎶</span></div>
+    </div>
+
+    <div class="gallery-item reveal delay-1" data-cat="food">
+      <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500&q=80" alt="Indian Food">
+      <div class="gallery-overlay"><span>Kerala Specials 🍛</span></div>
+    </div>
+
+    <div class="gallery-item reveal delay-2" data-cat="events">
+      <img src="https://images.unsplash.com/photo-1504609813442-a8924e83f76e?w=500&q=80" alt="Night Event">
+      <div class="gallery-overlay"><span>Evenings at Old Monk 🌙</span></div>
+    </div>
+
+    <div class="gallery-item reveal" data-cat="food">
+      <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500&q=80" alt="Tasty food">
+      <div class="gallery-overlay"><span>Delicious Bites 😋</span></div>
+    </div>
+
+    <div class="gallery-item reveal delay-1" data-cat="drinks">
+      <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=500&q=80" alt="Cold Brew">
+      <div class="gallery-overlay"><span>Cold Brew ☁️</span></div>
+    </div>
+
+    <div class="gallery-item reveal delay-2" data-cat="vibes">
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500&q=80" alt="Overhead food">
+      <div class="gallery-overlay"><span>Food Spread 🍽️</span></div>
+    </div>
+
+  </div><!-- /gallery grid -->
+</section>
+
+<!-- VIDEO SECTION -->
+<div class="video-section">
+  <div class="reveal" style="margin-bottom:2rem;">
+    <div class="section-tag">Featured Reel</div>
+    <h2 class="section-title">See Us in <span>Action</span></h2>
+    <p class="section-subtitle" style="margin-top:0.75rem;">Watch our latest reel to experience Old Monk Food Street like never before.</p>
+  </div>
+  <div class="video-wrap reveal">
+    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&q=80" alt="Video poster" class="video-poster">
+    <div class="video-poster-overlay"></div>
+    <a href="https://www.instagram.com/old_monk_food_street/" target="_blank" class="play-btn" title="Watch on Instagram">
+      <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    </a>
+  </div>
+  <p style="text-align:center;color:var(--gray);font-size:0.82rem;margin-top:1rem;">
+    🎬 Watch our full reels on <a href="https://www.instagram.com/old_monk_food_street/" target="_blank" style="color:var(--yellow);">@old_monk_food_street</a>
+  </p>
+</div>
+
+<!-- INSTAGRAM LIVE FEED -->
+<section style="background:var(--dark);padding-top:5rem;padding-bottom:5rem;">
+  <div class="text-center reveal">
+    <div class="section-tag">Live on Instagram</div>
+    <h2 class="section-title">Fresh From <span>@old_monk</span></h2>
+    <p class="section-subtitle" style="margin:0.75rem auto 0;">Our latest posts from Instagram. Follow us to never miss a moment!</p>
+  </div>
+  <div class="insta-embed-grid">
+    <div class="insta-embed-wrap reveal delay-1">
+      <img src="https://images.unsplash.com/photo-1496116218417-1a781b1c416c?w=500&q=80" alt="Post 1">
+      <div class="insta-embed-overlay">
+        <span style="font-size:1.5rem;">📸</span>
+        <a href="https://www.instagram.com/old_monk_food_street/" target="_blank">View on Instagram</a>
+      </div>
+    </div>
+    <div class="insta-embed-wrap reveal delay-2">
+      <img src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=500&q=80" alt="Post 2">
+      <div class="insta-embed-overlay">
+        <span style="font-size:1.5rem;">📸</span>
+        <a href="https://www.instagram.com/old_monk_food_street/" target="_blank">View on Instagram</a>
+      </div>
+    </div>
+    <div class="insta-embed-wrap reveal delay-3">
+      <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=500&q=80" alt="Post 3">
+      <div class="insta-embed-overlay">
+        <span style="font-size:1.5rem;">▶️</span>
+        <a href="https://www.instagram.com/old_monk_food_street/" target="_blank">Watch Reel</a>
+      </div>
+    </div>
+    <div class="insta-embed-wrap reveal delay-1">
+      <img src="https://images.unsplash.com/photo-1504609813442-a8924e83f76e?w=500&q=80" alt="Post 4">
+      <div class="insta-embed-overlay">
+        <span style="font-size:1.5rem;">📸</span>
+        <a href="https://www.instagram.com/old_monk_food_street/" target="_blank">View on Instagram</a>
+      </div>
+    </div>
+    <div class="insta-embed-wrap reveal delay-2">
+      <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500&q=80" alt="Post 5">
+      <div class="insta-embed-overlay">
+        <span style="font-size:1.5rem;">📸</span>
+        <a href="https://www.instagram.com/old_monk_food_street/" target="_blank">View on Instagram</a>
+      </div>
+    </div>
+    <div class="insta-embed-wrap reveal delay-3">
+      <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=500&q=80" alt="Post 6">
+      <div class="insta-embed-overlay">
+        <span style="font-size:1.5rem;">▶️</span>
+        <a href="https://www.instagram.com/old_monk_food_street/" target="_blank">Watch Reel</a>
+      </div>
+    </div>
+  </div>
+  <div class="text-center" style="margin-top:2.5rem;">
+    <a href="https://www.instagram.com/old_monk_food_street/" target="_blank" class="btn-primary">
+      📸 &nbsp; Follow on Instagram for More
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo">OLD <span>MONK</span><span class="dot">·</span>FS</a>
+      <p>Thodupuzha's riverside food destination. 7 vendors, live events and endless flavours.</p>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/old_monk_food_street/" target="_blank" class="social-btn">📸</a>
+        <a href="#" class="social-btn">📍</a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Pages</h4><ul>
+      <li><a href="index.html">Home</a></li><li><a href="menu.html">Menu</a></li>
+      <li><a href="gallery.html">Gallery</a></li><li><a href="events.html">Events</a></li>
+      <li><a href="contact.html">Visit Us</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Gallery</h4><ul>
+      <li><a href="#">Food Photos</a></li><li><a href="#">Ambiance</a></li>
+      <li><a href="#">Events</a></li><li><a href="#">Instagram Feed</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Visit</h4><ul>
+      <li><a href="#">River View Rd, Thodupuzha</a></li>
+      <li><a href="#">Kerala 685608</a></li>
+      <li><a href="#">10AM – 12AM Daily</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Old Monk Food Street.</p>
+    <p><a href="#">Portfolio Demo</a></p>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+function filterGallery(cat, btn) {
+  document.querySelectorAll('.gallery-filter .tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.gallery-item').forEach(item => {
+    if (cat === 'all' || item.dataset.cat === cat) {
+      item.style.display = '';
+      setTimeout(() => { item.style.opacity = '1'; }, 10);
+    } else {
+      item.style.opacity = '0';
+      setTimeout(() => { item.style.display = 'none'; }, 300);
+    }
+  });
+}
+</script>
+</body>
+</html>
