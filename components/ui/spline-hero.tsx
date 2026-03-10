@@ -14,18 +14,18 @@ export function SplineHero() {
     if (!robot) return
 
     const onMouseMove = (e: MouseEvent) => {
-      const normalizedX = (e.clientX / window.innerWidth) * 2 - 1
-      const normalizedY = (e.clientY / window.innerHeight) * 2 - 1
-      targetRef.current.x = normalizedX * 50
-      targetRef.current.y = normalizedY * 30
+      const nx = (e.clientX / window.innerWidth) * 2 - 1
+      const ny = (e.clientY / window.innerHeight) * 2 - 1
+      targetRef.current.x = nx * 50
+      targetRef.current.y = ny * 30
     }
 
     const onTouchMove = (e: TouchEvent) => {
       const touch = e.touches[0]
-      const normalizedX = (touch.clientX / window.innerWidth) * 2 - 1
-      const normalizedY = (touch.clientY / window.innerHeight) * 2 - 1
-      targetRef.current.x = normalizedX * 30
-      targetRef.current.y = normalizedY * 20
+      const nx = (touch.clientX / window.innerWidth) * 2 - 1
+      const ny = (touch.clientY / window.innerHeight) * 2 - 1
+      targetRef.current.x = nx * 30
+      targetRef.current.y = ny * 20
     }
 
     window.addEventListener("mousemove", onMouseMove)
@@ -38,19 +38,19 @@ export function SplineHero() {
       c.x += (t.x - c.x) * 0.06
       c.y += (t.y - c.y) * 0.06
       robot.style.transform = `translate3d(${c.x}px, ${c.y}px, 0)`
-      frameId = window.requestAnimationFrame(animate)
+      frameId = requestAnimationFrame(animate)
     }
+    frameId = requestAnimationFrame(animate)
 
-    frameId = window.requestAnimationFrame(animate)
     return () => {
       window.removeEventListener("mousemove", onMouseMove)
       window.removeEventListener("touchmove", onTouchMove)
-      window.cancelAnimationFrame(frameId)
+      cancelAnimationFrame(frameId)
     }
   }, [])
 
   return (
-    <section className="relative w-full bg-black overflow-hidden flex flex-col md:flex-row md:h-screen">
+    <section className="relative w-full h-screen bg-black overflow-hidden flex flex-col md:flex-row">
       <Spotlight className="-top-40 left-0 md:left-72 md:-top-20" fill="white" />
 
       <div
@@ -62,8 +62,44 @@ export function SplineHero() {
         }}
       />
 
-      {/* Text content — top on mobile, left on desktop */}
-      <div className="relative z-10 flex-none md:flex-1 flex flex-col justify-center px-8 md:px-16 lg:px-24 pt-20 pb-8 md:py-0">
+      {/* ── Robot ─────────────────────────────────────────────────────────
+          Mobile  : absolute full-screen background, scaled down 65% so it
+                    fits the narrow viewport without cropping badly.
+          Desktop : normal right-side flex panel (no scaling).
+      ──────────────────────────────────────────────────────────────────── */}
+      <div className="absolute inset-0 md:relative md:inset-auto md:flex-1 md:flex md:items-center md:justify-center">
+        {/* scale wrapper — only shrinks on mobile */}
+        <div
+          ref={robotWrapRef}
+          className="w-full h-full will-change-transform"
+          style={{ transformOrigin: "center center" }}
+        >
+          {/* mobile scale-down shell */}
+          <div
+            className="w-full h-full md:w-full md:h-full"
+            style={{
+              transform: undefined,
+            }}
+          >
+            <SplineScene
+              scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+              className="w-full h-full"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Dark gradient overlay — only on mobile so text is readable */}
+      <div
+        className="absolute inset-0 pointer-events-none z-[5] md:hidden"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.70) 100%)",
+        }}
+      />
+
+      {/* Text content */}
+      <div className="relative z-10 flex-none md:flex-1 flex flex-col justify-center px-8 md:px-16 lg:px-24 pt-20 pb-8 md:py-0 md:order-first">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 mb-8 w-fit rounded-full border border-emerald-500/20 bg-emerald-500/10">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
           <span className="text-xs font-medium text-emerald-400 tracking-wide">Available for Projects</span>
@@ -117,17 +153,7 @@ export function SplineHero() {
         </div>
       </div>
 
-      {/* Robot — fixed height on mobile so canvas can render, flex-1 on desktop */}
-      <div className="relative flex-none h-[420px] md:flex-1 md:h-auto">
-        <div ref={robotWrapRef} className="w-full h-full will-change-transform">
-          <SplineScene
-            scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-            className="w-full h-full"
-          />
-        </div>
-      </div>
-
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex-col items-center gap-2 opacity-40 hidden md:flex">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 hidden md:flex flex-col items-center gap-2 opacity-40">
         <span className="text-[10px] uppercase tracking-widest text-neutral-500">Scroll</span>
         <div className="w-px h-10 bg-gradient-to-b from-neutral-500 to-transparent" />
       </div>
