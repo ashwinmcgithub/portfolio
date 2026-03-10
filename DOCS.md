@@ -258,6 +258,19 @@ Next.js 15/16 fails on this machine because the SWC native binary can't download
 ### `demos/` folder is duplicated
 Demo HTML files exist in both `/demos/` (root, source copy) and `/public/demos/` (for Next.js static export). Both should be kept in sync when updating demos. The build only uses `public/demos/`.
 
+### ⚠️ CRITICAL: `.nojekyll` must exist in `public/`
+GitHub Pages runs Jekyll by default, which silently ignores ALL directories starting
+with `_`. This blocks the entire `_next/` folder (CSS + JS), making the site render
+as a blank black page. The file `public/.nojekyll` (empty file) tells GitHub Pages
+to skip Jekyll. It is already present and baked into every build automatically.
+**Never delete `public/.nojekyll`.**
+
+### `out/.git` lock issue
+After running `deploy.sh`, the `out/` directory contains a `.git` folder from the
+deploy process. If you run `npm run build` again without removing it, you get:
+`EBUSY: resource busy or locked, rmdir 'out'`
+Fix: `rm -rf out/.git` before building. The `deploy.sh` script handles this automatically.
+
 ### CDN cache delay
 After pushing to `gh-pages`, GitHub's CDN can take 10–30 minutes to show the new version. The build API confirms `"status": "built"` immediately, but browsers may serve cached content for a while.
 
