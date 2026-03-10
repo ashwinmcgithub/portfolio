@@ -16,36 +16,41 @@ export function SplineHero() {
     const onMouseMove = (e: MouseEvent) => {
       const normalizedX = (e.clientX / window.innerWidth) * 2 - 1
       const normalizedY = (e.clientY / window.innerHeight) * 2 - 1
+      targetRef.current.x = normalizedX * 50
+      targetRef.current.y = normalizedY * 30
+    }
+
+    const onTouchMove = (e: TouchEvent) => {
+      const touch = e.touches[0]
+      const normalizedX = (touch.clientX / window.innerWidth) * 2 - 1
+      const normalizedY = (touch.clientY / window.innerHeight) * 2 - 1
       targetRef.current.x = normalizedX * 30
-      targetRef.current.y = normalizedY * 18
+      targetRef.current.y = normalizedY * 20
     }
 
     window.addEventListener("mousemove", onMouseMove)
+    window.addEventListener("touchmove", onTouchMove, { passive: true })
 
     let frameId = 0
-
     const animate = () => {
-      const current = currentRef.current
-      const target = targetRef.current
-
-      current.x += (target.x - current.x) * 0.08
-      current.y += (target.y - current.y) * 0.08
-
-      robot.style.transform = `translate3d(${current.x}px, ${current.y}px, 0) rotateY(${current.x * 0.2}deg) rotateX(${current.y * -0.15}deg)`
+      const c = currentRef.current
+      const t = targetRef.current
+      c.x += (t.x - c.x) * 0.06
+      c.y += (t.y - c.y) * 0.06
+      robot.style.transform = `translate3d(${c.x}px, ${c.y}px, 0)`
       frameId = window.requestAnimationFrame(animate)
     }
 
     frameId = window.requestAnimationFrame(animate)
     return () => {
       window.removeEventListener("mousemove", onMouseMove)
+      window.removeEventListener("touchmove", onTouchMove)
       window.cancelAnimationFrame(frameId)
     }
   }, [])
 
   return (
-    <section
-      className="relative w-full h-screen bg-black overflow-hidden flex"
-    >
+    <section className="relative w-full min-h-screen bg-black overflow-hidden flex flex-col md:flex-row">
       <Spotlight className="-top-40 left-0 md:left-72 md:-top-20" fill="white" />
 
       <div
@@ -57,7 +62,24 @@ export function SplineHero() {
         }}
       />
 
-      <div className="relative z-10 flex-1 flex flex-col justify-center px-8 md:px-16 lg:px-24 pt-16">
+      {/* Robot — full background on mobile, side panel on desktop */}
+      <div className="absolute inset-0 flex items-center justify-center md:relative md:inset-auto md:flex-1 pointer-events-none md:pointer-events-auto">
+        <div
+          ref={robotWrapRef}
+          className="w-full h-full will-change-transform"
+          style={{ opacity: undefined }}
+        >
+          {/* dim the robot on mobile so text stays readable */}
+          <div className="absolute inset-0 bg-black/60 z-10 md:hidden" />
+          <SplineScene
+            scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+            className="w-full h-full"
+          />
+        </div>
+      </div>
+
+      {/* Text content */}
+      <div className="relative z-10 flex-1 flex flex-col justify-center px-8 md:px-16 lg:px-24 pt-20 pb-24 md:py-0 md:order-first">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 mb-8 w-fit rounded-full border border-emerald-500/20 bg-emerald-500/10">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
           <span className="text-xs font-medium text-emerald-400 tracking-wide">Available for Projects</span>
@@ -108,15 +130,6 @@ export function SplineHero() {
               {t}
             </span>
           ))}
-        </div>
-      </div>
-
-      <div className="flex-1 relative hidden md:flex items-center justify-center">
-        <div ref={robotWrapRef} className="w-full h-full will-change-transform">
-          <SplineScene
-            scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-            className="w-full h-full"
-          />
         </div>
       </div>
 
